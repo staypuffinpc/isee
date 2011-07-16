@@ -369,7 +369,6 @@ var editPage2 = function() {
 resizeGrid(lowest, rightest);
 $(window).resize(function(){
 	resizeGrid(lowest, rightest);
-
 });
 
 $("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();});
