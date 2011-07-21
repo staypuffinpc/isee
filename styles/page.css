@@ -274,5 +274,16 @@ a.dbutton:active {
 
 }
 
+ul#navigation_choices li {
+	margin-left: -10px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding: 10px;
+	list-style-type: none;
+}
 
+li h3 {
+	margin: 0px;
+}
 

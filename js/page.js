@@ -8,10 +8,38 @@ $(document).ready(function() {
 		popup(this.id);	
 	});
 	$(".close-icon, #fadebackground").click(function(){close();});
-
+	$("#navigation_choices").sortable({
+		placeholder: 'ui-state-highlight',
+		stop: function() {updateNavigationOrder();}
+	});
+	$("#addSubheading").click(function(){addSubheading();});
+	
 });
+function addSubheading() {
+	var text = prompt("Please enter Subheading text.");
+	$.ajax({
+		type: "POST",
+		url: "actions/addSubheading.php",
+		data: "text="+text,
+		success: function(phpfile){
+			$("#navigation_choices").append(phpfile);
+		}
+	});
+}
 
-
+function updateNavigationOrder() {
+	data = "action=sorting";
+	$("ul#navigation_choices li").each(function(){
+		data = data+"&"+this.id+"="+$(this).index();
+	});
+	$.ajax({
+		type: "POST",
+		url: "actions/update_order.php",
+		data: data,
+		success: function(phpfile){
+		$("#update").append(phpfile);}
+	});	
+}
 
 function popup(id) {
 	$.ajax({

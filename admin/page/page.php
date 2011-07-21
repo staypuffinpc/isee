@@ -36,6 +36,8 @@ $instructions = $_GET['instructions']; //gets instructions
 <title></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="../../styles/page.css" rel="stylesheet" type="text/css" />
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
+
 <link href="../../styles/image-creator.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
@@ -70,25 +72,26 @@ window.location = "../../index.php";
 	<div id="navigation">
 	<h3>Navigation</h3>
 		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<? echo $page['page_navigation_text']; ?>" />
+		<ul id="navigation_choices">
 		<? 
 	do { //generate choice
 		if ($results_nav['id'] !== NULL) {
-			echo "<p>".$results_nav['page_stem']." "; ?>	
-				<a href="index.php?page_id=<? echo $results_nav['id'];?>&back_to_class=<? echo $back_to_class; ?>"><? //makes page link 
-		echo $results_nav['page_link'].$results_nav['page_punctuation'];?></a>
+			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>".$results_nav['page_stem']." "; ?>	
+				<a id='<? echo $results_nav['page_relation_id']; ?>'href="index.php?page_id=<? echo $results_nav['id'];?>"><? //makes page link 
+		echo $results_nav['page_link']."</a>".$results_nav['page_punctuation'];?>
 		
 		
-		</p> <? 
+		</li> <? 
 				
 		} // end Null If
 	}while ($results_nav = mysql_fetch_assoc($list_nav));		
-	
-	if ($page['go_back'] == 1) { ?><p>Would you like to <a href="index.php?page_id=<? echo $back_to_class; ?>&back_to_class=<? echo $back_to_class; ?>&user_id=<? echo $user_id; ?>">Go Back to the Classroom</a>?</p> <? }
-	 
+		 
 	
 	
 	//end generate buttons
 	?>
+	</ul>
+	<a class="btn" id="addSubheading">Add a Navigation Subheading</a>
 </div> <!-- end navigation div -->
 
 <? 
