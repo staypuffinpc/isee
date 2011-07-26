@@ -11,7 +11,6 @@ include_once("../../story/db.php");//gets mysql common calls
 $module=$page['module'];//gets module
 $_SESSION['module']=$module; // sets session module
 
-$back_to_class = $_GET['back_to_class']; if ($back_to_class<1){$back_to_class=$page_id;}//gets link to back to class
 $instructions = $_GET['instructions']; //gets instructions
 
 
@@ -34,9 +33,10 @@ $instructions = $_GET['instructions']; //gets instructions
 <script type="text/javascript" src="../../xinha/my_config.js"></script>
 
 <title></title>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
+
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="../../styles/page.css" rel="stylesheet" type="text/css" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
 
 <link href="../../styles/image-creator.css" rel="stylesheet" type="text/css" />
 
@@ -62,7 +62,7 @@ window.location = "../../index.php";
 	<div class="inline"><? echo $page['module_name']; ?></div> : <input class="inline" type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" />  
 </div>
 <div id="viewport">
-<div class="content">
+<div class="content" id="page1">
 <textarea name="content" id="content">
 		<? echo $page['page_content']; // Gets Content ?>
 </textarea>
@@ -76,12 +76,11 @@ window.location = "../../index.php";
 		<? 
 	do { //generate choice
 		if ($results_nav['id'] !== NULL) {
-			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>".$results_nav['page_stem']." "; ?>	
-				<a id='<? echo $results_nav['page_relation_id']; ?>'href="index.php?page_id=<? echo $results_nav['id'];?>"><? //makes page link 
-		echo $results_nav['page_link']."</a>".$results_nav['page_punctuation'];?>
-		
-		
-		</li> <? 
+			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>
+				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'></a>
+				<span class='page_stem'>".$results_nav['page_stem']." </span>	
+				<span class='page_link'>".$results_nav['page_link']."</span>
+				<span class='page_punctuation'>".$results_nav['page_punctuation']."</span></li>";
 				
 		} // end Null If
 	}while ($results_nav = mysql_fetch_assoc($list_nav));		
@@ -99,6 +98,8 @@ window.location = "../../index.php";
 echo "<hr><h3>References</h3>";
 echo "<textarea name='references' id='references'>".$page['page_references']."</textarea>";
 ?>
+</div>
+<div id="borrowedContentPane"><? include('ajax/contentBorrower.php'); ?>
 </div>
 </div>
 <div id="menu">
@@ -120,7 +121,6 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 	<h2>Tools</h2>
 	<a class="dbutton" id="imageCreator">Image Creator</a>
 	
-	
 </div>
 <div id="footer">
 
@@ -133,7 +133,8 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 </ul>
 
 </div> <!-- end footer -->
-<a id="menuToggle">Hide Menu</a>
+<a id="menuToggle" class="footerToggle">Hide Menu</a>
+<a id="borrowToggle" class="footerToggle">View Content Borrower</a>
 <div id="update"></div>
 <div id="status"></div>
 <div id="ajax">Processing<img src="images/ajax-loader.gif" /></div>

@@ -15,7 +15,7 @@ $run = mysql_query($query) or die(mysql_error());
 				<li id='item[{$results['assessment_id']}]' class='ui-state-default' title='{$results['assessment_text']}'>
 					<div title='Remove this item' class='minus' id='delete{$results['assessment_id']}'></div>
 					<div class='number'>{$results['assessment_order']}. </div>{$results['assessment_type']}
-					<div class='editItem' id='edit{$results['assessment_id']}'><img src='../img/edit.png' /><div>
+					<div class='editItem' id='edit{$results['assessment_id']}'><div>
 				</li>
 EOF;
 		} 
