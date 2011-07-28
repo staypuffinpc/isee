@@ -29,13 +29,13 @@ $module = $_SESSION['module'];
 		<br />
 		<br />
 		<div id="assessment-options">
-			<a class="button blockButton" id="trueOrFalse">True or False</a>
+			<a class="btn blockButton" id="trueOrFalse">True or False</a>
 			<br />
-			<a class="button blockButton" id="multipleChoice">Multiple Choice</a>
+			<a class="btn blockButton" id="multipleChoice">Multiple Choice</a>
 			<br />
-			<a class="button blockButton" id="fillInTheBlank">Fill in the Blank</a>
+			<a class="btn blockButton" id="fillInTheBlank">Fill in the Blank</a>
 			<br />
-			<a class="button blockButton" id="shortAnswer">Short Answer</a>
+			<a class="btn blockButton" id="shortAnswer">Short Answer</a>
 		</div>
 	</div> <!-- end step 1 -->
 	<div class="pane" id="step2"></div> <!-- end step 2 -->

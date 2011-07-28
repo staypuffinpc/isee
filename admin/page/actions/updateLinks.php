@@ -4,13 +4,12 @@ $link=connect(); //call function from external file to connect to database
 include_once('../../../authenticate.php');
 $page_parent = $_SESSION['current_page'];
 $id = $_POST['id'];
-$class = $_POST['class'];
+$theClass = $_POST['class'];
 $text = $_POST['text'];
 
 
-$query = "Update Page_Relations set $class='$text' where page_relation_id='$id'";
+$query = "Update Page_Relations set $theClass='$text' where page_relation_id='$id'";
 $run = mysql_query($query) or die(mysql_error());
-
 
 echo "$id updated"; 
 ?>

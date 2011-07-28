@@ -35,20 +35,20 @@ $(document).ready(function() {
 		stop: function() {updateNavigationOrder();}
 	});
 	$("#addSubheading").click(function(){addSubheading();});
-	$(".page_stem, .page_link, .page_punctuation").live("click", function(){$(this).attr('contenteditable','true'); });
+	$(".page_stem, .page_link, .page_punctuation").live("click", function(){$(this).attr('contenteditable','true');this.focus(); });
 	$(".page_stem, .page_link, .page_punctuation").keypress(function(e){
 		if (e.keyCode == 13) {$(this).blur();}
 	});
 	
 	$(".page_stem, .page_link, .page_punctuation").live("blur", function(){
 		theclass = $(this).attr("class");
-		id = $(this).prev().attr("id");
-		id = id.substr(6);
+		theclassarray = theclass.split(" ");
 		text = $(this).html();
-		$.ajax({
+
+	$.ajax({
 			type: "POST",
 			url: "actions/updateLinks.php",
-			data: "id="+id+"&text="+text+"&class="+theclass,
+			data: "id="+theclassarray[1]+"&text="+text+"&class="+theclassarray[0],
 			success: function(phpfile) {
 				$("#update").html(phpfile);
 			}

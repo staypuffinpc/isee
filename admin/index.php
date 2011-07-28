@@ -25,7 +25,7 @@ include_once("db.php");
 <script type="text/javascript">
     _editor_url  = "../xinha/";  // (preferably absolute) URL (including trailing slash) where Xinha is installed
     _editor_lang = "en";      // And the language we need to use in the editor.
-    _editor_skin = "blue-look";   // If you want use a skin, add the name (of the folder) here
+/*     _editor_skin = "blue-look";   // If you want use a skin, add the name (of the folder) here */
   </script>
   <script type="text/javascript" src="../xinha/XinhaCore.js"></script>
   <script type="text/javascript" src="../xinha/my_config_term.js"></script>

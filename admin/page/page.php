@@ -27,7 +27,7 @@ $instructions = $_GET['instructions']; //gets instructions
 <script type="text/javascript">
     _editor_url  = "../../xinha/";  // (preferably absolute) URL (including trailing slash) where Xinha is installed
     _editor_lang = "en";      // And the language we need to use in the editor.
-    _editor_skin = "blue-look";   // If you want use a skin, add the name (of the folder) here
+/*     _editor_skin = "blue-look";   // If you want use a skin, add the name (of the folder) here */
 </script>
 <script type="text/javascript" src="../../xinha/XinhaCore.js"></script>
 <script type="text/javascript" src="../../xinha/my_config.js"></script>
@@ -45,6 +45,7 @@ $instructions = $_GET['instructions']; //gets instructions
 <script type="text/javascript" src="../../js/page.js"></script>
 
 <script type="text/javascript">
+
 <? if ($module == NULL) {?>
 window.location = "../../index.php";
 <?
@@ -78,9 +79,9 @@ window.location = "../../index.php";
 		if ($results_nav['id'] !== NULL) {
 			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>
 				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'></a>
-				<span class='page_stem'>".$results_nav['page_stem']." </span>	
-				<span class='page_link'>".$results_nav['page_link']."</span>
-				<span class='page_punctuation'>".$results_nav['page_punctuation']."</span></li>";
+				<span class='page_stem ".$results_nav['page_relation_id']."'>".$results_nav['page_stem']." </span>	
+				<span class='page_link ".$results_nav['page_relation_id']."'>".$results_nav['page_link']."</span>
+				<span class='page_punctuation ".$results_nav['page_relation_id']."'>".$results_nav['page_punctuation']."</span></li>";
 				
 		} // end Null If
 	}while ($results_nav = mysql_fetch_assoc($list_nav));		
