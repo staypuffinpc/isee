@@ -3,6 +3,8 @@ include_once('../../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php');
 $module = $_SESSION['module'];
+$embedded = $_POST['embedded'];
+$available = $_POST['available'];
 
 $assessment_id = $_POST['assessment_id'];
 $assessment_text = $_POST['assessment_text'];
@@ -15,9 +17,9 @@ echo "$assessment_answer <br />";
 echo $_POST["choice0"]."<br />";
 
 
-$query = "Update Assessment set assessment_answer='$assessment_answer', assessment_page='$assessment_page', assessment_text='$assessment_text' where assessment_id='$assessment_id'";
+$query = "Update Assessment set assessment_answer='$assessment_answer', assessment_page='$assessment_page', assessment_text='$assessment_text', available='$available', embedded='$embedded' where assessment_id='$assessment_id'";
 $run = mysql_query($query) or die(mysql_error());
-
+echo $query;
 /* check for Multiple Choice and A */
 if ($_POST["choice0"]) {
 	$choice0 = $_POST['choice0'];

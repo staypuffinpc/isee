@@ -4,6 +4,9 @@ $link=connect(); //call function from external file to connect to database
 include_once('../authenticate.php');
 $user_id = $_SESSION['user_id'];
 $module = $_GET['module'];
+$left = $_GET['left'];
+$top = $_GET['top'];
+
 if ($module == NULL) {$module=$_SESSION['module'];}
 else {$_SESSION['module'] = $module;}
 include_once("db.php");
@@ -20,7 +23,7 @@ include_once("db.php");
 <link href="../styles/assessment-wizard.css" rel="stylesheet" type="text/css" />
 <link href="../styles/terms-wizard.css" rel="stylesheet" type="text/css" />
 
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
+
 
 <script type="text/javascript">
     _editor_url  = "../xinha/";  // (preferably absolute) URL (including trailing slash) where Xinha is installed
@@ -46,6 +49,10 @@ window.location = "../dashboard/";
 <?
 }
 ?>
+
+$(document).ready(function(){
+window.scroll(<? echo $left; ?>, <? echo $top; ?>);
+});
 </script>
 </head>
 <body id="mainbody">

@@ -146,8 +146,10 @@ var selectorEnd = function(e){
 }; 
 
 var editPage = function(){
+	left=document.body.scrollLeft;
+	top=document.body.scrollTop;
 	id=this.id.substr(4);
-	window.location="page/page.php?page_id="+id;
+	window.location="page/page.php?page_id="+id+"&left="+left+"&top="+top;
 };
 
 var deletePage = function(e){
@@ -297,14 +299,18 @@ var tostep3 = function() {
 };
 
 var addItem = function() {
+	embedded = 0;
+	available = 0;
 	assessment_id = $("#assessment_id").val();
 	assessment_answer = $("#assessment_answer").val();
 	assessment_page = $("#assessment_page").val();
+	if ($("#embedded").attr("checked")) {embedded = 1;}
+	if ($("#available").attr("checked")) {available = 1;}
 	
 	$.ajax({
 		type: "POST",
 			url: "ajax/finish_assessment.php",
-			data: "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page,
+			data: "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page+"&embedded="+embedded+"&available="+available,
 			success: function(phpfile){
 				$("#step4").html(phpfile);
 				
@@ -333,13 +339,17 @@ $("#backAssessment, #saveItem").show();
 };
 
 var saveItem = function() {
+	embedded = 0;
+	available = 0;
 	console.log("hello");
 	assessment_id = $("#assessment_idEdit").val();
 	assessment_text = $("#stemEdit").val();
 	assessment_page = $("#assessment_pageEdit").val();
 	assessment_answer = $("#assessment_answerEdit").val();
-	data = "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page+"&assessment_text="+assessment_text;
-	
+	if ($("#embedded").attr("checked")) {embedded = 1;}
+	if ($("#available").attr("checked")) {available = 1;}
+	data = "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page+"&assessment_text="+assessment_text+"&embedded="+embedded+"&available="+available;
+
 	for (i=0;i<8;i++) {
 		if ($("#choice"+i).val()) {data=data+"&choice"+i+"="+$("#choice"+i).val();}
 	}

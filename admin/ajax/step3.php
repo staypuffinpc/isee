@@ -141,5 +141,7 @@ $results = mysql_fetch_assoc($run);
 			
 	}
 	?>	
-	</select>
+	</select><br />
+	<input type="checkbox" name="embedded" id="embedded" /> Embedded in Page<br />
+	<input type="checkbox" name="available" id="available" /> Viewable without visiting Page<br />
 </div>

@@ -13,11 +13,17 @@ $run = mysql_query($query) or die(mysql_error());
 		while ($results = mysql_fetch_assoc($run)) {
 			echo <<<EOF
 				<li id='item[{$results['assessment_id']}]' class='ui-state-default' title='{$results['assessment_text']}'>
-					<div title='Remove this item' class='minus' id='delete{$results['assessment_id']}'></div>
-					<div class='number'>{$results['assessment_order']}. </div>{$results['assessment_type']}
-					<div class='editItem' id='edit{$results['assessment_id']}'><div>
-				</li>
+				<div class='number'>{$results['assessment_order']}. </div>{$results['assessment_type']}
 EOF;
+				if ($results['embedded'] == "1") {echo "<div class='embedded'>E</div>";};
+							
+					
+				echo <<<EOF
+				<div title='Remove this item' class='minus' id='delete{$results['assessment_id']}'></div>
+				<div class='editItem' id='edit{$results['assessment_id']}'><div></li>
+EOF;
+				
+
 		} 
 		?>
 	</ul>

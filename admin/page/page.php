@@ -3,7 +3,8 @@ include_once('../../../../../connectFiles/connectProject301.php');//database con
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php'); //authenticates
 $user_id = $_SESSION['user_id'];//gets user info
-
+$left = $_GET['left'];
+$top = $_GET['top'];
 $page_id = $_GET['page_id']; if ($page_id<1){echo "<script>window.location = '../index.php'</script>";}//gets page id
 $_SESSION['current_page'] = $page_id;//sets session
 
@@ -33,7 +34,6 @@ $instructions = $_GET['instructions']; //gets instructions
 <script type="text/javascript" src="../../xinha/my_config.js"></script>
 
 <title></title>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
 
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="../../styles/page.css" rel="stylesheet" type="text/css" />
@@ -127,7 +127,7 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 <ul>
 	<li id="save" onClick="update_page();"><img src="../../img/save.png" /><br />Save</li>
-	<li id="save-return" onClick="update_exit();"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
+	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
 	<li id="view" onClick="view(<? echo $page_id; ?>);"><img src="../../img/saveStory.png" /><br />Save (Story)</li>
 	<li id="return" href="../index.php"><img src="../../img/exit.png" /><br />Exit</li>
 	

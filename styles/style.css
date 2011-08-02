@@ -256,5 +256,28 @@ img.image {
 
 }
 
+.ui-state-highlight {
+	height: 21px;
+	border-color: #666666;
+	border-style: dashed;
+	border-width: 1px;
+}
+
+.ui-state-default {
+	font-weight: bold;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	border-color: #cccccc;
+	border-width: 1px;
+	border-style: solid;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	background-image: -moz-linear-gradient(#ffffff,#cccccc);
+	text-shadow: #ffffff 0px 1px 2px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px;
+
+}
+
+
 
 

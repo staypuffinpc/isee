@@ -14,6 +14,7 @@ $run = mysql_query($query) or die(mysql_error());
 $results = mysql_fetch_assoc($run);
 
 $new_count = $results['module_assessment_count'] - 1;
+if ($new_count<0) {$new_count = 0;}
 
 $query = "Update Modules set module_assessment_count='$new_count' where module_id='$module'";
 $run = mysql_query($query) or die(mysql_error());

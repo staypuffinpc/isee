@@ -133,9 +133,9 @@ function update_page() { // loads php to update module
 			}
 		});
 }
-function update_exit() { // loads php to update module
+function update_exit(left, top) { // loads php to update module
 	update_page();
-	setTimeout("window.location='../index.php'",2000);
+	setTimeout("window.location='../index.php?left="+left+"&top="+top+"'",1000);
 
 }
 

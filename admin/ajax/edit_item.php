@@ -42,9 +42,11 @@ if ($results['assessment_type'] == "Multiple Choice") {
 <textarea name="assessment_answerEdit" id="assessment_answerEdit" class='edit'><? echo $results['assessment_answer']; ?></textarea>
 <input type="hidden" name="assessment_idEdit" id="assessment_idEdit" value="<? echo $assessment_id; ?>" />
 <!-- <input type="hidden" name="assessment_responseEdit" id="assessment_responseEdit" /> -->
-
-<h5>Answer Availability</h5>
-	<select name="assessment_pageEdit" id="assessment_pageEdit">
+<br />
+<br />
+<table width="100%">
+<tr>
+	<td>Page: <select name="assessment_pageEdit" id="assessment_pageEdit">
 	<?
 	while ($results = mysql_fetch_assoc($pages)) {
 		
@@ -52,9 +54,10 @@ if ($results['assessment_type'] == "Multiple Choice") {
 			
 	}
 	?>	
-	</select>
-<br />
-<br />
-
+	</select></td>
+	<td><input type="checkbox" name="embedded" id="embedded" /> Embedded in Page</td>
+	<td><input type="checkbox" name="available" id="available" /> Viewable without visiting Page</td>
+</tr>
+</table>
 <div id="saveItemStatus"></div>
 
