@@ -4,8 +4,9 @@ $link=connect(); //call function from external file to connect to database
 include_once('../authenticate.php');
 $user_id = $_SESSION['user_id'];
 $module = $_GET['module'];
-$left = $_GET['left'];
-$top = $_GET['top'];
+if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
+if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
+
 
 if ($module == NULL) {$module=$_SESSION['module'];}
 else {$_SESSION['module'] = $module;}
@@ -49,10 +50,10 @@ window.location = "../dashboard/";
 <?
 }
 ?>
-
 $(document).ready(function(){
 window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 });
+
 </script>
 </head>
 <body id="mainbody">
@@ -134,5 +135,3 @@ do { ?>
 </div>
 </body>
 </html>
-
-

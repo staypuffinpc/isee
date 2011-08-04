@@ -14,6 +14,7 @@ else {
 $new_page = $progress['progress_page'].", ".$page_id;
 $query_progress_update = "Update User_Progress set progress_page='$new_page' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
 $list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
+$instructions = false;
 }
 
 //adds to story stack
@@ -57,7 +58,7 @@ if ($page['page_type'] == "Teaching") {
 
 //look for summary
 $visited_pages = explode(", ", $progress['progress_page']);
-if (in_array($page['module_summary'], $visited_pages)){$summary=1;}
+if (in_array($page['module_summary'], $visited_pages)){$summary=true;}else {$summary = false;}
 $n = count($visited_pages)-1;
 
 do {

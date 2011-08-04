@@ -3,8 +3,8 @@ include_once('../../../../../connectFiles/connectProject301.php');//database con
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php'); //authenticates
 $user_id = $_SESSION['user_id'];//gets user info
-$left = $_GET['left'];
-$top = $_GET['top'];
+if(isset($_GET['left'])) {$left = $_GET['left'];}else {$left = 0;}
+if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 0;}
 $page_id = $_GET['page_id']; if ($page_id<1){echo "<script>window.location = '../index.php'</script>";}//gets page id
 $_SESSION['current_page'] = $page_id;//sets session
 
@@ -12,7 +12,9 @@ include_once("../../story/db.php");//gets mysql common calls
 $module=$page['module'];//gets module
 $_SESSION['module']=$module; // sets session module
 
-$instructions = $_GET['instructions']; //gets instructions
+
+$query = "Select * from Assessment where assessment_module='$module' and embedded='1'";
+$run = mysql_query($query) or die(mysql_error());
 
 
 ?>
@@ -69,7 +71,27 @@ window.location = "../../index.php";
 </textarea>
 <div id="hiddenDiv"><? echo $page['page_content']; // Gets Content ?></div>
 
-	<hr>
+	<div id="assessment">
+	<h3>Assessment</h3>
+	<? 
+	while ($results = mysql_fetch_assoc($run)) {
+	echo "<div class='assessment_item'>";
+	echo "<div class='get_options'></div>";
+	echo "<h4>{$results['assessment_type']}</h4>";
+	echo "<div class='options'></div>";
+	echo "<p><span class='label'>Stem: </span>{$results['assessment_text']}</p>";
+	echo "<p><span class='label'>Response: </span><br />{$results['assessment_response']}</p>";
+	echo "<p><span class='label'>Answer: </span>{$results['assessment_answer']}</p>";
+	
+	
+	
+	echo "</div>";
+	}
+	
+	
+	?>
+	<a id="assessmentEditor" class="dbutton">Assessment Editor</a>
+	</div>
 	<div id="navigation">
 	<h3>Navigation</h3>
 		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<? echo $page['page_navigation_text']; ?>" />

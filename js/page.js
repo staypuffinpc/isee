@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	height = $("#hiddenDiv").height();
 	$("textarea#content").css({"height":height});
+	$('.assessment_item input').attr('disabled', true);
 	$("#menu").draggable();
 	$("#menuToggle").toggle(function() {$("#menu").fadeOut();$(this).html("Show Menu");}, function() {$("#menu").fadeIn();$(this).html("Hide Menu");});
 	$("#borrowToggle").toggle(
@@ -25,8 +26,8 @@ $(document).ready(function() {
 		popup(this.id, 1100, 600);	
 	});
 	
-	$("#contentBorrower").click(function(){
-		popup(this.id, 1100, 600);
+	$("#assessmentEditor").click(function(){
+		popup(this.id, 1100, 600);	
 	});
 	
 	$(".close-icon, #fadebackground").click(function(){close();});
@@ -71,6 +72,16 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	$("#edit-assessment").click(function(){
+		
+	
+	
+	
+	
+	});
+
+
 });
 
 function addSubheading() {

@@ -6,9 +6,8 @@ $user_id = $_SESSION['user_id'];
 $module = $_SESSION['module'];
 
 
-$query_assessment = "Select * from Assessment Where assessment_module='$module'"; //mysql query variable
+$query_assessment = "Select * from Assessment Where assessment_module='$module' and embedded='0'"; //mysql query variable
 $list_assessment = mysql_query($query_assessment) or die(mysql_error()); //execute query
-$assessment = mysql_fetch_assoc($list_assessment);//gets info in array
 
 ?>
 
@@ -26,7 +25,7 @@ module = <? echo $module; ?>;
 <tr><td colspan="2">Instructions: The Column on the left has questions you can answer. When you reach a certain point in the story, the answers will be unlocked. Click on the unlocked icons to check your answer.<br />
 </td></tr>
 <?
-do {
+while ($assessment = mysql_fetch_assoc($list_assessment)) {
 ?>
 <tr>
 <td><? echo "<strong>".$assessment['assessment_type']."</strong><br />".$assessment['assessment_order'].". ".$assessment['assessment_text']."<br /><br />".$assessment['assessment_response']."<br />";?></td>

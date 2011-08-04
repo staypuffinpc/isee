@@ -1,4 +1,7 @@
+
+
 $(document).ready(function() {
+
 var top;
 var bottom;
 var left;
@@ -409,16 +412,13 @@ $(".page").live('mouseover', function () {
 		unbindThemAll();
 		$(".line").fadeOut();
 	},
-	drag: function(event, ui) {
-/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
+	drag: function(event, ui) {/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
 	},
 	stop: function(event, ui) {
 		bindThemAll();
 		$(this).removeClass('temp-new-page');
  		var Stoppos = $(this).position();
- 		
- 		t = Math.round(Stoppos.top/60)*60;
- 		l = Math.round(Stoppos.left/210)*210;
+ 		t = Math.round(Stoppos.top/60)*60;l = Math.round(Stoppos.left/210)*210;
  		if (t<120){t=120;}
  		if (l<210){l=210;} 
  		$(this).css({"top" : t, "left" : l});
@@ -427,17 +427,14 @@ $(".page").live('mouseover', function () {
  			left_dis = l- start_pos.left;
  			dragger = false;
  			movingMany(top_dis, left_dis, dragger);
- 			
  		}
- 		
-			$.ajax({
+ 			$.ajax({
 				type: "POST",
 				url: "actions/change_location.php",
 				data: "page="+this.id+"&top="+t+"&left="+l,
 				success: function(phpfile){
 				$("#update").append(phpfile);}
 			});
-		
 		if (multiple_drag) {/* location.reload(true); */}
 		$(".selected").removeClass('dragger');
 		$(".line").fadeIn();

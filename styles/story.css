@@ -388,9 +388,9 @@ padding: 0px;
 	border-radius: 8px;
 }
 #edit-page {
+	position: absolute;
 	left: 0px;
 	top: 0px;
-	position: absolute;
 	display: none;
 }
 #view-map {
