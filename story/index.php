@@ -24,7 +24,7 @@ do { // this checks to see if there is journal goals
 	if($record_check['journal_text'] == NULL){$journal = "Enter Text Here";}
 	else {$journal=$record_check['journal_text'];}
 } while ($record_check = mysql_fetch_assoc($list_record_check));
-
+session_write_close();
 //end journal info getting
 $query = "Select * from Assessment where assessment_module='$module' and embedded='1' and assessment_page='$page_id'";
 $run = mysql_query($query) or die(mysql_error());
@@ -41,13 +41,13 @@ $run = mysql_query($query) or die(mysql_error());
 
 <title><? echo $page['module_name'].": ".$page['page_name']; // Gets Content ?> </title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
-<link href="../styles/story.css" rel="stylesheet" type="text/css" />
+<link href="story.css" rel="stylesheet" type="text/css" />
 <link href="../styles/stylist.css" rel="stylesheet" type="text/css" />
 
 
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
-<script type="text/javascript" src="../js/story.js"></script>
+<script type="text/javascript" src="story.js"></script>
 <script type="text/javascript" src="../js/jquery-scroll.js"></script>
 <script type="text/javascript" src="../js/scroll.js"></script>
 
@@ -121,17 +121,17 @@ $('html').keyup(function(event) {
 if ($answers['user_answer'] !== NULL) {
 	if ($results['assessment_type'] == "Multiple Choice" || $results['assessment_type'] == "True or False") {
 		?>
-		<script>$("input[name='<? echo $results['assessment_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script>
+		<script>$(".assessment_item input[name='<? echo $results['assessment_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script>
 		<?
 	}
  	if ($results['assessment_type'] == "Fill in the Blank") {
  		?>
-		<script>$("input[name='<? echo $results['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
+		<script>$(".assessment_item input[name='<? echo $results['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
 		<?
  	}
 	if ($results['assessment_type'] == "Short Answer") {
  		?>
-		<script>$("textarea[name='<? echo $results['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
+		<script>$(".assessment_item textarea[name='<? echo $results['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
 		<?
  	}
 }

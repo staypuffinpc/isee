@@ -11,7 +11,7 @@ $assessment_id = $_POST['assessment_id'];
 if ($_POST["choice0"]) {
 	$choice0 = $_POST['choice0'];
 	$assessment_response =<<<EOF
-<input type="radio" name="$assessment_id" value="0">A. $choice0</input><br />
+<input type="radio" name="$assessment_id" value="0">$choice0</input><br />
 EOF;
 
 /* check for B */
@@ -19,7 +19,7 @@ if ($_POST["choice1"]) {
 	$choice1 = $_POST['choice1'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="1">B. $choice1</input><br />
+<input type="radio" name="$assessment_id" value="1">$choice1</input><br />
 EOF;
 }
 
@@ -28,7 +28,7 @@ if ($_POST["choice2"]) {
 	$choice2 = $_POST['choice2'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="2">C. $choice2</input><br />
+<input type="radio" name="$assessment_id" value="2">$choice2</input><br />
 EOF;
 }
 
@@ -37,7 +37,7 @@ if ($_POST["choice3"]) {
 	$choice3 = $_POST['choice3'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="3">D. $choice3</input><br />
+<input type="radio" name="$assessment_id" value="3">$choice3</input><br />
 EOF;
 }
 
@@ -46,7 +46,7 @@ if ($_POST["choice4"]) {
 	$choice4 = $_POST['choice4'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="4">E. $choice4</input><br />
+<input type="radio" name="$assessment_id" value="4">$choice4</input><br />
 EOF;
 }
 
@@ -55,7 +55,7 @@ if ($_POST["choice5"]) {
 	$choice5 = $_POST['choice5'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="5">F. $choice5</input><br />
+<input type="radio" name="$assessment_id" value="5">$choice5</input><br />
 EOF;
 }
 
@@ -64,7 +64,7 @@ if ($_POST["choice6"]) {
 	$choice6 = $_POST['choice6'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="6">G. $choice6</input><br />
+<input type="radio" name="$assessment_id" value="6">$choice6</input><br />
 EOF;
 }
 
@@ -73,9 +73,10 @@ if ($_POST["choice7"]) {
 	$choice7 = $_POST['choice7'];
 	$assessment_response =<<<EOF
 $assessment_response
-<input type="radio" name="$assessment_id" value="7">H. $choice7</input><br />
+<input type="radio" name="$assessment_id" value="7">$choice7</input><br />
 EOF;
 }
+
 
 $query = <<<EOF
 Update Assessment set assessment_response='$assessment_response' where assessment_id='$assessment_id'
@@ -143,5 +144,4 @@ $results = mysql_fetch_assoc($run);
 	?>	
 	</select><br />
 	<input type="checkbox" name="embedded" id="embedded" /> Embedded in Page<br />
-	<input type="checkbox" name="available" id="available" /> Viewable without visiting Page<br />
 </div>

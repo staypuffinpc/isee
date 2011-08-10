@@ -12,7 +12,7 @@ $list = mysql_query($query) or die(mysql_error());
 $assessment_id = mysql_insert_id();
 
 $assessment_response = <<<EOF
-<input type="text" name="$assessment_id" /><br />
+<textarea name="$assessment_id"></textarea><br />
 EOF;
 
 $query = "Update Assessment Set assessment_response='$assessment_response' where assessment_id='$assessment_id'";

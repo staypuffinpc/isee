@@ -1,11 +1,12 @@
 <?
-include_once('../../../../../connectFiles/connectProject301.php');
+include_once('../../../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
-$assessment_id = $_POST['id'];
-include_once('../../authenticate.php');
+$assessment_id = $_POST['assessment_id'];
+include_once('../../../authenticate.php');
 $module = $_SESSION['module'];
 
 $query = "Delete from Assessment where assessment_id='$assessment_id'";
+
 $run = mysql_query($query) or die(mysql_error());
 echo "Item Deleted";
 

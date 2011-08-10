@@ -6,7 +6,7 @@ $user_id = $_SESSION['user_id'];
 $module = $_SESSION['module'];
 
 
-$query_assessment = "Select * from Assessment Where assessment_module='$module' and embedded='0'"; //mysql query variable
+$query_assessment = "Select * from Assessment Where assessment_module='$module'"; //mysql query variable
 $list_assessment = mysql_query($query_assessment) or die(mysql_error()); //execute query
 
 ?>
@@ -42,32 +42,19 @@ $query_answer = "SELECT * From User_Assessment where user_id = '".$user_id."' an
 if ($answer['user_answer'] !== NULL) {
 	if ($assessment['assessment_type'] == "Multiple Choice" || $assessment['assessment_type'] == "True or False") {
 		?>
-		<script>$("input[name='<? echo $assessment['assessment_id'];?>']")[<? echo $answer['user_answer']; ?>].checked = true;</script>
+		<script>$(".assessment input[name='<? echo $assessment['assessment_id'];?>']")[<? echo $answer['user_answer']; ?>].checked = true;</script>
 		<?
 	}
-	if ($assessment['assessment_type'] == "True or False") {
-		?>
-		<script>$("input[name='<? echo $assessment['assessment_id'];?>']")[<? echo $answer['user_answer']; ?>].checked = true;</script>
-		<?
-	}
- 	if ($assessment['assessment_type'] == "Fill in the Blank") {
+	if ($assessment['assessment_type'] == "Fill in the Blank") {
  		?>
-		<script>$("input[name='<? echo $assessment['assessment_id'];?>']").val("<? echo $answer['user_answer']; ?>");</script>
-		
+		<script>$(".assessment input[name='<? echo $assessment['assessment_id'];?>']").val("<? echo $answer['user_answer']; ?>");</script>
 		<?
- 	
- 	
  	}
 	if ($assessment['assessment_type'] == "Short Answer") {
  		?>
 		<script>$("textarea[name='<? echo $assessment['assessment_id'];?>']").val("<? echo $answer['user_answer']; ?>");</script>
-				
-
 		<?
- 	
- 	
  	}
-
 }
 
 // prints the correct lock icon

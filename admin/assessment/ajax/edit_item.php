@@ -28,9 +28,10 @@ $results = mysql_fetch_assoc($run);
 <div id="responses">
 <?
 if ($results['assessment_type'] == "Multiple Choice") {
-	$new_response = str_replace("<input type=\"radio\" ","Response <br/><textarea class='multiple_choice' ",$results['assessment_response']);
+	$new_response = str_replace("<input type=\"radio\" ","Response <img class='deleteResponse' src='../img/delete.png' /><br/><textarea class='multiple_choice' ",$results['assessment_response']);
 	$new_response = str_replace("</input>","</textarea>",$new_response);
 	$new_response = str_replace("value=\"","id=\"choice",$new_response);
+	$new_response = str_replace("A. ","",$new_response);
 
 	echo $new_response;
 }
@@ -48,15 +49,16 @@ if ($results['assessment_type'] == "Multiple Choice") {
 <tr>
 	<td>Page: <select name="assessment_pageEdit" id="assessment_pageEdit">
 	<?
-	while ($results = mysql_fetch_assoc($pages)) {
+	while ($resultsP = mysql_fetch_assoc($pages)) {
 		
-		echo "<option value='".$results['id']."'>".$results['page_name']."</option>";
+		echo "<option value='".$resultsP['id']."'";
+		if ($results['assessment_page'] == $resultsP['id']) {echo " selected ";}
+		echo ">".$resultsP['page_name']."</option>";
 			
 	}
 	?>	
 	</select></td>
-	<td><input type="checkbox" name="embedded" id="embedded" /> Embedded in Page</td>
-	<td><input type="checkbox" name="available" id="available" /> Viewable without visiting Page</td>
+	<td><input type="checkbox" name="embedded" id="embedded" <? if ($results['embedded'] == "1") {echo " checked "; }?>/> Embedded in Page</td>
 </tr>
 </table>
 <div id="saveItemStatus"></div>

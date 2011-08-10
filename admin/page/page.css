@@ -139,32 +139,6 @@ input {
 select {
 	width: 160px;
 }
-#footer {
-	font-weight: bold;
-	right: 0px;
-	left: 0px;
-	color: white;
-	font-size: 12px;
-	font-family: sans-serif;
-	height: 48px;
-	padding: 5px;
-	background-color: #323232;
-	text-shadow: 0px 1px 0px black;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#000));
-    background-image: -moz-linear-gradient(#333333,#000);
-    text-align:center;
-    border-top: 1px black solid;
-    position: absolute;
-    bottom: 0px;
-    text-align: center;
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-    
-}
-
 #footer ul {
 	padding: 0px;
 	margin: 0px;
@@ -318,6 +292,28 @@ a.deleteLink {
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	float: right;
 	cursor: pointer;
+}
+
+.ui-state-highlight {
+	height: 21px;
+	border-color: #666666;
+	border-style: dashed;
+	border-width: 1px;
+}
+
+.ui-state-default {
+	font-weight: bold;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	border-color: #cccccc;
+	border-width: 1px;
+	border-style: solid;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	background-image: -moz-linear-gradient(#ffffff,#cccccc);
+	text-shadow: #ffffff 0px 1px 2px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px;
+
 }
 
 

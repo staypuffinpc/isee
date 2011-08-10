@@ -49,6 +49,23 @@ else {$("#line"+relation_id).hide();}
 }
 
 function main() {
+	$.ajax({
+		type: "POST",
+		url: "ajax/assessmentEm.php",
+/* 		data: "user="+user+"&page="+page, */
+		success: function(phpfile) {
+		/*
+alert(user);
+		alert(page);
+*/
+		$("#assessment").html(phpfile);
+	}
+	
+	
+	});
+
+	/* $("#assessment").load("ajax/assessmentEm.php"); */
+
 	$("#footer li").css("opacity",".5");
 	$("#page2").fadeOut("slow", function(){$("#page1").fadeIn();});
 	$("#back-button").hide();
@@ -73,8 +90,7 @@ $.ajax({
 });
 }
 
-function update_answer (user, name, value, module)
-{
+function update_answer (user, name, value, module){
 	$.ajax({
    		type: "GET",
    		url: "actions/update_answer.php",

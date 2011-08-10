@@ -3,8 +3,8 @@ include_once('../../../../../connectFiles/connectProject301.php');//database con
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php'); //authenticates
 $user_id = $_SESSION['user_id'];//gets user info
-if(isset($_GET['left'])) {$left = $_GET['left'];}else {$left = 0;}
-if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 0;}
+if(isset($_GET['left'])) {$left = $_GET['left'];}else {$left = 1;}
+if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 1;}
 $page_id = $_GET['page_id']; if ($page_id<1){echo "<script>window.location = '../index.php'</script>";}//gets page id
 $_SESSION['current_page'] = $page_id;//sets session
 
@@ -38,13 +38,13 @@ $run = mysql_query($query) or die(mysql_error());
 <title></title>
 
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
-<link href="../../styles/page.css" rel="stylesheet" type="text/css" />
+<link href="page.css" rel="stylesheet" type="text/css" />
 
 <link href="../../styles/image-creator.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
-<script type="text/javascript" src="../../js/page.js"></script>
+<script type="text/javascript" src="page.js"></script>
 
 <script type="text/javascript">
 

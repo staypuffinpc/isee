@@ -20,9 +20,8 @@ include_once("db.php");
 <title><? echo $module_info['module_topic']; ?>: <? echo $module_info['module_name']; ?></title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
-<link href="../styles/admin.css" rel="stylesheet" type="text/css" />
-<link href="../styles/assessment-wizard.css" rel="stylesheet" type="text/css" />
-<link href="../styles/terms-wizard.css" rel="stylesheet" type="text/css" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<link href="terms-wizard.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -39,7 +38,7 @@ include_once("db.php");
 <script type="text/javascript" src="../js/jquery.client.js"></script>
 <script type="text/javascript" src="../js/jquery-scroll.js"></script>
 
-<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript" src="admin.js"></script>
 
 
 
@@ -67,7 +66,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <a class="btn" id="menu" href="../dashboard/">Main Menu</a>
 <a class="btn" id="edit">Edit Story Info</a>
 <a class="btn" id="permissions">Permissions</a>
-<a class="btn" id="assessment">Edit Assessment</a>
+<a class="btn" id="assessment" href="assessment/index.php?module=<? echo $module; ?>">Edit Quiz</a>
 <!-- <a class="btn" id="assessment_data">View Assessment Data</a> -->
 <a class="btn" id="terms">Edit Terms</a>
 <a class="btn" id="new_page">Add New Page</a>

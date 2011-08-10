@@ -231,143 +231,6 @@ var newTerm = function() {
 	});
 
 };
-
-var assessment = function(){
-	width = 1000;
-	height = 600;
-	open(width, height);
-	$("#popup-content").load("ajax/"+this.id+".php");
-
-
-};
-
-var newItem = function(){
-	$("#backAssessment").show();
-	$("#assessment-shutters").scrollTo("#step1",800);
-	$("#newItem").hide();
-};
-
-var backAssessment = function(){
-	$("#backAssessment, #tostep1, #tostep3, #addItem, #saveItem	").hide();
-	$("#newItem").show();
-	$("#assessmentList").load("ajax/assessmentList.php");
-	$("#assessment-shutters").scrollTo("#assessmentList" ,800);
-
-};
-
-var fillInTheBlank = function(){
-	$("#step2").load("ajax/fillInTheBlank.php");
-	$("#assessment-shutters").scrollTo("#step2",800);
-	$("#tostep3").show();
-};
-
-var shortAnswer = function(){
-	$("#step2").load("ajax/shortAnswer.php");
-	$("#assessment-shutters").scrollTo("#step2",800);
-	$("#tostep3").show();
-};
-
-var trueOrFalse = function(){
-	$("#step2").load("ajax/trueOrFalse.php");
-	$("#assessment-shutters").scrollTo("#step2",800);
-	$("#tostep3").show();
-};
-
-var multipleChoice = function(){
-	$("#step2").load("ajax/multipleChoice.php");
-	$("#assessment-shutters").scrollTo("#step2",800);
-	$("#tostep3").show();
-};
-
-var tostep3 = function() {
-	stem = $("#stem").val();
-	assessment_id = $("#assessment_id").val();
-	data = "assessment_id="+assessment_id+"&stem="+stem;
-	
-	for (i=0;i<8;i++) {
-	if ($("#choice"+i).val()) {data=data+"&choice"+i+"="+$("#choice"+i).val();}
-	}
-	
-	$.ajax({
-		type: "POST",
-			url: "ajax/step3.php",
-			data: data,
-			success: function(phpfile){
-				$("#step3").html(phpfile);
-				$("#assessment-shutters").scrollTo("#step3",800);
-				$("#tostep3").hide();
-				$("#addItem").show();
-			}
-		});
-};
-
-var addItem = function() {
-	embedded = 0;
-	available = 0;
-	assessment_id = $("#assessment_id").val();
-	assessment_answer = $("#assessment_answer").val();
-	assessment_page = $("#assessment_page").val();
-	if ($("#embedded").attr("checked")) {embedded = 1;}
-	if ($("#available").attr("checked")) {available = 1;}
-	
-	$.ajax({
-		type: "POST",
-			url: "ajax/finish_assessment.php",
-			data: "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page+"&embedded="+embedded+"&available="+available,
-			success: function(phpfile){
-				$("#step4").html(phpfile);
-				
-			}
-		});
-	$("#assessmentList").load("ajax/assessmentList.php");
-				$("#assessment-shutters").scrollTo("#assessmentList",800);
-	$("#addItem, #backAssessment").hide();
-	$("#newItem").show();
-	
-};
-
-var editItem = function() {
-	$("#assessment-shutters").scrollTo("#step4",800);
-$("#newItem").hide();
-$("#backAssessment, #saveItem").show();
-	id = this.id.substr(4);
-	$.ajax({
-		type: "POST",
-		url: "ajax/edit_item.php",
-		data: "id="+id,
-		success: function(phpfile) {
-			$("#step4").html(phpfile);
-		}
-	});
-};
-
-var saveItem = function() {
-	embedded = 0;
-	available = 0;
-	console.log("hello");
-	assessment_id = $("#assessment_idEdit").val();
-	assessment_text = $("#stemEdit").val();
-	assessment_page = $("#assessment_pageEdit").val();
-	assessment_answer = $("#assessment_answerEdit").val();
-	if ($("#embedded").attr("checked")) {embedded = 1;}
-	if ($("#available").attr("checked")) {available = 1;}
-	data = "assessment_id="+assessment_id+"&assessment_answer="+assessment_answer+"&assessment_page="+assessment_page+"&assessment_text="+assessment_text+"&embedded="+embedded+"&available="+available;
-
-	for (i=0;i<8;i++) {
-		if ($("#choice"+i).val()) {data=data+"&choice"+i+"="+$("#choice"+i).val();}
-	}
-	
-	$.ajax({
-		type: "POST",
-		url: "actions/save_item.php",
-		data: data,
-		success: function(phpfile) {
-			$("#update").html(phpfile);
-			$("#saveItemStatus").text("This item has been saved.");
-		}
-	});
-};
-
 var hidePageRightClick = function() {
 	$("#pageRightClick").hide();
 };
@@ -495,18 +358,7 @@ function bindThemAll() {
 	$(".relate").live('mouseover', relatePage);
 	$("#term-change").live('click', termChange);
 	$("#new-term").live('click', newTerm);
-	$("#assessment").click(assessment);
-	$("#newItem").live('click', newItem);
-	$("#backAssessment").live('click', backAssessment);
-	$("#fillInTheBlank").live('click',fillInTheBlank);
-	$("#shortAnswer").live('click',shortAnswer);
-	$("#trueOrFalse").live('click',trueOrFalse);
-	$("#multipleChoice").live('click',multipleChoice);
-	$("#tostep3").live('click', tostep3);
-	$("#addItem").live('click', addItem);
-	$(".editItem").live('click', editItem);
-	$("#saveItem").live('click', saveItem);
-
+	
 }
 
 function unbindThemAll() {
@@ -529,17 +381,7 @@ function unbindThemAll() {
 	$(".relate").unbind('mouseover', relatePage);
 	$("#term-change").unbind('click', termChange);
 	$("#new-term").unbind();
-	$("#assessment").unbind();
-	$("#backAssessment").unbind();
-	$("#fillInTheBlank").unbind();
-	$("#shortAnswer").unbind();
-	$("#trueOrFalse").unbind();
-	$("#multipleChoice").unbind();
-	$("#tostep3").unbind();
-	$("#addItem").unbind();
-	$(".editItem").unbind();
-	$("#saveItem").unbind();
-
+	
 }
 
 
