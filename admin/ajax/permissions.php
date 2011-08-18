@@ -31,6 +31,7 @@ $values=$values."]";
 
 ?>
 <script>
+
 	$(function() {
 		var values = <? echo $values; ?>;
 
@@ -63,6 +64,7 @@ $values=$values."]";
 				.appendTo( ul );
 		};
 	});
+
 
 </script>
 

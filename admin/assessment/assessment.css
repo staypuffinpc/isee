@@ -89,9 +89,6 @@ div.number {
 	margin-top: 0px;
 	width: 1000px;
 }
-.text, .answer, .response, .embeddedContainer, .embedded {
-	display: inline;
-}
 .label {
 	display: inline;
 	font-weight: bold;
@@ -190,4 +187,7 @@ user-select: none;
 #footer li{
 	opacity: 1.0;
 
+}
+.text, .answer, .response, .embeddedContainer, .embedded {
+	display: inline;
 }

@@ -29,7 +29,7 @@ var logoutFromMenu = function(){window.location="../logout.php";};
 
 var editModule= function(){ 
 	width = 400;
-	height = 250;
+	height = 300;
 	open(width, height);
 	$("#popup-content").load("ajax/"+this.id+".php");
 };

@@ -18,16 +18,14 @@ p {
 	font-family: "Times New Roman", Georgia, Times, serif;
 }
 #header {
+	padding: 0px;
+	line-height: 37px;
 	right: 0px;
 	left: 0px;
 	top: 0px;
 	position: absolute;
-	padding-left: 0px;
-	padding-bottom: 10px;
-	padding-right: 0px;
-	padding-top: 10px;
 	font-family: Helvetica, Verdana, Arial, sans-serif;
-	height:17px;
+	height: 37px;
 	font-weight: bold;
 	color: white;
 	background-color: #708bb8;
@@ -255,66 +253,24 @@ img.image {
 
 }
 
-#assessment {
-	
-}
-
-.assessment_item {
-	position: relative;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	margin-left: 0px;
-	margin-bottom: 3px;
-	margin-right: 0px;
-	margin-top: 3px;
-	border-color: #cccccc;
-	border-width: 1px;
-	border-style: solid;
-	padding: 10px;
-}
-
-.assessment_item p {
-	font-size: 14px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-}
-.assessment_item h4 {
-	margin: 0px;
-}
-
-.assessment_item span {
-	font-weight: bold;
-}
-
-.get_options {
-	display: none;
-	background-image: url(../img/disclosure_bubble.png);
-	background-size: 16px 16px;
-	height: 16px;
-	width: 16px;
-	right: 5px;
-	top: 5px;
-	position: absolute;
-	opacity: 0.5;
-}
-
-.options {
-	display: none;
-	border-width: 1px;
-	right: 5px;
-	top: 15px;
-	position: absolute;
-	border-color: #333333;
-	border-style: solid;
-	height: 100px;
-	width: 100px;
-}
-
 #greeting {
-	top:10px;
+	line-height: 37px;
+	top: 0px;
 	right: 100px;
 	position: absolute;
 	float: right;
 	z-index: 4;
 	color: white;
+}
+
+#greeting img {
+	width: 26px;
+	float: left;
+	margin: 6px;
+	margin-right:15px;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.9);
 }
 
 #footer {
@@ -349,6 +305,7 @@ img.image {
 }
 
 #footer li {
+	position: relative;
 	width: 100px;
 	text-align: center;
 	margin: 0px;
@@ -356,12 +313,22 @@ img.image {
 	display: inline-block;
 	padding: 5px;
 	cursor: pointer;
-	opacity: .6;
+/* 	opacity: .6; */
 }
 
 #footer li img {
 	height: 25px;
 	width: 25px;
+	opacity: .6;
+}
+
+#footer li p {
+	font-family: inherit;
+	font-size: inherit;
+	margin: 0px;
+	padding: 0px;
+	opacity: 0.6;
+
 }
 
 #footer li a {

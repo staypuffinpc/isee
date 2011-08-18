@@ -3,13 +3,16 @@ include_once('../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
 include_once('../authenticate.php');
 $user_id = $_SESSION['user_id'];
-$module = $_GET['module'];
+
 if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
 if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
 
 
-if ($module == NULL) {$module=$_SESSION['module'];}
-else {$_SESSION['module'] = $module;}
+if (!$_GET['module']) {$module=$_SESSION['module'];}
+else {
+$module = $_GET['module'];
+
+$_SESSION['module'] = $module;}
 include_once("db.php");
 
 
@@ -22,6 +25,7 @@ include_once("db.php");
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
 <link href="terms-wizard.css" rel="stylesheet" type="text/css" />
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
 
 
 
@@ -58,7 +62,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <body id="mainbody">
 <div id="header"><? echo $module_info['module_topic']; ?>: <? echo $module_info['module_name']; ?>
 <a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><? echo "User: ".$_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
 
 </div>
 

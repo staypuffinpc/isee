@@ -63,8 +63,8 @@ $(document).ready(function(){
 <div id="footer">
 
 <ul>
-	<li id="backToMap"><a href=""><img src="../../img/tree.png" /><br />Map</a></li>
-	<li id="mainMenu" ><a href="../index.php"><img src="../../img/exit.png" /><br />Main Menu</a></li>
+	<li id="backToMap"><a href="../index.php"><img src="../../img/tree.png" /><br />Map</a></li>
+	<li id="mainMenu" ><a href="../../index.php"><img src="../../img/exit.png" /><br />Main Menu</a></li>
 	
 </ul>
 

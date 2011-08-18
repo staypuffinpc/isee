@@ -355,3 +355,28 @@ a.module img {
 	overflow-y: scroll;
 }
 
+img.lock {
+	left: 5px;
+	bottom: 5px;
+	position: absolute;
+	height: 32px;
+	width: 32px;
+}
+
+.inputClass {
+	color: black;
+	background-color: white;
+	font-size: 16px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	width: 100%;
+}
+
+select.inputClass {
+	height: 200px;
+}
+
+#story_list_label p {
+	font-size: 10px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+}
+

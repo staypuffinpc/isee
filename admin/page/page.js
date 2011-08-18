@@ -1,7 +1,125 @@
 $(document).ready(function() {
+
+/* assessment listeners */
+$("#item-list").sortable({
+	start: function(event, ui){$(".ui-state-highlight").css("height", $(ui.helper).height());},
+	helper: "clone",
+	opacity: 0.4,
+	placeholder: 'ui-state-highlight',
+	stop: function() {
+		updateOrder();
+	}
+});
+
+$(".ce").live("focus", function(){$("#item-list").sortable({"disabled": true});});
+$(".ce").live("mouseover", function(){$("#item-list").sortable({"disabled": true});});
+$(".ce").live("mouseout", function(){$("#item-list").sortable({"disabled": false});});
+
+$(".ce").live("blur", function(){
+	$("#item-list").sortable({"disabled": false});
+	item = this;
+	text = $(this).html();
+	info=$(this).attr("class").split(" ");
+	$.ajax({
+		type: "POST",
+		url: "../assessment/actions/updateItem.php",
+		data: "text="+text+"&field="+info[1]+"&id="+info[2],
+		success: function(phpfile) {
+			$("#update").html(phpfile);
+		}
+	});
+});
+
+$("select").live("change", function(){
+	id = $(this).attr('class');
+	page = $(this).val();
+	$.ajax({
+		type: "POST",
+		url: "../assessment/actions/updatePage.php",
+		data: "id="+id+"&page="+page,
+		success: function(phpfile) {
+			$("#update").html(phpfile);
+		
+		}
+		
+	
+	});
+});
+
+$("input[type=checkbox]").live("change", function(){
+	id = $(this).attr("class");
+	if ($(this).attr("checked") == "checked") {
+		embedded = 1;
+		$(this).parent().parent().prev().prev().prev().prev().prev().prev().html("embedded").css({"padding": "1px", "display": "none"});
+	} 
+	else {
+	embedded = 0;
+			$(this).parent().parent().prev().prev().prev().prev().prev().prev().html("").css({"padding": "0px", "display": "none"});
+
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "../assessment/actions/updateEmbedded.php",
+		data: "embedded="+embedded+"&id="+id,
+		success: function(phpfile) {
+			$("#update").html(phpfile);
+		}
+	});
+});	
+
+$(".ce").live("keypress", function(e){
+		if (e.keyCode == "13") {
+			e.preventDefault();
+			$(this).blur();
+			$("#item-list").sortable({"disabled": false});
+		}
+});
+$(".ce").live("keyup", function(e){
+	if (e.keyCode == '27') {$(this).blur();}
+});
+
+$(".newItem").live("click", function(){
+	type = this.id;
+	embedded = '1';
+	$.ajax({
+		type: "POST",
+		url: "../assessment/actions/newItem.php",
+		data: "type="+type+"&embedded="+embedded,
+		success: function(phpfile) {
+			$("#update").html(phpfile);
+			$("ul#item-list").load("ajax/assessmentList.php");
+		}
+	});
+});
+
+$(".delete").live("click", function(){
+	var item=this;
+	var answer = confirm("This action cannot be undone.Are you sure you want to delete this item? ")
+	if(answer){
+	assessment_id = this.id.substr(6);
+	$(this).parent().remove();
+	$.ajax({
+		type: "POST",
+		url: "../assessment/actions/delete_item.php",
+		data: "assessment_id="+assessment_id,
+		success: function(phpfile){
+			$("#update").html(phpfile);
+			updateOrder();
+			
+		}
+	});
+	}
+});
+$("html").keyup(function(e){
+	if (e.keyCode == '112') {$("#update").toggle();}
+	
+});
+
+/* end of assessment listeners. */
+
 	height = $("#hiddenDiv").height();
 	$("textarea#content").css({"height":height});
-	$('.assessment_item input').attr('disabled', true);
 	$("#menu").draggable();
 	$("#menuToggle").toggle(function() {$("#menu").fadeOut();$(this).html("Show Menu");}, function() {$("#menu").fadeIn();$(this).html("Hide Menu");});
 	$("#borrowToggle").toggle(
@@ -26,9 +144,7 @@ $(document).ready(function() {
 		popup(this.id, 1100, 600);	
 	});
 	
-	$("#assessmentEditor").click(function(){
-		popup(this.id, 1100, 600);	
-	});
+	
 	
 	$(".close-icon, #fadebackground").click(function(){close();});
 	$("#navigation_choices").sortable({
@@ -36,7 +152,8 @@ $(document).ready(function() {
 		stop: function() {updateNavigationOrder();}
 	});
 	$("#addSubheading").click(function(){addSubheading();});
-	$(".page_stem, .page_link, .page_punctuation").live("click", function(){$(this).attr('contenteditable','true');this.focus(); });
+/* 	$(".page_stem, .page_link, .page_punctuation").live("click", function(){$(this).attr('contenteditable','true');this.focus(); }); */
+	$(".page_stem, .page_link, .page_punctuation").attr("contenteditable", true);
 	$(".page_stem, .page_link, .page_punctuation").keypress(function(e){
 		if (e.keyCode == 13) {$(this).blur();}
 	});
@@ -73,13 +190,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#edit-assessment").click(function(){
-		
 	
-	
-	
-	
-	});
 
 
 });
@@ -163,4 +274,30 @@ function view(page_id) { // loads php to update module
 			}
 		});
 
+}
+
+function updateOrder() {
+i=0;
+console.log("updating order");
+		$("ul#item-list li").each(function(){
+			
+			data = data+"&"+this.id+"="+itemOrder[i];
+			i++;
+			console.log(data);	
+		});
+		j=0;
+		$('li > div.number').each(function(i) {
+			
+			var $this = $(this); 
+   			$this.text(itemOrder[j]+1+". ");j++;
+		});
+
+		$.ajax({
+			type: "POST",
+			url: "../assessment/actions/update_order.php",
+			data: data,
+			success: function(phpfile){
+			$("#update").append(phpfile);}
+		});	
+data = "";
 }

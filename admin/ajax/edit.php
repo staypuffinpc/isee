@@ -44,7 +44,7 @@ include_once('../db.php');
 <tr>
 	<td>
 	<label>Private</label>
-	<input type="radio" name="privacy" value="Private" <? if ($module_info['module_privacy'] == "Private") {echo 'checked';} ?> disabled/>
+	<input type="radio" name="privacy" value="Private" <? if ($module_info['module_privacy'] == "Private") {echo 'checked';} ?> />
 	</td>
 	<td>
 	<label>Public</label>
@@ -53,4 +53,5 @@ include_once('../db.php');
 </tr>
 </table>
 </form>
+
 <a class="btn" id="update_module" onClick="update_module();">Update module</a>

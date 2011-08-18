@@ -54,7 +54,7 @@ function open(width, height) { //opens popup
 }
 
 function create_story() {
-	if(!$("#module_name").val()) {alert("You must have a module name");$("#module_name_label").css("color" , "red");return false;}
+	if(!$("#module_name").val()) {alert("You must have a story name");$("#module_name_label").css("color" , "red");return false;}
 	
 	data = $("form").serialize();
 	$.ajax({
@@ -62,7 +62,7 @@ function create_story() {
 			url: "actions/create_story.php",
 			data: data,
 			success: function(phpfile){
-			$("#update").append(phpfile);}
+			$("#update").html(phpfile);}
 		});
 	window.location = "../admin/index.php";
 }
@@ -88,6 +88,22 @@ function delete_story(story){
 	
 }
 
+function create_class() {
+	if(!$("#class_name").val()) {alert("You must have a class name");$("#class_name_label").css("color" , "red");return false;}
+	
+	data = $("form").serialize();
+	$.ajax({
+		type: "POST",
+			url: "actions/create_class.php",
+			data: data,
+			success: function(phpfile){
+			$("#update").append(phpfile);
+			close();
+			}
+		});
+
+}
+
 $(document).ready(function() {
 	update_height();
 	update_classes_height();
@@ -106,6 +122,14 @@ $(document).ready(function() {
 		open(width, height);
 		$("#popup-content").load("ajax/new-story.php");
 	});
+	
+	$("#create-new-class").click(function(){
+		width = 600;
+		height = 400;
+		open(width, height);
+		$("#popup-content").load("ajax/create-new-class.php");
+	});
+	
 	$("#fadebackground, .close-icon").click(close);
 	
 	$("html").keyup(function(e){
@@ -117,7 +141,7 @@ $(document).ready(function() {
 		if (e.keyCode == '112') {$("#update").toggle();}
 	
 	});
-
+	$("#enroll-in-new-class").click(function(){alert("I'm sorry, this button is not yet functional.");});
 
 
 });

@@ -1,8 +1,4 @@
-
-
 var definitionShow = "off";
-
-
 
 function line(parent, child, relation_id) { //draws lines
 	
@@ -66,28 +62,15 @@ alert(user);
 
 	/* $("#assessment").load("ajax/assessmentEm.php"); */
 
-	$("#footer li").css("opacity",".5");
+	$("#footer li img, #footer li p").css("opacity",".5");
 	$("#page2").fadeOut("slow", function(){$("#page1").fadeIn();});
-	$("#back-button").hide();
+	$("#back-button, #map-instructions").hide();
 	status = 0;
 }
 
 function close() {
 	$("#fadebackground, .popup, #user").fadeOut();
 	definitionShow = "off";
-}
-
-/* these are functions specific to this application */
-function write_to_journal ()
-{
-$.ajax({
-	type: "POST",
-	url: "actions/write_to_journal.php",
-	data: $('form').serialize(),
-	success: function(phpfile){
-		$("#write-status").html(phpfile);
-	}
-});
 }
 
 function update_answer (user, name, value, module){
@@ -154,12 +137,6 @@ function google_analytics() {
 
 
 $(document).ready(function(){
-	/*
-if (window.Touch)
-  		{$("#viewport").touchScroll();}
-	else
-		{$("#viewport").css({"overflow": "auto"});}
-*/
 	Scroller('viewport');
 	Scroller('instructions');
 	google_analytics();
@@ -167,26 +144,27 @@ if (window.Touch)
 		_gaq.push(['_trackEvent', 'Navigation link', this.id, this.id+' navigation link was clicked']);
 	});
 	$("#page1").show();
-	
+	$("#map-instructions").draggable();
 	//footer event listner
 	$("#footer li").click(function(){
+		$("#map-instructions").hide();
 		$("textarea, :input").blur();
 		_gaq.push(['_trackEvent', 'Footer', this.id, this.id+' in the footer was clicked.']);
 		if (status !== this.id) {
-		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0});}
+		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0}); $("#map-instructions").fadeIn();}
 			else {$("#page2").css({"margin-left":"-350px", "left":"50%"});}
 		
-		$("#footer li").css("opacity","0.5");
+		$("#footer li img, #footer li p").css("opacity","0.5");
 		
 		if ($("#page1:visible").length !== 0) {
-			$("#"+this.id).css("opacity","1");
+			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
 			$("#back-button").show();
 			$("#page1").fadeOut("fast", function(){$("#page2").fadeIn();});
 			$("#page2").load("ajax/"+this.id+".php");
 			status = this.id;
 		}
 		else {
-			$("#"+this.id).css("opacity","1");
+			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
 			$("#page2").html(" ");
 			$("#page2").hide("fast",function(){$("#page2").fadeIn();});
 			$("#page2").load("ajax/"+this.id+".php");
@@ -222,19 +200,7 @@ if (window.Touch)
 	$("#fadebackground,.close-icon").click(function(){close();}); //close event listener
 	$("#mainMenu").click(function(){window.location="../dashboard/index.php";});//main menu event listener
 	$("#logout").click(function(){window.location="../logout.php";});//logout event listener
-	
-
-	$("#journal-button").toggle(function(){ //journal button event listener
 		
-		$("#journal").css({"z-index":4});
-		$("#journal-button").html("Hide Journal");
-		},
-		function() {
-			$("#journal").css({"z-index":0});
-			$("#journal-button").html("Show Journal");
-		});
-
-
 	$(".keyterm").click(function(){
 		
 		definition(this);
@@ -276,8 +242,8 @@ $('html').keyup(function(event) {
 	});
 	
 	$(".casestudy").append("<div class='casestudy-title'>case study</div>");
-	$(".exampleinaction").append("<div class='exampleinaction-title'>example in action</div>");
-	$(".example").append("<div class='example-title'>example</div>");
+/* 	$(".exampleinaction").append("<div class='exampleinaction-title'>example in action</div>"); */
+	$(".example, .exampleinaction").append("<div class='example-title'>example</div>");
 	$(".review").append("<div class='review-title'>review</div>");
 	$(".thoughtprovokingquestion").append("<div class='thoughtprovokingquestion-title'>think about it</div>");
 	$(".thoughtprovokingquestion").append("<div class='question2-img'><img src='../img/question2.jpg' /></div>");

@@ -8,15 +8,22 @@ if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 1;}
 $page_id = $_GET['page_id']; if ($page_id<1){echo "<script>window.location = '../index.php'</script>";}//gets page id
 $_SESSION['current_page'] = $page_id;//sets session
 
-include_once("../../story/db.php");//gets mysql common calls
+$module = $_SESSION['module'];
+
+/*
 $module=$page['module'];//gets module
 $_SESSION['module']=$module; // sets session module
+*/
+include_once("../../story/db.php");//gets mysql common calls
 
 
-$query = "Select * from Assessment where assessment_module='$module' and embedded='1'";
+$query = "Select * from Assessment where assessment_module='$module' and embedded='1' and assessment_page = '$page_id' order by assessment_order ASC";
 $run = mysql_query($query) or die(mysql_error());
 
+$query = "Select page_name, id from Pages where module='$module' and page_type='Teaching'";
+$pages = mysql_query($query) or die(mysql_error());
 
+$i = 0; //this is getting the item sorter ready.
 ?>
 
 <!DOCTYPE >
@@ -39,7 +46,6 @@ $run = mysql_query($query) or die(mysql_error());
 
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="page.css" rel="stylesheet" type="text/css" />
-
 <link href="../../styles/image-creator.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
@@ -47,6 +53,7 @@ $run = mysql_query($query) or die(mysql_error());
 <script type="text/javascript" src="page.js"></script>
 
 <script type="text/javascript">
+var itemOrder = new Array();
 
 <? if ($module == NULL) {?>
 window.location = "../../index.php";
@@ -59,11 +66,14 @@ window.location = "../../index.php";
 
 </head>
 <body>
-<form>
+<form>	<input type="hidden" id="page_id" name="page_id" value="<? echo $page_id ?>" />
+
 <div id="header">
-	<input type="hidden" id="page_id" name="page_id" value="<? echo $page_id ?>" />
-	<div class="inline"><? echo $page['module_name']; ?></div> : <input class="inline" type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" />  
+	<? echo $page['module_name']; ?>  : <input type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" /> 
+<a class="btn" id="logoutFromMenu">Logout</a>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
 </div>
+
 <div id="viewport">
 <div class="content" id="page1">
 <textarea name="content" id="content">
@@ -72,48 +82,77 @@ window.location = "../../index.php";
 <div id="hiddenDiv"><? echo $page['page_content']; // Gets Content ?></div>
 
 	<div id="assessment">
-	<h3>Assessment</h3>
-	<? 
+	<h3>Quiz</h3>
+	<div class="toolbar">
+	<a class='btn newItem' id='multiple_choice'>New Multiple Choice Item</a>
+<a class='btn newItem' id='true_false'>New True/False Item</a>
+<a class='btn newItem' id='fill_in_the_blank'>New Fill in the Blank Item</a>
+<a class='btn newItem' id='short_answer'>New Short Answer Item</a>
+</div>
+	<ul id="item-list">
+<?	
 	while ($results = mysql_fetch_assoc($run)) {
-	echo "<div class='assessment_item'>";
-	echo "<div class='get_options'></div>";
-	echo "<h4>{$results['assessment_type']}</h4>";
-	echo "<div class='options'></div>";
-	echo "<p><span class='label'>Stem: </span>{$results['assessment_text']}</p>";
-	echo "<p><span class='label'>Response: </span><br />{$results['assessment_response']}</p>";
-	echo "<p><span class='label'>Answer: </span>{$results['assessment_answer']}</p>";
+		
+		if (strlen($results['assessment_text']) > 88) {
+			$text = substr($results['assessment_text'], 0, 87)." . . .";
+		} else $text = $results['assessment_text'];
+		echo <<<EOF
+			<li id='item[{$results['assessment_id']}]' class='ui-state-default'>
+			<div class='number'>{$results['assessment_order']}. </div><div class='type'>{$results['assessment_type']}</div> 
+EOF;
+		echo <<<EOF
+		<div class="item-info"><div class="label">Text: </div><div class="ce text {$results['assessment_id']}" contenteditable>{$results['assessment_text']}</div><div class="spaceTaker"></div></div>
+		<div class="item-info"><div class="label">Response: </div><br /><div class="ce response {$results['assessment_id']}" contenteditable>{$results['assessment_response']}</div><div class="spaceTaker"></div></div>
+		<div class="item-info"><div class="label">Answer: </div><div class="ce answer {$results['assessment_id']}" contenteditable>{$results['assessment_answer']}</div><div class="spaceTaker"></div></div>
+		<div class="item-info"><div class="label">Page: </div><select class="{$results['assessment_id']}"><option val='0'>None Selected</option>
+EOF;
+		while ($resultsPages = mysql_fetch_array($pages)) {
+			echo "<option value='".$resultsPages['id']."'";
+		if ($resultsPages['id'] == $results['assessment_page']) {echo " selected ";}
+		echo ">".$resultsPages['page_name']."</option>";
+		}
+		echo "</select></div>";
+		echo <<<EOF
+		<div class="item-info"><div class="label">Embedded: </div><div class='embeddedContainer'>
+		<input class='{$results['assessment_id']}' type='checkbox'
+EOF;
+		if ($results['embedded'] == 1) {echo " checked ";}
+		echo "/></div></div>";		
+		echo <<<EOF
+			<div title='Remove this item' class='delete' id='delete{$results['assessment_id']}'>x</div></li>
+EOF;
+			
+		mysql_data_seek($pages, 0);	
+		echo <<<EOF
+		<script> itemOrder[$i] = {$results['assessment_order']}-1; console.log("$i"+itemOrder[$i]);</script>
+EOF;
+$i++;} 
+?>
+</ul>
 	
-	
-	
-	echo "</div>";
-	}
-	
-	
-	?>
-	<a id="assessmentEditor" class="dbutton">Assessment Editor</a>
 	</div>
 	<div id="navigation">
 	<h3>Navigation</h3>
 		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<? echo $page['page_navigation_text']; ?>" />
+		<div class="toolbar">
+			<a class="btn" id="addSubheading">Add a Navigation Subheading</a>
+		</div>
 		<ul id="navigation_choices">
 		<? 
-	do { //generate choice
-		if ($results_nav['id'] !== NULL) {
+	while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>
 				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'></a>
 				<span class='page_stem ".$results_nav['page_relation_id']."'>".$results_nav['page_stem']." </span>	
 				<span class='page_link ".$results_nav['page_relation_id']."'>".$results_nav['page_link']."</span>
 				<span class='page_punctuation ".$results_nav['page_relation_id']."'>".$results_nav['page_punctuation']."</span></li>";
 				
-		} // end Null If
-	}while ($results_nav = mysql_fetch_assoc($list_nav));		
+	}		
 		 
 	
 	
 	//end generate buttons
 	?>
 	</ul>
-	<a class="btn" id="addSubheading">Add a Navigation Subheading</a>
 </div> <!-- end navigation div -->
 
 <? 

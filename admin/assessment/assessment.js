@@ -15,8 +15,7 @@ $("#item-list").sortable({
 	}
 });
 
-$(":input[type=text], input[type=radio]").attr("disabled", true);
-$("textarea").attr({"disabled": true});
+
 
 $(".type, .textShort").live("click", function(){
 	$(this).next().slideToggle().next().slideToggle().next().slideToggle().next().slideToggle().next().slideToggle().next().slideToggle().next().slideToggle();
@@ -32,6 +31,7 @@ $(".ce").live("blur", function(){
 	item = this;
 	text = $(this).html();
 	info=$(this).attr("class").split(" ");
+	if (info[1] == "response") {text = $(this).parent().html();console.log(text);}
 	$.ajax({
 		type: "POST",
 		url: "actions/updateItem.php",
@@ -99,10 +99,12 @@ $(".ce").live("keyup", function(e){
 
 $(".newItem").live("click", function(){
 	type = this.id;
+	embedded = "0";
+	page = "0"
 	$.ajax({
 		type: "POST",
 		url: "actions/newItem.php",
-		data: "type="+type,
+		data: "type="+type+"&embedded="+embedded,
 		success: function(phpfile) {
 			$("#update").html(phpfile);
 		}

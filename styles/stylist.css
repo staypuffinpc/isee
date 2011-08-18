@@ -15,6 +15,7 @@ div.objective {
 	border-bottom-style: dotted;
 	border-bottom-width: 1px;
 	font-weight: bold;
+	cursor:help;
 }
 
 div.frontmatter {
@@ -30,12 +31,9 @@ div.frontmatter {
 }
 
 div.summary {
+	margin: 30px;
 	color: #336699;
 	font-weight: bold;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px 8px 8px 8px;
@@ -43,12 +41,9 @@ div.summary {
 }
 
 div.casestudy {
+	margin: 30px;
 	padding: 10px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #9900cc;
 	border-style: solid;
@@ -59,11 +54,8 @@ div.casestudy {
 }
 
 div.essentialquestion {
+	margin: 20px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #ffcc00;
 	border-style: solid;
@@ -75,15 +67,12 @@ div.essentialquestion {
 }
 
 div.keytakeaway {
+	margin: 30px;
 	padding-left: 10px;
 	padding-bottom: 10px;
 	padding-right: 30px;
 	padding-top: 10px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 10px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: fuchsia;
 	border-style: solid;
@@ -94,13 +83,10 @@ div.keytakeaway {
 }
 
 div.exampleinaction {
+	margin: 30px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
-	border-color: #ff0066;
+	border-color: #0099ff;
 	border-style: solid;
 	border-width: 3px;
 	padding: 10px;
@@ -110,11 +96,8 @@ div.exampleinaction {
 }
 
 div.thoughtprovokingquestion {
+	margin: 30px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #ff9900;
 	border-style: solid;
@@ -126,11 +109,8 @@ div.thoughtprovokingquestion {
 }
 
 div.example {
+	margin: 30px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #0099ff;
 	border-style: solid;
@@ -142,11 +122,8 @@ div.example {
 }
 
 div.review {
+	margin: 30px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #00cc00;
 	border-style: solid;
@@ -158,11 +135,8 @@ div.review {
 }
 
 div.tip {
+	margin: 30px;
 	position: relative;
-	margin-left: 30px;
-	margin-bottom: 0px;
-	margin-right: 30px;
-	margin-top: 0px;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #996633;
 	border-style: solid;

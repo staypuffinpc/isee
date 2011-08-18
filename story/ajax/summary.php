@@ -1,5 +1,6 @@
-
 <?
+/* Show summary info when available */
+
 $user_id = $_GET['user_id']; //gets user id
 
 $query_summary = "Select * from Pages where page_summary='1' and module = ".$_SESSION['module']." order by page_name ASC"; //mysql query variable

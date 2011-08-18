@@ -1,18 +1,26 @@
 <?php
+/* This file displays the assessment in story mode. */
+
+
 include_once('../../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php');
 $user_id = $_SESSION['user_id'];
 $module = $_SESSION['module'];
 
-
-$query_assessment = "Select * from Assessment Where assessment_module='$module'"; //mysql query variable
+$query_assessment = "Select * from Assessment Where assessment_module='$module' order by assessment_order ASC"; //mysql query variable
 $list_assessment = mysql_query($query_assessment) or die(mysql_error()); //execute query
 
+$query = "Select progress_page from User_Progress where progress_user = '$user_id' and progress_module='$module'";
+$run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
+
+$visited_pages = explode(",",$results['progress_page']);
+
 ?>
-
-
 <script type="text/javascript">
+/* this sets js variables from php variables */
+
 user = <? echo $user_id; ?>;
 module = <? echo $module; ?>;
  	google_analytics();
@@ -22,10 +30,16 @@ module = <? echo $module; ?>;
 
 <div class="assessment-content">
 <table class="assessment">
-<tr><td colspan="2">Instructions: The Column on the left has questions you can answer. When you reach a certain point in the story, the answers will be unlocked. Click on the unlocked icons to check your answer.<br />
+<tr><td colspan="2">Instructions: This assessment is like a worksheet that you need to complete by reading through the story.  You may answer the questions at any time.  You can unlock the correct answer by visiting the instructional page containing the answer to each question.  Click on the open treasure chest icon to find an explanation of the correct answer.</p>
+<br />
 </td></tr>
 <?
 while ($assessment = mysql_fetch_assoc($list_assessment)) {
+if ($assessment['embedded'] == 1 && !in_array($assessment['assessment_page'], $visited_pages)){
+	echo "<tr></tr>";
+
+}
+else {
 ?>
 <tr>
 <td><? echo "<strong>".$assessment['assessment_type']."</strong><br />".$assessment['assessment_order'].". ".$assessment['assessment_text']."<br /><br />".$assessment['assessment_response']."<br />";?></td>
@@ -59,27 +73,40 @@ if ($answer['user_answer'] !== NULL) {
 
 // prints the correct lock icon
 
-if (in_array($assessment['assessment_page'], $pages_visited)){echo "<img  id='".$assessment['assessment_answer']."' class='answer-img' src='../img/unlocked.png' width='64px'  />";}
-else {echo "<img class='answer-img' id='You have not unlocked the answer to question ".$assessment['assessment_id']." yet.' src='../img/locked.png' width='64px' />";}			
-	
-	
-	
-	
-
+if (in_array($assessment['assessment_page'], $pages_visited)){echo "<img  id='".$assessment['assessment_id']."' class='answer-img opened' src='../img/open.png' width='64px'  />";}
+else {echo "<img class='answer-img closed' id='".$assessment['assessment_id']."' src='../img/closed.png' width='64px' />";}			
 //end icon printing
-
-
-
-
-
 ?></td>
 </tr><?
-} while ($assessment = mysql_fetch_assoc($list_assessment));
+}} while ($assessment = mysql_fetch_assoc($list_assessment));
 ?>
 
 
 </table>
 </div>
 <script>
-$(".answer-img").click(function(){alert(this.id);});
+$(".closed").click(function(){alert("You have not visited the page containing the answer to this question yet.")});
+$(".opened").click(function(){
+	id = this.id;
+	$.ajax({
+		type: "POST",
+		url: "ajax/answer.php",
+		data: "id="+id,
+		success: function(phpfile){
+			$("#popup-content").html(phpfile);
+			$("#popup").css({
+				width: "600px",
+				height: "300px",
+				"left" : "50%",
+				"margin-left" : "-300px",
+				"top" : "50%",
+				"margin-top" : "-150px"
+			
+			
+			});
+			$("#popup, #fadebackground").show();
+		}
+		});
+
+});
 </script>

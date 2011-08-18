@@ -1,5 +1,5 @@
 <?php
-// include_once('../../../../connectFiles/connectProject301.php');
+// shows progress of current module for current user //
 include_once('../../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php');
@@ -27,7 +27,7 @@ $list_user_progress = mysql_query($query_user_progress) or die(mysql_error()); /
 $progress = mysql_fetch_assoc($list_user_progress);//gets info in array
 $progress = explode(", ", $progress['progress_page']);
 ?>
-<div clas
+
 <?
 do { 
 

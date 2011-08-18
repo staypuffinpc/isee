@@ -5,6 +5,8 @@ include_once('../../../authenticate.php');
 $module=$_SESSION['module'];
 $user_id=$_SESSION['user_id'];
 $type=$_POST['type'];
+$embedded = $_POST['embedded'];
+if ($embedded == 1) {$assessment_page = $_SESSION['current_page'];} else {$assessment_page = 000;}
 
 switch ($type) {
 	case "short_answer":
@@ -22,7 +24,7 @@ switch ($type) {
 }
 
 $query = <<<EOF
-	Insert into Assessment (assessment_text, assessment_answer, assessment_module, assessment_order, assessment_type, created_by, created_on) values ("Insert question or statement here.","Insert your answer here", "$module", "0", "$type", "$user_id", NOW()) 
+	Insert into Assessment (assessment_text, assessment_answer, assessment_module, assessment_order, assessment_type, created_by, created_on, embedded, assessment_page) values ("Insert question or statement here.","Insert your answer here", "$module", "0", "$type", "$user_id", NOW(), "$embedded", "$assessment_page") 
 EOF;
 $run = mysql_query($query) or die(mysql_error());
 $lastItemID = mysql_insert_id();
@@ -35,24 +37,22 @@ EOF;
 		break;
 	case "Multiple Choice":
 	$query = <<<EOF
-	Update Assessment set assessment_response = "
-	<input type='radio' name='$lastItemID' value='0'>Choice A<br>
-	<input type='radio' name='$lastItemID' value='1'>Choice B<br>
-	<input type='radio' name='$lastItemID' value='2'>Choice C<br>
-	<input type='radio' name='$lastItemID' value='3'>Choice D<br>
-	<input type='radio' name='$lastItemID' value='4'>Choice E<br>" where assessment_id='$lastItemID'
+	Update Assessment set assessment_response = "<input type='radio' name='$lastItemID' value='0'><div class='ce response $lastItemID'>Choice A</div><br>
+	<input type='radio' name='$lastItemID' value='1'><div class='ce response $lastItemID'>Choice B</div><br />
+	<input type='radio' name='$lastItemID' value='2'><div class='ce response $lastItemID'>Choice C</div><br />
+	<input type='radio' name='$lastItemID' value='3'><div class='ce response $lastItemID'>Choice D</div><br />
+	<input type='radio' name='$lastItemID' value='4'><div class='ce response $lastItemID'>Choice E</div><br />" where assessment_id='$lastItemID'
 EOF;
 		break;
 	case "True or False":
 	$query = <<<EOF
-	Update Assessment set assessment_response = "
-	<input type='radio' name='$lastItemID' value='0'>True<br>
+	Update Assessment set assessment_response = "<input type='radio' name='$lastItemID' value='0'>True<br>
 	<input type='radio' name='$lastItemID' value='1'>False<br>" where assessment_id='$lastItemID'
 EOF;
 		break;
 	case "Fill in the Blank";
 	$query = <<<EOF
-	Update Assessment set assessment_response = "<input type='text' name='lastItemID' /><br />" where assessment_id='$lastItemID'
+	Update Assessment set assessment_response = "<input type='text' name='$lastItemID' /><br />" where assessment_id='$lastItemID'
 EOF;
 	break;
 }

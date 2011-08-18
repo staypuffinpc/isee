@@ -189,15 +189,6 @@ div.goto-page {
 	top: 3px;
 	position: absolute;
 }
-#greeting {
-	top:10px;
-	right: 100px;
-	position: absolute;
-	float: right;
-	z-index: 4;
-	color: white;
-}
-
 .temp-new-page {
 	height: 25px;
 	z-index: 99;
@@ -264,7 +255,7 @@ input[name=page_link] {
 	margin-bottom: 15px;
 	max-height: 200px;
 	display: inline-block;
-	width: 250px;
+	width: 300px;
 	text-align: left;
 	border-color: #0080ff;
 	border-width: 1px;
@@ -273,6 +264,7 @@ input[name=page_link] {
 }
 
 .list li {
+	line-height: 32px;
 	position: relative;
 	padding: 5px;
 	margin: 0px;
@@ -280,11 +272,13 @@ input[name=page_link] {
 }
 
 input[name=searchForAuthor] {
-	width: 250px;
+	width: 300px;
 }
 
 img.icon {
-width:30px;margin-right:12px;margin-left:-5px;margin-top:-5px;margin-bottom:-5px;float:left;
+width:30px;margin-right:12px;margin-left:0px;margin-top:0px;margin-bottom:0px;float:left;
+border-radius: 6px;
+box-shadow: 0px 0px 4px, rgba(255,255,255, 0.9);
 }
 
 #pageRightClick {
@@ -322,5 +316,10 @@ a.pageRightClickOption:hover {
 	color: white;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#4767E9), to(#0D36E7));
 	background-image: -moz-linear-gradient(#4767E9,#0D36E7);
+}
+
+#update_module {
+	position: relative;
+	top: 30px;
 }
 

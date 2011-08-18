@@ -20,7 +20,7 @@ try {
             $firstName = $userAttributes['namePerson/first'];
             $lastName = $userAttributes['namePerson/last'];
             $email = $userAttributes['contact/email'];
-            $user_image = "../img/avatar.png";
+            $user_image = "../img/google.jpg";
             $user_profile = $openid->identity;
          	$user_name = $firstName." ".$lastName;
          	$provider = "google";
@@ -35,7 +35,7 @@ try {
 if ($user['user_id'] == NULL) { // this is to replace the previous gigya login
 	
 	$message = $user_name.", your user information has been added to the system.";
-	$query = "INSERT INTO Users (user_id, user_name, user_email, user_profile, UID, provider, created, role) VALUES (null,'$user_name','$email','$user_profile','$UID','google', NOW(), 'Student')";
+	$query = "INSERT INTO Users (user_id, user_name, user_email, user_profile, UID, provider, created, role, user_image) VALUES (null,'$user_name','$email','$user_profile','$UID','google', NOW(), 'Student', '$user_image')";
 	$list = mysql_query($query) or die(mysql_error()); //execute query
 	
 	$query = "Select * From Users Where user_email='$email' and provider='google'";
@@ -45,7 +45,7 @@ if ($user['user_id'] == NULL) { // this is to replace the previous gigya login
 
 else {
 
-$query = "Update Users Set user_profile='$user_profile', last_access=NOW(), user_image='$user_image' where user_email='$email' and provider='google'";
+$query = "Update Users Set user_profile='$user_profile', last_access=NOW() where user_email='$email' and provider='google'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
 $message = "Welcome back, ".$user['user_name'].".";
 setcookie("user",$user['user_name'], time()+3600, "/",".byuipt.net");
@@ -58,7 +58,8 @@ if(!isset($_SESSION)){session_start();}
 $_SESSION['user_id'] = $user_id = $user['user_id'];
 $_SESSION['user_name'] = $user['user_name'];
 $_SESSION['role']= $user['role'];
-if ($user['admin'] == 1) {$_SESSION['admin'] = "yes";}
+$_SESSION['user_image'] = $user['user_image'];
+/* if ($user['admin'] == 1) {$_SESSION['admin'] = "yes";} //commented out to see if needed 8/17/2011 */
 include_once('dashboard.php');
          }
         else{

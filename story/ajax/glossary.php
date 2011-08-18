@@ -1,5 +1,6 @@
 <?php
-// include_once('../../../../connectFiles/connectProject301.php');
+/* Shows glossary Items */
+
 include_once('../../../../../connectFiles/connectProject301.php');
 $link=connect(); //call function from external file to connect to database
 include_once('../../authenticate.php');
@@ -11,6 +12,7 @@ $list_terms = mysql_query($query_terms) or die(mysql_error()); //execute query
 $terms = mysql_fetch_assoc($list_terms);//gets info in array
 ?>
 <h2>Glossary</h2>
+<p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
 <table class="glossary">
 <?
 do { ?>

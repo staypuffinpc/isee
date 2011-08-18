@@ -6,7 +6,9 @@ include_once('../../../authenticate.php');
 $module = $_SESSION['module'];
 
 $query = "Delete from Assessment where assessment_id='$assessment_id'";
+$run = mysql_query($query) or die(mysql_error());
 
+$query = "Delete from User_Assessment where assessment_id='$assessment_id'";
 $run = mysql_query($query) or die(mysql_error());
 echo "Item Deleted";
 
