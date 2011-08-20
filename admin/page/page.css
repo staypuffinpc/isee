@@ -218,32 +218,7 @@ a.dbutton:active {
 	left: 0px;
 	bottom: 0px;
 }
-.footerToggle {
-	background-color: #333333;
-	padding: 5px;
-	margin: 5px;
-	text-align: center;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	font-size: 10px;
-	color: white;
-	position: absolute;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#000));
-	background-image: -moz-linear-gradient(#333,#000);
-	-moz-box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
-	-webkit-box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
-	box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
-	cursor: pointer;
-}
 
-.footerToggle:hover {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#000), to(#333));
-	background-image: -moz-linear-gradient(#000,#333);
-}
-
-.footerToggle:active {
-	bottom: -1px;
-
-}
 
 ul#navigation_choices li {
 	margin-left: -10px;
@@ -254,7 +229,7 @@ ul#navigation_choices li {
 	list-style-type: none;
 }
 
-li h3 {
+li h4 {
 	margin: 0px;
 	
 }
@@ -373,6 +348,7 @@ ul textarea{
 }
 
 .page_stem, .page_punctuation, .page_link {
+	display: inline-block;
 	cursor: text;
 	-moz-user-select:text;
 	-khtml-user-select: text;
@@ -385,6 +361,10 @@ ul textarea{
 	text-decoration: underline;
 	color: #3366cc;
 	cursor: text;
+}
+
+.page_punctuation {
+	margin-left: -5px;
 }
 
 .number {
@@ -404,6 +384,10 @@ display: inline;
 	margin-right: 0px;
 	margin-top: 5px;
 	padding: 20px;
+}
+
+.page_ending {
+	display: inline-block;
 }
 
 /*	

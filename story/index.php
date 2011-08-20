@@ -1,7 +1,17 @@
 <?php
-include_once('../../../../connectFiles/connectProject301.php');
+/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
 $link=connect(); //call function from external file to connect to database
-include_once('../authenticate.php');
+/* this is the end of the includes. */
 
 $user_id = $_SESSION['user_id'];
 
@@ -50,6 +60,7 @@ $(document).ready(function(){
 		$("#assessment").hide();
 	
 	<? } ?>
+	
 	<? if ($instructions) {echo "instructions();";}?> //checks to see if instructions need to be displayed.
 	<? if ($current_assessment > 0) {echo "assessment_announce(".$current_assessment.");"; }
 	if ($author) {echo "$('#edit-page, #view-map').show();";} // adds authoring buttons if the user is an author
@@ -70,6 +81,8 @@ $(document).ready(function(){
 		window.location="../admin/index.php?module="+<? echo $module; ?>;
 	});
 });
+<? if ($user['instructionsShowing'] == "false") {echo "var instructionsShowing = false;";} else { echo "var instructionsShowing = true;";} ?>
+
 </script>
 </head>
 <body>
@@ -82,7 +95,7 @@ $(document).ready(function(){
 		<div id="page-content">
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['page_summary'] == 2) { include("ajax/summary.php");}?>
-			<hr>
+
 		<div id="assessment" class="assessment-content">
 		<h3>Quiz</h3>
 		<? 
@@ -108,6 +121,7 @@ $(document).ready(function(){
 		
 <!-- 		Displays navigation choices -->
 		<div id="navigation">
+			<div id="decision-time">decision time</div>
 			<h3><? echo $page['page_navigation_text']; ?></h3>
 			<? 
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
@@ -133,8 +147,8 @@ echo $page['page_references']; }?>
 <div class="content" id="page2"></div>
 </div>
 <div id="footer">
-<a class="btn" id="edit-page">Edit Page</a>
-<a class="btn" id="view-map">View Story Map</a>
+<a class="adminbtn" id="edit-page">edit page</a>
+<a class="adminbtn" id="view-map">view story map</a>
 <a class="btn" id="summary-button">Go to Summary</a>
 
 	<ul>
@@ -185,6 +199,14 @@ echo $page['page_references']; }?>
 
 
 </div>
+<div id="page-instructions"><a id='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a><div id='page-instructions-text'></div></div>
+<div id="instructionsToggle" class="footerToggle">
+	<? 
+	if ($user['instructionsShowing'] == "false") {echo 'show instructions';}
+	else {echo 'hide instructions';}
+	?>
+
+</div>
 <div id="popup" class="popup"><div class="close-icon"></div>
 <div id="popup-content">
 
@@ -193,13 +215,20 @@ echo $page['page_references']; }?>
 <h4>Overview</h4>
 <p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['module_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
 <p>The simulation will lead you through the instruction and the story simultaneously.  Story pages present you with an actual context to apply the topics covered in this chapter.  On these pages, you’re given choices of what action you would like to take.  At times, you’ll “step out” of the story and be presented with an instructional page.  Instructional pages are presented “just in time,” to teach you a concept at the moment (or right before) you’ll see that concept play out in the story.</p>
+
 <h4>Glossary</h4>
+<div class="glossaryInstructions">
 <p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
+</div>
 <h4>Assessment</h4>
+<div class="assessmentInstructions">
 <p>This assessment is like a worksheet that you need to complete by reading through the story.  You may answer the questions at any time.  You can unlock the correct answer by visiting the instructional page containing the answer to each question.  Click on the open treasure chest icon to find an explanation of the correct answer.</p>
+</div>
 <h4>Progress Map</h4>
-<p>This map shows where you’ve been in the story so far.  Green pages contain story-related content, blue pages contain instructional content, and gray pages are ones you have not yet visited but have seen a link to at some point in the story.  The map will grow as you explore the story.  You can click on any page you’ve already visited to go directly to that part of the story.
-(HINT: once you “solve” the story, the entire map will be unlocked and you can visit any page directly from the map.)</p>
+<div class="mapInstructions">
+<p>This map shows where you've been in the story so far.  Green pages contain story-related content, blue pages contain instructional content, and gray pages are ones you have not yet visited but have seen a link to at some point in the story.  The map will grow as you explore the story.  You can click on any page you've already visited to go directly to that part of the story.</p>
+<p>(HINT: once you "solve" the story, the entire map will be unlocked and you can visit any page directly from the map.)</p>
+</div>
 <h4>Appendices</h4>
 <p>These appendices include additional tools to help you learn the material.  Once you have “unlocked” an appendix in the story, it is available at any time throughout the rest of the simulation.</p>
 <h4>Comments</h4>
@@ -207,11 +236,6 @@ echo $page['page_references']; }?>
 </div>
 
 </div> <!-- end popup-content -->
-</div>
-<div id="map-instructions">
-This map shows where you've been in the story so far.  Green pages contain story-related content, blue pages contain instructional content, and gray pages are ones you have not yet visited but have seen a link to at some point in the story.  The map will grow as you explore the story.  You can click on any page you've already visited to go directly to that part of the story.
-(HINT: once you "solve" the story, the entire map will be unlocked and you can visit any page directly from the map.)
-
 </div>
 <script>
   var _gaq = _gaq || [];

@@ -1,5 +1,4 @@
-<? 
-/* This action gets the definition of a selected key term. */
+<?
 
 /* Depending on the url this provides absolute links to the files that are needed for every file. */
 $requestingURL = $_SERVER['SERVER_NAME'];
@@ -14,10 +13,10 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$term = $_GET['term'];
-
-$query_definition = "Select * from Terms Where term like '%$term%'"; //mysql query variable
-$list_definition = mysql_query($query_definition) or die(mysql_error()); //execute query
-$definition = mysql_fetch_assoc($list_definition);//gets info in array
-
-echo $definition['definition']; ?>
+?>
+<h2>Enroll in a Class</h2>
+<p>Please enter your enroll code. This should have been provided by your teacher.</p>
+<input class='inputClass' id='enroll_code' name='enroll_code' type='text' />
+<br />
+<a class='btn' id='enroll'>Enroll</a>
+<script>$('#enroll_code').focus();	</script>

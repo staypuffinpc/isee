@@ -1,7 +1,17 @@
 <?
-include_once('../../../../../../connectFiles/connectProject301.php');
+/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
 $link=connect(); //call function from external file to connect to database
-include_once('../../../authenticate.php');
+/* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 $module = $_SESSION['module'];
 $query = "Select * from Assessment where assessment_module='$module' order by assessment_order ASC";
@@ -19,12 +29,12 @@ while ($results = mysql_fetch_assoc($run)) {
 			<div class='number'>{$results['assessment_order']}. </div><div class='type'>{$results['assessment_type']}</div><div class="embeddedNote" 
 EOF;
 		if($results['embedded'] == 1) {echo "style='padding:1px'>embedded";} else {echo ">";}
-		
 		echo <<<EOF
 		</div><div class="textShort"> - $text</div>
 		<div class="item-info"><div class="label">Text: </div><div class="ce text {$results['assessment_id']}" contenteditable>{$results['assessment_text']}</div><div class="spaceTaker"></div></div>
 		<div class="item-info"><div class="label">Response: </div><br />		
 EOF;
+
 		switch ($results['assessment_type']) {
 			case "Short Answer":
 				echo "<div><textarea disabled='disabled' ></textarea>";
@@ -44,8 +54,12 @@ EOF;
 		
 		
 		
+		
+		echo "</div><div class='spaceTaker'></div>";
+
+		if ($results['assessment_type'] == "Multiple Choice") { echo "<div class='addItem ".$results['assessment_id']."'>Add Item</div><div class='removeItem ".$results['assessment_id']."'>Remove Item</div>";}
 		echo <<<EOF
-		</div><div class="spaceTaker"></div></div>
+		<div class="spaceTaker"></div></div>
 		<div class="item-info"><div class="label">Answer: </div><div class="ce answer {$results['assessment_id']}" contenteditable>{$results['assessment_answer']}</div><div class="spaceTaker"></div></div>
 		<div class="item-info"><div class="label">Page: </div><select class="{$results['assessment_id']}"><option>None Selected</option>
 EOF;

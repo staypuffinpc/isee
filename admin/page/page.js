@@ -152,7 +152,18 @@ $("html").keyup(function(e){
 		stop: function() {updateNavigationOrder();}
 	});
 	$("#addSubheading").click(function(){addSubheading();});
-/* 	$(".page_stem, .page_link, .page_punctuation").live("click", function(){$(this).attr('contenteditable','true');this.focus(); }); */
+	$(".page_stem, .page_link, .page_punctuation").live("focus", function(){
+		$("#navigation_choices").sortable({"disabled" : true});
+	});
+	
+	$(".page_stem, .page_link, .page_punctuation").live("mouseover", function(){
+		$("#navigation_choices").sortable({"disabled" : true});
+	});
+	$(".page_stem, .page_link, .page_punctuation").live("mouseout", function(){
+		$("#navigation_choices").sortable({"disabled" : false});
+	});
+	
+	
 	$(".page_stem, .page_link, .page_punctuation").attr("contenteditable", true);
 	$(".page_stem, .page_link, .page_punctuation").keypress(function(e){
 		if (e.keyCode == 13) {$(this).blur();}
@@ -162,7 +173,7 @@ $("html").keyup(function(e){
 		theclass = $(this).attr("class");
 		theclassarray = theclass.split(" ");
 		text = $(this).html();
-
+		$("#navigation_choices").sortable({"disabled" : false});
 	$.ajax({
 			type: "POST",
 			url: "actions/updateLinks.php",
@@ -175,7 +186,7 @@ $("html").keyup(function(e){
 	
 	$(".deleteLink").live("click", function(){
 		parent = this;
-		var answer = confirm("This action cannot be undone. Are you sure you want to delete this item?");
+		var answer = confirm("This action cannot be undone. Are you sure you want to delete this link?");
 		if (answer) {
 			id = this.id.substr(6);
 			$.ajax({

@@ -1,7 +1,19 @@
 <?php
-include_once('../../../../../connectFiles/connectProject301.php');//database connection info
+
+/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
 $link=connect(); //call function from external file to connect to database
-include_once('../../authenticate.php'); //authenticates
+/* this is the end of the includes. */
+
 $user_id = $_SESSION['user_id'];//gets user info
 if(isset($_GET['left'])) {$left = $_GET['left'];}else {$left = 1;}
 if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 1;}
@@ -141,10 +153,11 @@ $i++;}
 		<? 
 	while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>
-				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'></a>
+				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'>x</a>
 				<span class='page_stem ".$results_nav['page_relation_id']."'>".$results_nav['page_stem']." </span>	
 				<span class='page_link ".$results_nav['page_relation_id']."'>".$results_nav['page_link']."</span>
-				<span class='page_punctuation ".$results_nav['page_relation_id']."'>".$results_nav['page_punctuation']."</span></li>";
+				<span class='page_punctuation ".$results_nav['page_relation_id']."'>".$results_nav['page_punctuation']."</span>
+				<div class='page_ending'></div></li>";
 				
 	}		
 		 

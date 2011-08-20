@@ -276,34 +276,7 @@ a[href^="http://"] {
 	cursor: pointer;
 }
 
-#journal {
-	display: none;
-	border-right-color: #333333;
-	border-right-width: 1px;
-	border-right-style: solid;
-	background-color: #cccccc;
-	width: 256px;
-	bottom: 58px;
-	top: 38px;
-	left: 50%;
-	margin-left: -513px;
-	position: absolute;
-}
-#journal h1 {
-	font-family: Helvetica, Verdana, Arial, sans-serif;
-	padding-bottom: 3px;
-	padding-top: 3px;
-	margin: 0px;
-	display: block;
-	font-size: 18px;
-	background-color: black;
-	color: white;
-	text-align: center;
-}
 
-#journal-button {
-	display: none;
-}
 textarea#entry {
 margin: 0px;
 height: 450px;
@@ -348,14 +321,14 @@ padding: 0px;
 	border-radius: 8px;
 }
 #edit-page {
+	bottom: 0px;
 	position: absolute;
-	left: 0px;
-	top: 0px;
+	left: 10px;
 	display: none;
 }
 #view-map {
-	left: 100px;
-	top: 0px;
+	bottom: 0px;
+	left: 110px;
 	position: absolute;
 	display: none;
 }
@@ -484,7 +457,31 @@ margin-top: -300px;
 	display: inline;
 }
 
-#map-instructions {
+
+#navigation {
+	margin-top: 12px;
+	border-top: red solid 2px;
+	position: relative;
+}
+
+#decision-time {
+	padding-right: 10px;
+	padding-left: 10px;
+	font-style: italic;
+	position: absolute;
+	top: -13px;
+	right: 50px;
+	color: red;
+	background-color: white;
+
+}
+
+h3 {
+text-align: center;
+
+}
+#page-instructions {
+	left: 10px;
 	display: none;
 	font-style: normal;
 	font-weight: normal;
@@ -496,12 +493,50 @@ margin-top: -300px;
 	color: black;
 	background-color: #ffff99;
 	width: 200px;
-	left: 15px;
 	top: 50px;
 	position: absolute;
 		text-shadow: #6374AB 0px 0px 0px;
 	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
 }
 
+#page-instructions-toggle {
+	font-size: 12px;
+	text-align: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	color: #999999;
+	width: 220px;
+	display: block;
+	border-bottom-color: #999999;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+#page-instructions-text {
+	margin-top: 20px;
+}
+
+#page-instructions-text p {
+	font-size: 14px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	margin-left: 0px;
+	margin-bottom: 12px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding: 0px;
+}
+
+#instructionsToggle {
+	display: none;
+	left: 5px;
+	bottom: 5px;
+}

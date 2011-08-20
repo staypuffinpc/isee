@@ -170,7 +170,7 @@ textarea {
 
 }
 .spacetaker {
-	border-color: #e8e8e8;
+	border-color: #cccccc;
 	border-width: 1px;
 	border-style: solid;
 	color: #e8e8e8;
@@ -190,4 +190,32 @@ user-select: none;
 }
 .text, .answer, .response, .embeddedContainer, .embedded {
 	display: inline;
+}
+.theresponse {
+	margin-left: 20px;
+	display: inline-block;
+}
+.addItem, .removeItem {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	font-size: 16px;
+	line-height: 16px;
+	padding-left: 20px;
+	width: 150px;
+	text-decoration: underline;
+	color: blue;
+	display: block;
+}
+.addItem {
+	background-repeat: no-repeat;
+	background-image: url(../../img/plus.png);
+}
+.removeItem {
+	background-repeat: no-repeat;
+	background-image: url(../../img/minus.png);
+}
+.response {
+	margin-left: -40px;
 }

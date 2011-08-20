@@ -22,8 +22,17 @@ try {
             $user_profile = $openid->identity;
          	$user_name = $userAttributes['namePerson'];
          	$provider = "yahoo";
-       		include_once('../../../../connectFiles/connectProject301.php');
-			$link=connect(); //call function from external file to connect to database
+       		/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
+$link=connect(); //call function from external file to connect to database
+/* this is the end of the includes. */
 
 
 			$query = "Select * From Users Where user_email='$email' and provider='yahoo'";

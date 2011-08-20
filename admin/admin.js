@@ -226,7 +226,8 @@ var newTerm = function() {
 		type: "POST",
 		url: "actions/new_term.php",
 		success: function(phpfile){
-		$("#popup-content").load('ajax/term.php');
+		$("#popup-content").load('ajax/term.php?term='+phpfile);
+		
 		}
 	});
 
@@ -240,6 +241,10 @@ var editPage2 = function() {
 	window.location="page/page.php?page_id="+currentPageId;
 };
 
+var editTerm = function() {
+	id = this.id;
+	openInTermEditor(id);
+}
 /* --------------------------end-handlers--------------------------- */
 
 resizeGrid(lowest, rightest);
@@ -356,6 +361,7 @@ function bindThemAll() {
 	$(".delete").live('click', deletePage);
 	$(".arrow").live('click', pageRelation);
 	$(".relate").live('mouseover', relatePage);
+	$("tr.clickable-item").live("click", editTerm);
 	$("#term-change").live('click', termChange);
 	$("#new-term").live('click', newTerm);
 	
@@ -379,6 +385,7 @@ function unbindThemAll() {
 	$(".delete").unbind('click', deletePage);
 	$(".arrow").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
+	$("tr.clickable-item").unbind();
 	$("#term-change").unbind('click', termChange);
 	$("#new-term").unbind();
 	
@@ -524,4 +531,15 @@ function resizeGrid(lowest,rightest) {
 	$("#mapgrid").css({"height":height, "width":width});
 }
 
+function openInTermEditor(id) {
+$.ajax({
+	type: "POST",
+	url: "ajax/term_editor.php",
+	data: "term_id="+id,
+	success: function(phpfile){
+		$("#tabular-data-info").html(phpfile);
+	}
+});
+
+}
 

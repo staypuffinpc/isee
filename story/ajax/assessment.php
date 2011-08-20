@@ -2,9 +2,19 @@
 /* This file displays the assessment in story mode. */
 
 
-include_once('../../../../../connectFiles/connectProject301.php');
+/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
 $link=connect(); //call function from external file to connect to database
-include_once('../../authenticate.php');
+/* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 $module = $_SESSION['module'];
 
@@ -29,10 +39,9 @@ module = <? echo $module; ?>;
 
 
 <div class="assessment-content">
+<h2>Assessment</h2>
 <table class="assessment">
-<tr><td colspan="2">Instructions: This assessment is like a worksheet that you need to complete by reading through the story.  You may answer the questions at any time.  You can unlock the correct answer by visiting the instructional page containing the answer to each question.  Click on the open treasure chest icon to find an explanation of the correct answer.</p>
-<br />
-</td></tr>
+
 <?
 while ($assessment = mysql_fetch_assoc($list_assessment)) {
 if ($assessment['embedded'] == 1 && !in_array($assessment['assessment_page'], $visited_pages)){

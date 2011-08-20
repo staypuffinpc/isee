@@ -99,9 +99,49 @@ function create_class() {
 			success: function(phpfile){
 			$("#update").append(phpfile);
 			close();
+			$("#classList").load("ajax/class-list.php");
+
 			}
 		});
+}
 
+var showClassList = function() {
+	class_id=this.id;
+	$.ajax({
+		type: "POST",
+		url:	"ajax/class-story-list.php",
+		data:	"id="+class_id,
+		success:	function(phpfile){
+			$("#storyList").html(phpfile);
+		}
+	});
+}
+
+var showAll = function() {
+	$.ajax({
+		type: "POST",
+		url:	"ajax/module-list.php",
+		success:	function(phpfile){
+			$("#storyList").html(phpfile);
+		}
+	});
+}
+
+var enroll = function() {
+	enroll_code=$("#enroll_code").val();
+	close();
+	$.ajax({
+		type:	"POST",
+		url:	"actions/enroll.php",
+		data:	"enroll_code="+enroll_code,
+		success: function(phpfile){
+			$("#update").html(phpfile);
+			$("#storyList").load("ajax/module-list.php");
+			$("#classList").load("ajax/class-list.php");
+		}
+	
+	
+	});
 }
 
 $(document).ready(function() {
@@ -113,8 +153,17 @@ $(document).ready(function() {
 		update_classes_height();
 		update_stories_height();
 	});
-
-
+	$("#enroll-in-new-class").click(function(){
+		width= 350;
+		height = 200;
+		open(width, height);
+		$('#popup-content').load("ajax/enroll.php");
+		$('#enroll_code').focus();	
+	});
+	
+	$("#enroll").live("click", enroll);
+	$(".classLink").live("click", showClassList);
+	$("#showAll").live("click", showAll);
 	$("#logoutFromMenu").click(function(){window.location="../logout.php";});//logout event listener
 	$("#new-story").click(function(){
 		width = 300;
@@ -141,7 +190,7 @@ $(document).ready(function() {
 		if (e.keyCode == '112') {$("#update").toggle();}
 	
 	});
-	$("#enroll-in-new-class").click(function(){alert("I'm sorry, this button is not yet functional.");});
+	
 
 
 });

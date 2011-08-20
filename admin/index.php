@@ -1,14 +1,24 @@
 <?
-include_once('../../../../connectFiles/connectProject301.php');
+/* Depending on the url this provides absolute links to the files that are needed for every file. */
+$requestingURL = $_SERVER['SERVER_NAME'];
+if ($requestingURL == 'localhost') {
+	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
+	}
+else {
+	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	
+	}
 $link=connect(); //call function from external file to connect to database
-include_once('../authenticate.php');
+/* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 
 if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
 if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
 
 
-if (!$_GET['module']) {$module=$_SESSION['module'];}
+if (!isset($_GET['module'])) {$module=$_SESSION['module'];}
 else {
 $module = $_GET['module'];
 

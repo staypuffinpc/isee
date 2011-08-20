@@ -134,6 +134,20 @@ $("html").keyup(function(e){
 	
 });
 
+$(".addItem").live("click" , function(){
+	value = $(this).prev().prev().children("input:last").val();
+	value = (1*value)+1;
+	info = $(this).attr("class").split(" ");
+	$(this).prev().prev().append("<input type=\"radio\" name=\""+info[1]+"\" value=\""+value+"\"><div class=\"ce response "+info[1]+"\" contenteditable=\"true\">new Choice</div><br>").focus();
+});
+
+$(".removeItem").live("click" , function() {
+	$(this).prev().prev().prev().children("input:last, br:last, div:last").remove();
+	/* $(this).prev().prev().prev().children("div:last").remove(); */
+
+});
+
+
 /* ------------------------------handlers--------------------------- */
 var logoutFromMenu = function(){window.location="../../logout.php";};
 

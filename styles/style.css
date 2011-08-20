@@ -336,3 +336,57 @@ img.image {
 	color: white;
 }
 
+.adminbtn {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	line-height: 18px;
+	padding-left: 20px;
+	background-repeat: no-repeat;
+	background-image: url(../img/arrow-white.png);
+	font-weight: bold;
+	font-size: 16px;
+	color: white;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+}
+
+.adminbtn:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.adminbtn:active {
+	position: relative;
+	top: 1px;
+	opacity: 0.5;
+}
+.footerToggle {
+	background-color: #333333;
+	padding: 5px;
+	margin: 5px;
+	text-align: center;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	font-size: 10px;
+	color: white;
+	position: absolute;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#000));
+	background-image: -moz-linear-gradient(#333,#000);
+	-moz-box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
+	-webkit-box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
+	box-shadow: 0px 1px 4px rgba(102, 102, 102, 1);
+	cursor: pointer;
+}
+
+.footerToggle:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#000), to(#333));
+	background-image: -moz-linear-gradient(#000,#333);
+}
+
+.footerToggle:active {
+	bottom: -1px;
+
+}

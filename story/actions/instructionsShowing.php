@@ -1,6 +1,4 @@
-<? 
-/* This action gets the definition of a selected key term. */
-
+<?
 /* Depending on the url this provides absolute links to the files that are needed for every file. */
 $requestingURL = $_SERVER['SERVER_NAME'];
 if ($requestingURL == 'localhost') {
@@ -14,10 +12,11 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$term = $_GET['term'];
+$user_id = $_SESSION['user_id'];
+$instructionsShowing = $_POST['instructionsShowing'];
 
-$query_definition = "Select * from Terms Where term like '%$term%'"; //mysql query variable
-$list_definition = mysql_query($query_definition) or die(mysql_error()); //execute query
-$definition = mysql_fetch_assoc($list_definition);//gets info in array
+$query = "Update Users set instructionsShowing='$instructionsShowing' where user_id='$user_id'";
+$run = mysql_query($query) or die(mysql_error());
 
-echo $definition['definition']; ?>
+
+?>

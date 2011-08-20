@@ -122,7 +122,16 @@ font-size: 16px;
 	bottom: 0px;
 	top:170px;
 }
+a.manage {
 
+
+	display: inline;
+
+
+	text-decoration: none;
+
+
+}
 a.dbutton {
 	font-size: 16px;
 	padding: 5px;
@@ -165,14 +174,20 @@ div.story {
 	position: relative;
 }
 #stories {
-	background-color: #cccccc;
+	background-color: #e8e8e8;
 }
-a.module {
+#classes {
+	background-color: #e8e8e8;
+}
+a.choice {
+	border-bottom-color: white;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
 	position: relative;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	height: 64px;
 	font-size: 16px;
-	background-color: #cccccc;
+	background-color: #e8e8e8;
 	padding: 5px;
 	text-align: left;
 	text-decoration: none;
@@ -181,9 +196,9 @@ a.module {
 	cursor: pointer;
 }
 
-a.module:hover {
-	background-color: #999999;
-	color: white;
+a.choice:hover {
+	background-color: #cccccc;
+	color: black;
 	opacity: 0.9;
 }
 
@@ -223,7 +238,7 @@ a.deleteLink:hover {
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 	z-index: 99;
 }
-a.module:active {
+a.choice:active {
 	position: relative;
 	top: 1px;
 	opacity: 1.0;
@@ -255,7 +270,7 @@ a.module:active {
 	color: white;
 
 }
-a.module img {
+a.choice img {
 	position: relative;
 	margin-right: 15px;
 	float: left;
@@ -357,7 +372,7 @@ a.module img {
 
 img.lock {
 	left: 5px;
-	bottom: 5px;
+	bottom: 0px;
 	position: absolute;
 	height: 32px;
 	width: 32px;
@@ -378,5 +393,18 @@ select.inputClass {
 #story_list_label p {
 	font-size: 10px;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+}
+
+.classLink {
+}
+
+#classList {
+	padding: 0px;
+	margin: 0px;
+}
+
+#enroll {
+	top: 15px;
+	position: relative;
 }
 

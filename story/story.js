@@ -63,9 +63,10 @@ alert(user);
 	/* $("#assessment").load("ajax/assessmentEm.php"); */
 
 	$("#footer li img, #footer li p").css("opacity",".5");
-	$("#page2").fadeOut("slow", function(){$("#page1").fadeIn();});
-	$("#back-button, #map-instructions").hide();
+	$("#page2").hide("slow", function(){$("#page1").fadeIn();});
+	$("#back-button").hide();
 	status = 0;
+	$('#page-instructions').hide();
 }
 
 function close() {
@@ -131,10 +132,24 @@ function google_analytics() {
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
-
 }
 
+function showPageInstructions() {
+if ($("#page1:visible").length !==0) {return;}
+			else {
+				$("#page-instructions").toggle();
+				if ($("#page-instructions:visible").length !=0) {instructionsShowing = true;}
+				else {instructionsShowing = false;}
+				$.ajax({
+					type: 	"POST",
+					url:	"actions/instructionsShowing.php",
+					data:	"instructionsShowing="+instructionsShowing,
+					success:function(phpfile){
+						$("#update").html(phpfile);
+					}
+				});
+			}
+}
 
 $(document).ready(function(){
 	Scroller('viewport');
@@ -144,14 +159,13 @@ $(document).ready(function(){
 		_gaq.push(['_trackEvent', 'Navigation link', this.id, this.id+' navigation link was clicked']);
 	});
 	$("#page1").show();
-	$("#map-instructions").draggable();
+	$("#page-instructions").draggable();
 	//footer event listner
 	$("#footer li").click(function(){
-		$("#map-instructions").hide();
 		$("textarea, :input").blur();
 		_gaq.push(['_trackEvent', 'Footer', this.id, this.id+' in the footer was clicked.']);
 		if (status !== this.id) {
-		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0}); $("#map-instructions").fadeIn();}
+		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0});}
 			else {$("#page2").css({"margin-left":"-350px", "left":"50%"});}
 		
 		$("#footer li img, #footer li p").css("opacity","0.5");
@@ -159,15 +173,20 @@ $(document).ready(function(){
 		if ($("#page1:visible").length !== 0) {
 			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
 			$("#back-button").show();
-			$("#page1").fadeOut("fast", function(){$("#page2").fadeIn();});
+			$("#page1").hide("fast", function(){$("#page2").show();});
 			$("#page2").load("ajax/"+this.id+".php");
+			$("#page-instructions-text").html($('.'+this.id+'Instructions').html());
+			if (instructionsShowing== true) {$("#page-instructions").show();}
 			status = this.id;
 		}
 		else {
 			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
+			$("#page-instructions").hide();
 			$("#page2").html(" ");
-			$("#page2").hide("fast",function(){$("#page2").fadeIn();});
+			$("#page2").hide("fast",function(){$("#page2").show();});
 			$("#page2").load("ajax/"+this.id+".php");
+			$("#page-instructions-text").html($('.'+this.id+'Instructions').html());
+			if (instructionsShowing == true) {$("#page-instructions").show();}
 			status = this.id;
 		}
 		}
@@ -176,10 +195,14 @@ $(document).ready(function(){
 
 	$("#back-button").click(function(){$("textarea, :input").blur();main();}); //back button event listener
 	
-	/* 	escape key listener */
+	/*  key listener */
 	$('html').keyup(function(event) {
-		if (event.keyCode == '27')
-		{
+		if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {return false;}
+		if (event.keyCode == '68'){ // m key
+			window.location="../dashboard/index.php";
+		}
+		
+		if (event.keyCode == '27') {// escape key
 		$("textarea, :input").blur();
 
 		if($("#fadebackground:visible").length !==0)
@@ -189,8 +212,14 @@ $(document).ready(function(){
 			else {main();}
 			}
 		}
+		if (event.keyCode == '73') { // i key
+			showPageInstructions();
+		}
+	
+	
 	});//escape key event listener
 	
+		
 	$("#options-button").click(function() { // options-button event listener
 		$("textarea, :input").blur();
 		$("#fadebackground").fadeIn();
@@ -232,14 +261,6 @@ $(document).ready(function(){
 		update_answer(user,this.name,this.value,module);
 	});
 	
-$('html').keyup(function(event) {
-
-	if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {return false;}
-	if (event.keyCode == '68')
-		{
-		window.location="../dashboard/index.php";
-		}
-	});
 	
 	$(".casestudy").append("<div class='casestudy-title'>case study</div>");
 /* 	$(".exampleinaction").append("<div class='exampleinaction-title'>example in action</div>"); */

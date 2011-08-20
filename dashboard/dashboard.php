@@ -80,7 +80,7 @@ EOF;
 		<div id="center-column" class="column">
 			<div id="classes" class="panel">
 				<h1>Classes</h1>
-				<div class="content">
+				<div class="content" id="classList">
 				<? include("ajax/class-list.php"); ?>
 				</div>
 			</div> <!-- end classes panel -->
@@ -95,9 +95,9 @@ EOF;
 		</div> <!-- end center column -->
 		<div id="right-column" class="column">
 			<div id="stories" class="panel">
-				<h1>Public Stories</h1>
+				<h1>My Stories</h1>
 				<div id="search"><div id="search-text">Search</div><input type="text" value="Search functionality coming soon." id="search-box" onkeyup="lookup(this.value);" disabled/></div>
-				<div class="content">
+				<div class="content" id='storyList'>
 				<? include("ajax/module-list.php"); ?>
 
 
