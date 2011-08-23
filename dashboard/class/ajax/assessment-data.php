@@ -13,7 +13,7 @@ else {
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
-$module = $_SESSION['module'];
+$module = $_GET['module'];
 
 
 
@@ -92,6 +92,7 @@ for ($i=0; $i<$usercount; $i++) {
 		if ($j == 0) {	echo "<td>".$answers[$users[$i]][$j]."</td>"; }
 		
 		else {
+		if (isset($answers[$users[$i]][$j."t"])){
 		switch ($answers[$users[$i]][$j."t"]) {
 			case NULL:
 				echo "<td></td>";
@@ -135,7 +136,8 @@ for ($i=0; $i<$usercount; $i++) {
 					case 11:
 						echo "L";
 						break;
-				} //end switch
+				} //end case switch
+				
 				echo "</td>";
 			break;
 			case "True or False":
@@ -151,6 +153,7 @@ for ($i=0; $i<$usercount; $i++) {
 				echo "<td title='".$answers[$users[$i]][$j]."'  style='text-align:center;'>?</td>";	
 				break;
 		} //end switch
+		} else {echo "<td></td>";}
 		} //end else
 		} //end for
 	echo "</tr>";

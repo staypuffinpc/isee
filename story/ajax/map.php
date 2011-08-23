@@ -84,6 +84,8 @@ do { ?>
 	</div>
 </div>
 
+
+
 <script>
 	line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id']; ?>);
 
@@ -109,7 +111,12 @@ left = (loc.left+100-window.innerWidth/2)+"px";
 
 $("#<? echo $_SESSION['current_page']; ?>").addClass('current');
 $("#viewport").scrollTo({top:top1, left:left}, 800);
-/* google_analytics(); */
+google_analytics(); 
 
 </script>
+<div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
+<p>This map shows where you've been in the story so far.  Green pages contain story-related content, blue pages contain instructional content, and gray pages are ones you have not yet visited but have seen a link to at some point in the story.  The map will grow as you explore the story.  You can click on any page you've already visited to go directly to that part of the story.</p>
+<p>(HINT: once you "solve" the story, the entire map will be unlocked and you can visit any page directly from the map.)</p>
+
+</div>
 

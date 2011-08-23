@@ -50,23 +50,16 @@ function main() {
 		url: "ajax/assessmentEm.php",
 /* 		data: "user="+user+"&page="+page, */
 		success: function(phpfile) {
-		/*
-alert(user);
-		alert(page);
-*/
-		$("#assessment").html(phpfile);
-	}
+			$("#assessment").html(phpfile);
+		}
 	
 	
 	});
 
-	/* $("#assessment").load("ajax/assessmentEm.php"); */
-
 	$("#footer li img, #footer li p").css("opacity",".5");
 	$("#page2").hide("slow", function(){$("#page1").fadeIn();});
-	$("#back-button").hide();
 	status = 0;
-	$('#page-instructions').hide();
+	$("#story img, #story p").css("opacity","1"); //makes story bright
 }
 
 function close() {
@@ -116,13 +109,6 @@ function assessment_announce(n) {
 	$("#assessment_announce_window").slideToggle().delay(1000).fadeOut(5000);
 }
 
-function instructions() {
-	$("#fadebackground").fadeIn();
-	$("#popup").fadeIn();
-
-
-}
-
 function google_analytics() {
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-23109189-1']);
@@ -135,65 +121,63 @@ function google_analytics() {
 }
 
 function showPageInstructions() {
-if ($("#page1:visible").length !==0) {return;}
-			else {
-				$("#page-instructions").toggle();
-				if ($("#page-instructions:visible").length !=0) {instructionsShowing = true;}
-				else {instructionsShowing = false;}
-				$.ajax({
-					type: 	"POST",
-					url:	"actions/instructionsShowing.php",
-					data:	"instructionsShowing="+instructionsShowing,
-					success:function(phpfile){
-						$("#update").html(phpfile);
-					}
-				});
-			}
+
+	$(".page-instructions").toggle();
+	if ($(".page-instructions:visible").length !=0) {instructionsShowing = true; $("#instructionsToggle").removeClass('notShowingInstructions').addClass('showingInstructions');}
+	else {instructionsShowing = false;$("#instructionsToggle").removeClass('showingInstructions').addClass('notShowingInstructions');}
+	$.ajax({
+		type: 	"POST",
+		url:	"actions/instructionsShowing.php",
+		data:	"instructionsShowing="+instructionsShowing,
+		success:function(phpfile){
+			$("#update").html(phpfile);
+		}
+	});
+			
 }
 
 $(document).ready(function(){
 	Scroller('viewport');
-	Scroller('instructions');
 	google_analytics();
 	$("a.tracker").click(function(){
 		_gaq.push(['_trackEvent', 'Navigation link', this.id, this.id+' navigation link was clicked']);
 	});
 	$("#page1").show();
-	$("#page-instructions").draggable();
+	$(".page-instructions").live("mouseover", function(){ $(this).draggable().resizable();}); //one day I need to make it resizable
+	$("#story img, #story p").css("opacity","1"); //makes story bright at the beginning
+
 	//footer event listner
 	$("#footer li").click(function(){
 		$("textarea, :input").blur();
 		_gaq.push(['_trackEvent', 'Footer', this.id, this.id+' in the footer was clicked.']);
 		if (status !== this.id) {
-		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0});}
-			else {$("#page2").css({"margin-left":"-350px", "left":"50%"});}
+		
+		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0, "padding" :240});}
+			else {$("#page2").css({"margin-left":"-350px", "left":"50%", "padding" : 0});}
 		
 		$("#footer li img, #footer li p").css("opacity","0.5");
 		
-		if ($("#page1:visible").length !== 0) {
+		if ($("#page1:visible").length !== 0) { // if page 1 is visible
+			if (this.id=="story") {return;}
 			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
-			$("#back-button").show();
 			$("#page1").hide("fast", function(){$("#page2").show();});
 			$("#page2").load("ajax/"+this.id+".php");
-			$("#page-instructions-text").html($('.'+this.id+'Instructions').html());
-			if (instructionsShowing== true) {$("#page-instructions").show();}
+			
 			status = this.id;
 		}
-		else {
+		else { // if the page is not visible
+			if (this.id=="story") {main();return;}
 			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
-			$("#page-instructions").hide();
+			
 			$("#page2").html(" ");
 			$("#page2").hide("fast",function(){$("#page2").show();});
 			$("#page2").load("ajax/"+this.id+".php");
-			$("#page-instructions-text").html($('.'+this.id+'Instructions').html());
-			if (instructionsShowing == true) {$("#page-instructions").show();}
 			status = this.id;
 		}
 		}
 		else {main();}
 	});
 
-	$("#back-button").click(function(){$("textarea, :input").blur();main();}); //back button event listener
 	
 	/*  key listener */
 	$('html').keyup(function(event) {
@@ -219,12 +203,7 @@ $(document).ready(function(){
 	
 	});//escape key event listener
 	
-		
-	$("#options-button").click(function() { // options-button event listener
-		$("textarea, :input").blur();
-		$("#fadebackground").fadeIn();
-		$("#user").slideToggle("slow");
-	});
+	$("#instructionsToggle").click(function(){showPageInstructions();});
 		
 	$("#fadebackground,.close-icon").click(function(){close();}); //close event listener
 	$("#mainMenu").click(function(){window.location="../dashboard/index.php";});//main menu event listener
@@ -234,29 +213,10 @@ $(document).ready(function(){
 		
 		definition(this);
 	});
-	//ajax loading div
-/* 	$("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();}); */
-
+	
 	$('#ajax').hide().ajaxStart(function() {$(this).css({"opacity": "0.7"}).fadeIn();}).ajaxStop(function() {$(this).fadeOut();});
 	
-	$("#viewinstructions").click(function(){$("#user").hide();instructions();});
-	$("#progressClear").click(function(){
-		var answer = confirm("This action cannot be undone. All your progress will be erased. Are you sure you want to clear your progress? ")
-		if(answer) {
-			$("#update").load("actions/progressClear.php");
-		}
-		else {}
-	
-	});
-	$("#assessmentClear").click(function(){
-		var answer = confirm("This action cannot be undone. All your answers will be erased. Are you sure you want to clear your answers? ")
-		if(answer) {
-			$("#update").load("actions/assessmentClear.php");
-		}
-		else {}
-	
-	});
-	
+
 	$(":input, textarea").live('change', function(){
 		update_answer(user,this.name,this.value,module);
 	});

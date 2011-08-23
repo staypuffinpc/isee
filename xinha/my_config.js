@@ -88,8 +88,7 @@ xinha_init = xinha_init ? xinha_init : function()
    xinha_config.stylistLoadStylesheet(_editor_url + "../styles/stylist.css", {
    	'div.example' : 'Example',
    	'div.frontmatter' : 'Front Matter',
-   	'div.exampleinaction' : 'DO NOT USE',
-   	'div.image' : 'Image',
+	
    	'div.figure' : 'Figure',
    	'div.essentialquestion' : 'Essential Question',
    	'div.review' : 'Review',

@@ -36,5 +36,10 @@ do { ?>
 
 
 ?>
-</table><script>	google_analytics();
+</table>
+<div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
+<p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
+</div>
+
+<script>	google_analytics();
 </script>

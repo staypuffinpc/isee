@@ -18,6 +18,12 @@ $query = "Select * from Classes where class_id = '$class_id'";
 $run = mysql_query($query) or die(mysql_error());
 $class = mysql_fetch_assoc($run);
 
+$query = "Select * from Class_Modules JOIN Modules on Modules.module_id = Class_Modules.module_id JOIN Users on Modules.module_creator = Users.user_id where class_id = '$class_id'";
+$run = mysql_query($query) or die(mysql_error());
+
+$query = "Select * from Class_Members Join Users on Class_Members.user_id = Users.user_id where class_id = '$class_id'";
+$members = mysql_query($query) or die(mysql_error());
+
 
 ?>
 <!DOCTYPE html>
@@ -31,6 +37,7 @@ $class = mysql_fetch_assoc($run);
 <title>Class Management : <? echo $class['class_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="class.css" rel="stylesheet" type="text/css" />
+<link href="assessment-data.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
@@ -45,11 +52,55 @@ $class = mysql_fetch_assoc($run);
 </div><!--  end header div -->
 <div id="viewport">
 	<div class="content" id="page1">
-	This is some content.
+	<div id='story-list'>
+	<a class='dbutton' id='add-story'>Add More Stories</a>
+
+	<?
+	while ($modules = mysql_fetch_assoc($run)) {
+		
+		echo "<div class='story'>";
+		echo "<a class='module choice' id='".$modules['module_id']."'>";
+		echo "<img src=' ../../img/books.png' />";
+		echo "<h5>".$modules['module_name']."</h5>";
+		echo "<h6>".$modules['user_name']."</h6>";
+		
+		echo "</a></div>";
+	}
+	mysql_data_seek($run, 0);
+	?>
+	<pre>
+	<?
+	?>
+	</pre>
 	
 	</div>
+	<div id='user-data'>
+	</div>
+	</div>
 	<div class="content" id="page2">
+	<table>
+		<tr>
+			<td>Name</td>
+			<? 
+			while ($modules = mysql_fetch_assoc($run)) {
+				echo "<td>".$modules['module_name']."<td>";
+			}
+			?>
+			<td>Email</td>
+		</tr>
 	
+	</table>
+	
+	<?
+	
+	while ($results = mysql_fetch_assoc($members)) {
+		echo $results['user_name']."<br /";
+	
+	
+	}
+	
+	
+	?>
 	
 	</div>
 
@@ -58,8 +109,10 @@ $class = mysql_fetch_assoc($run);
 	<ul>
 	<li>Class Information</li>
 	<li>Class Members</li>
-	<li>Main Menu</li>
+	<li><a href='../index.php'>Main Menu</a></li>
 	</ul>
 
 </div>
+	<div id="fadebackground"></div>
+	<div id="popup"><div class="close-icon"></div><div id="popup-content"></div></div>
 

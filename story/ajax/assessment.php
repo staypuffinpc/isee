@@ -93,6 +93,10 @@ else {echo "<img class='answer-img closed' id='".$assessment['assessment_id']."'
 
 </table>
 </div>
+<div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
+<p>This assessment is like a worksheet that you need to complete by reading through the story.  You may answer the questions at any time.  You can unlock the correct answer by visiting the instructional page containing the answer to each question.  Click on the open treasure chest icon to find an explanation of the correct answer.</p>
+</div>
+
 <script>
 $(".closed").click(function(){alert("You have not visited the page containing the answer to this question yet.")});
 $(".opened").click(function(){

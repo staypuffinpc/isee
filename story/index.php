@@ -59,10 +59,12 @@ $(document).ready(function(){
 	<? if (!mysql_num_rows($run)) {?>
 		$("#assessment").hide();
 	
-	<? } ?>
+	<? }
+	$length = strlen($page['page_references']);
+	if ($length<1) {echo "$('#references').hide();";} 
+	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
 	
-	<? if ($instructions) {echo "instructions();";}?> //checks to see if instructions need to be displayed.
-	<? if ($current_assessment > 0) {echo "assessment_announce(".$current_assessment.");"; }
+	if ($current_assessment > 0) {echo "assessment_announce(".$current_assessment.");"; }
 	if ($author) {echo "$('#edit-page, #view-map').show();";} // adds authoring buttons if the user is an author
 	if ($summary) { ?> //shows summary button if it is available to the user
 		$("#summary-button").show().click(function(){window.location="index.php?page_id=<? echo $page['module_summary']; ?>";});
@@ -87,17 +89,26 @@ $(document).ready(function(){
 </head>
 <body>
 <div id="header"><? echo $page['module_name'].": ".$page['page_name']; // Gets Content ?> 
+<a id="home" href="../dashboard/index.php"></a>
+<div id="instructionsToggle" class="
+	<? 
+	if ($user['instructionsShowing'] == "false") {echo 'notShowingInstructions';}
+	else {echo 'showingInstructions';}
+	?>
 
+">?</div>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
+<a id="logoutFromMenu" class="btn" href="../logout.php">Logout</a>
 
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
-		<div id="page-content">
+<!-- 		<div id="page-content"> -->
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['page_summary'] == 2) { include("ajax/summary.php");}?>
 
 		<div id="assessment" class="assessment-content">
-		<h3>Quiz</h3>
+		<div id="check">check your understanding</div>
 		<? 
 		while ($Aresults = mysql_fetch_assoc($run)) {
 			echo "<h4>{$Aresults['assessment_type']}</h4>";
@@ -134,24 +145,35 @@ $(document).ready(function(){
 			?>
 		</div> <!-- end navigation div -->
 
-<? 
-$length = strlen($page['page_references']);
+<div id="references">
+	<div id="references-title">references</div>
+	<? echo $page['page_references']; ?>
+</div>
 
-if ($length>1) { echo "<hr><h3>References</h3>";
-echo $page['page_references']; }?>
+<!-- </div> <!-- end page content div --> 
 
-</div> <!-- end page content div -->
+<div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
 
+<p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['module_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
+<p>The simulation will lead you through the instruction and the story simultaneously.  Story pages present you with an actual context to apply the topics covered in this chapter.  On these pages, you’re given choices of what action you would like to take.  At times, you’ll “step out” of the story and be presented with an instructional page.  Instructional pages are presented “just in time,” to teach you a concept at the moment (or right before) you’ll see that concept play out in the story.</p>
+
+
+
+</div>
 
 </div> <!-- end page1 div -->
 <div class="content" id="page2"></div>
 </div>
+
+
 <div id="footer">
-<a class="adminbtn" id="edit-page">edit page</a>
-<a class="adminbtn" id="view-map">view story map</a>
+
+<a class="btn" id="edit-page">edit page</a>
+<a class="btn" id="view-map">view story map</a>
 <a class="btn" id="summary-button">Go to Summary</a>
 
 	<ul>
+		<li id="story"><div><img src="../img/glossary.png" /></div><p>Story</p></li>
 		<li id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
 <!-- 		<li id="comments"><div><img src="../img/chat.png" /></div>Comments</li> -->
 <!-- 		<li id="journal"><div><img src="images/journal.png" /></div>Journal</li> -->
@@ -163,25 +185,11 @@ echo $page['page_references']; }?>
 
 </div>
 
-<a class="btn" id="back-button">Go Back</a>
-<a class="btn" id="options-button"><img height="12px" style="float:left;" src="../img/configuration.png" />Options</a>
 
 <div id="ajax">Processing<img src="../img/ajax-loader.gif" /></div>
 <div id="fadebackground"></div>
 <div id="update"></div>
 
-<div id="user" class="popup"><div class="close-icon"></div>
-	<a id="viewinstructions" class="btn blockButton">View Instructions</a>
-<div class="explanation">Clicking on this button will clear your history for this story.</div>
-	<a id="progressClear" class="btn blockButton">Clear Progress</a>
-<div class="explanation">Clicking on this button will clear your assessment for this story.</div>
-	<a id="assessmentClear" class="btn blockButton">Clear Quiz</a>
-<div class="explanation">Clicking on this button will take you to the Main Menu.</div>
-	<a id="mainMenu" class="btn blockButton">Main Menu</a>
-<div class="explanation"></div>
-	<a id="logout" class="btn blockButton">Logout</a>
-
-</div> <!-- end user div -->
 <div id="definition" class="popup"><div class="close-icon"></div>
 	<div id="definition-content">
 	Definition goes here.
@@ -195,48 +203,12 @@ echo $page['page_references']; }?>
 		else {echo "You have unlocked ".$current_assessment." answers on the quiz.";}
 	?>
 	<img src="../img/open.png" width="64px" />
-	
-
-
 </div>
-<div id="page-instructions"><a id='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a><div id='page-instructions-text'></div></div>
-<div id="instructionsToggle" class="footerToggle">
-	<? 
-	if ($user['instructionsShowing'] == "false") {echo 'show instructions';}
-	else {echo 'hide instructions';}
-	?>
 
-</div>
+
 <div id="popup" class="popup"><div class="close-icon"></div>
-<div id="popup-content">
-
-<h2>Simulation Instructions</h2>
-<div id="instructions">
-<h4>Overview</h4>
-<p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['module_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
-<p>The simulation will lead you through the instruction and the story simultaneously.  Story pages present you with an actual context to apply the topics covered in this chapter.  On these pages, you’re given choices of what action you would like to take.  At times, you’ll “step out” of the story and be presented with an instructional page.  Instructional pages are presented “just in time,” to teach you a concept at the moment (or right before) you’ll see that concept play out in the story.</p>
-
-<h4>Glossary</h4>
-<div class="glossaryInstructions">
-<p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
-</div>
-<h4>Assessment</h4>
-<div class="assessmentInstructions">
-<p>This assessment is like a worksheet that you need to complete by reading through the story.  You may answer the questions at any time.  You can unlock the correct answer by visiting the instructional page containing the answer to each question.  Click on the open treasure chest icon to find an explanation of the correct answer.</p>
-</div>
-<h4>Progress Map</h4>
-<div class="mapInstructions">
-<p>This map shows where you've been in the story so far.  Green pages contain story-related content, blue pages contain instructional content, and gray pages are ones you have not yet visited but have seen a link to at some point in the story.  The map will grow as you explore the story.  You can click on any page you've already visited to go directly to that part of the story.</p>
-<p>(HINT: once you "solve" the story, the entire map will be unlocked and you can visit any page directly from the map.)</p>
-</div>
-<h4>Appendices</h4>
-<p>These appendices include additional tools to help you learn the material.  Once you have “unlocked” an appendix in the story, it is available at any time throughout the rest of the simulation.</p>
-<h4>Comments</h4>
-<p>Join the discussion!  Use the comments bar to read and react to other students’ thoughts on behaviorism.</p>
-</div>
-
-</div> <!-- end popup-content -->
-</div>
+<div id="popup-content"></div> <!-- end popup-content -->
+</div> <!-- end popup -->
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-23109189-1']);

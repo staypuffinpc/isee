@@ -1,16 +1,19 @@
 div.caption {
+	clear: both;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	font-style: italic;
 	font-size: 10px;
 }
 
 div.objective {
+	clear: both;
 	font-weight: bold;
 	font-family: Arial, Helvetica, Verdana, sans-serif;
 	color: red;
 }
 
 .keyterm {
+	clear: both;
 	border-bottom-color: #191919;
 	border-bottom-style: dotted;
 	border-bottom-width: 1px;
@@ -19,6 +22,7 @@ div.objective {
 }
 
 div.frontmatter {
+	clear: both;
 	font-style: italic;
 	margin-left: 30px;
 	margin-bottom: 0px;
@@ -31,6 +35,7 @@ div.frontmatter {
 }
 
 div.summary {
+	clear: both;
 	margin: 30px;
 	color: #336699;
 	font-weight: bold;
@@ -41,6 +46,7 @@ div.summary {
 }
 
 div.casestudy {
+	clear: both;
 	margin: 30px;
 	padding: 10px;
 	position: relative;
@@ -54,6 +60,7 @@ div.casestudy {
 }
 
 div.essentialquestion {
+	clear: both;
 	margin: 20px;
 	position: relative;
 	font-family: "Times New Roman", Georgia, Times, serif;
@@ -67,6 +74,7 @@ div.essentialquestion {
 }
 
 div.keytakeaway {
+	clear: both;
 	margin: 30px;
 	padding-left: 10px;
 	padding-bottom: 10px;
@@ -82,20 +90,8 @@ div.keytakeaway {
 	border-radius: 8px;
 }
 
-div.exampleinaction {
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
-	border-color: #0099ff;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
-}
-
 div.thoughtprovokingquestion {
+	clear: both;
 	margin: 30px;
 	position: relative;
 	font-family: "Times New Roman", Georgia, Times, serif;
@@ -109,6 +105,7 @@ div.thoughtprovokingquestion {
 }
 
 div.example {
+	clear: both;
 	margin: 30px;
 	position: relative;
 	font-family: "Times New Roman", Georgia, Times, serif;
@@ -122,6 +119,7 @@ div.example {
 }
 
 div.review {
+	clear: both;
 	margin: 30px;
 	position: relative;
 	font-family: "Times New Roman", Georgia, Times, serif;
@@ -135,6 +133,7 @@ div.review {
 }
 
 div.tip {
+	clear: both;
 	margin: 30px;
 	position: relative;
 	font-family: "Times New Roman", Georgia, Times, serif;

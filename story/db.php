@@ -26,7 +26,7 @@ $progress = mysql_fetch_assoc($progress_get_list);
 
 // adds to progress stack
 if ($progress['progress_page'] == NULL) {
-$instructions = true;
+/* $instructions = true; */
 $query_progress_update = "insert into User_Progress (id,progress_user,progress_page, progress_module) values (null,'$user_id','$page_id','$module')"; //mysql query variable
 $list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 }
