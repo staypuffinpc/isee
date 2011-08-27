@@ -67,3 +67,10 @@ height: 250px;
 	z-index: 12;
 	position: absolute;
 }
+
+#findTerms {
+	right: 150px;
+	top: 0px;
+	z-index: 12;
+	position: absolute;
+}

@@ -12,7 +12,7 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 include_once('../db.php');
 $user_id=$_SESSION['user_id'];
 $page_id = $_GET['page_id'];

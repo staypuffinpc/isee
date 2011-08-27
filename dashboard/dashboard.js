@@ -54,7 +54,7 @@ function open(width, height) { //opens popup
 }
 
 function create_story() {
-	if(!$("#module_name").val()) {alert("You must have a story name");$("#module_name_label").css("color" , "red");return false;}
+	if(!$("#story_name").val()) {alert("You must have a story name");$("#story_name_label").css("color" , "red");return false;}
 	
 	data = $("form").serialize();
 	$.ajax({
@@ -120,7 +120,7 @@ var showClassList = function() {
 var showAll = function() {
 	$.ajax({
 		type: "POST",
-		url:	"ajax/module-list.php",
+		url:	"ajax/story-list.php",
 		success:	function(phpfile){
 			$("#storyList").html(phpfile);
 		}
@@ -136,7 +136,7 @@ var enroll = function() {
 		data:	"enroll_code="+enroll_code,
 		success: function(phpfile){
 			$("#update").html(phpfile);
-			$("#storyList").load("ajax/module-list.php");
+			$("#storyList").load("ajax/story-list.php");
 			$("#classList").load("ajax/class-list.php");
 		}
 	

@@ -79,6 +79,8 @@ input {
 	margin-left: 30px;
 }
 
+
+
 #update {
 	right: 3px;
 	font-size: 10px;
@@ -117,6 +119,7 @@ input {
 select {
 	width: 160px;
 }
+/*
 #footer ul {
 	padding: 0px;
 	margin: 0px;
@@ -136,6 +139,7 @@ select {
 	height: 25px;
 	width: 25px;
 }
+*/
 a.dbutton {
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	font-size: 16px;
@@ -176,9 +180,7 @@ a.dbutton:active {
 
 #menu {
 	height: 200px;
-	text-align: center;
-	font-size: 10px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
 	background-color: rgba(51,51,51,0.7);
 	width: 175px;
 	left: 2px;
@@ -205,6 +207,18 @@ a.dbutton:active {
 	font-size: 12px;
 	text-align: left;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+}
+
+#menu input[type=radio]{
+	margin-left:0px;
+}
+
+#menu p {
+	text-align: left;
+	font-size: 10px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	margin: 0px;
+
 }
 
 #menuToggle {
@@ -373,7 +387,7 @@ display: inline;
 
 }
 
-.toolbar {
+.options {
 	text-align: center;
 	border-color: black;
 	border-width: 1px;

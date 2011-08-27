@@ -15,9 +15,9 @@ else {
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 
-$query_terms = "Select * from Terms Where module='$module' ORDER BY term ASC"; //mysql query variable
+$query_terms = "Select * from Terms Where story='$story' ORDER BY term ASC"; //mysql query variable
 $list_terms = mysql_query($query_terms) or die(mysql_error()); //execute query
 $terms = mysql_fetch_assoc($list_terms);//gets info in array
 ?>

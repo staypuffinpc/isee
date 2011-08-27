@@ -18,11 +18,11 @@ if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
 if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
 
 
-if (!isset($_GET['module'])) {$module=$_SESSION['module'];}
+if (!isset($_GET['story'])) {$story=$_SESSION['story'];}
 else {
-$module = $_GET['module'];
+$story = $_GET['story'];
 
-$_SESSION['module'] = $module;}
+$_SESSION['story'] = $story;}
 include_once("db.php");
 
 
@@ -30,7 +30,7 @@ include_once("db.php");
 ?>
 <html>
 <head>
-<title><? echo $module_info['module_topic']; ?>: <? echo $module_info['module_name']; ?></title>
+<title><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
@@ -42,7 +42,7 @@ include_once("db.php");
 <script type="text/javascript">
     _editor_url  = "../xinha/";  // (preferably absolute) URL (including trailing slash) where Xinha is installed
     _editor_lang = "en";      // And the language we need to use in the editor.
-/*     _editor_skin = "blue-look";   // If you want use a skin, add the name (of the folder) here */
+    _editor_skin = "blue-metallic";   // If you want use a skin, add the name (of the folder) here
   </script>
   <script type="text/javascript" src="../xinha/XinhaCore.js"></script>
   <script type="text/javascript" src="../xinha/my_config_term.js"></script>
@@ -58,7 +58,7 @@ include_once("db.php");
 
 <script type="text/javascript">
 var lowest = 0; var rightest = 0;
-<? if ($module == NULL) {?>
+<? if ($story == NULL) {?>
 window.location = "../dashboard/";
 <?
 }
@@ -70,24 +70,25 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 </script>
 </head>
 <body id="mainbody">
-<div id="header"><? echo $module_info['module_topic']; ?>: <? echo $module_info['module_name']; ?>
+<div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
+<a id="home" href='../dashboard/index.php'></a>
 <a class="btn" id="logoutFromMenu">Logout</a>
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
 
 </div>
 
 <div id="toolbar">
-<a class="btn" id="menu" href="../dashboard/">Main Menu</a>
 <a class="btn" id="edit">Edit Story Info</a>
 <a class="btn" id="permissions">Permissions</a>
-<a class="btn" id="assessment" href="assessment/index.php?module=<? echo $module; ?>">Edit Quiz</a>
-<!-- <a class="btn" id="assessment_data">View Assessment Data</a> -->
+<a class="btn" id="worksheet" href="worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
+<a class="btn" id="quiz" href="quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
 <a class="btn" id="terms">Edit Terms</a>
 <a class="btn" id="new_page">Add New Page</a>
 </div>
+
 <?
 
-do { 
+while ($pages = mysql_fetch_assoc($list_pages)) { 
 if (strlen($pages['page_name'])>20 && strlen($pages['page_name'])>0){$page_name = substr($pages['page_name'],0,17)." . . ." ;}
 else {$page_name=$pages['page_name'];}
 if ($pages['page_type']=="Story") {$type_class="story";}
@@ -97,10 +98,14 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 ?> 
 <div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>;left:<? echo $pages['page_left']; ?>" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
-	<div title="View this page in the story." class="goto-page"><a href="../story/index.php?page_id=<? echo $pages['id'];?>&module=<? echo $module; ?>"><img src="../img/external.png" /></a></div>
+	<div title="View this page in the story." class="goto-page"><a href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"><img src="../img/external.png" /></a></div>
 	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"><img src="../img/edit.png" /></div>
 	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
 	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Connection"></div>
+	<?
+	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish'>Start</div>";}
+	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='finish' class='start-finish'>Finish</div>";}
+	?>
 </div>
 <script> 
 	if (<? echo $pages['page_top']; ?> > lowest) {lowest = <? echo $pages['page_top']; ?>;} 
@@ -110,11 +115,11 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 	</script>
 	
 
-<? } while ($pages = mysql_fetch_assoc($list_pages));
+<? } /* end while */
 ?>
 
 <?
-do { ?>
+while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 
 <div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div>
 
@@ -124,7 +129,7 @@ do { ?>
 
 </script>
 
-<? } while ($relations = mysql_fetch_assoc($list_page_relations));
+<? } /* end while */
 ?>
 
 <!-- <div id="newpage" class="page" style="top:40;left:450;z-index=99">New Page</div> -->

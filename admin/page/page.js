@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-/* assessment listeners */
+/* worksheet listeners */
 $("#item-list").sortable({
 	start: function(event, ui){$(".ui-state-highlight").css("height", $(ui.helper).height());},
 	helper: "clone",
@@ -20,9 +20,10 @@ $(".ce").live("blur", function(){
 	item = this;
 	text = $(this).html();
 	info=$(this).attr("class").split(" ");
+	if (info[1] == "response") {text = $(this).parent().html();console.log(text);}
 	$.ajax({
 		type: "POST",
-		url: "../assessment/actions/updateItem.php",
+		url: "../worksheet/actions/updateItem.php",
 		data: "text="+text+"&field="+info[1]+"&id="+info[2],
 		success: function(phpfile) {
 			$("#update").html(phpfile);
@@ -35,7 +36,7 @@ $("select").live("change", function(){
 	page = $(this).val();
 	$.ajax({
 		type: "POST",
-		url: "../assessment/actions/updatePage.php",
+		url: "../worksheet/actions/updatePage.php",
 		data: "id="+id+"&page="+page,
 		success: function(phpfile) {
 			$("#update").html(phpfile);
@@ -50,17 +51,15 @@ $("input[type=checkbox]").live("change", function(){
 	id = $(this).attr("class");
 	if ($(this).attr("checked") == "checked") {
 		embedded = 1;
-		$(this).parent().parent().prev().prev().prev().prev().prev().prev().html("embedded").css({"padding": "1px", "display": "none"});
 	} 
 	else {
 	embedded = 0;
-			$(this).parent().parent().prev().prev().prev().prev().prev().prev().html("").css({"padding": "0px", "display": "none"});
 
 	}
 	
 	$.ajax({
 		type: "POST",
-		url: "../assessment/actions/updateEmbedded.php",
+		url: "../worksheet/actions/updateEmbedded.php",
 		data: "embedded="+embedded+"&id="+id,
 		success: function(phpfile) {
 			$("#update").html(phpfile);
@@ -84,11 +83,11 @@ $(".newItem").live("click", function(){
 	embedded = '1';
 	$.ajax({
 		type: "POST",
-		url: "../assessment/actions/newItem.php",
+		url: "../worksheet/actions/newItem.php",
 		data: "type="+type+"&embedded="+embedded,
 		success: function(phpfile) {
 			$("#update").html(phpfile);
-			$("ul#item-list").load("ajax/assessmentList.php");
+			$("ul#item-list").load("../page/ajax/worksheetList.php");
 		}
 	});
 });
@@ -97,12 +96,12 @@ $(".delete").live("click", function(){
 	var item=this;
 	var answer = confirm("This action cannot be undone.Are you sure you want to delete this item? ")
 	if(answer){
-	assessment_id = this.id.substr(6);
+	worksheet_id = this.id.substr(6);
 	$(this).parent().remove();
 	$.ajax({
 		type: "POST",
-		url: "../assessment/actions/delete_item.php",
-		data: "assessment_id="+assessment_id,
+		url: "../worksheet/actions/delete_item.php",
+		data: "worksheet_id="+worksheet_id,
 		success: function(phpfile){
 			$("#update").html(phpfile);
 			updateOrder();
@@ -116,7 +115,7 @@ $("html").keyup(function(e){
 	
 });
 
-/* end of assessment listeners. */
+/* end of worksheet listeners. */
 
 	height = $("#hiddenDiv").height();
 	$("textarea#content").css({"height":height});
@@ -255,7 +254,7 @@ function close() {
 	$("#popup, #fadebackground").fadeOut();
 }
 
-function update_page() { // loads php to update module
+function update_page() { // loads php to update story
 	$('form').submit();
 	$.ajax({
 		type: "POST",
@@ -266,13 +265,13 @@ function update_page() { // loads php to update module
 			}
 		});
 }
-function update_exit(left, top) { // loads php to update module
+function update_exit(left, top) { // loads php to update story
 	update_page();
 	setTimeout("window.location='../index.php?left="+left+"&top="+top+"'",1000);
 
 }
 
-function view(page_id) { // loads php to update module
+function view(page_id) { // loads php to update story
 		$('form').submit();
 	$.ajax({
 		type: "POST",
@@ -305,7 +304,7 @@ console.log("updating order");
 
 		$.ajax({
 			type: "POST",
-			url: "../assessment/actions/update_order.php",
+			url: "../worksheet/actions/update_order.php",
 			data: data,
 			success: function(phpfile){
 			$("#update").append(phpfile);}

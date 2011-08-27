@@ -17,7 +17,7 @@ $term_id = $_POST['term_id'];
 include_once('../../authenticate.php');
 
 $user_id=$_SESSION['user_id'];
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 
 
 $query_definition = "Select * from Terms Where term_id='$term_id'"; //mysql query variable

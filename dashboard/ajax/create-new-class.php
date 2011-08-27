@@ -15,8 +15,8 @@ $link=connect(); //call function from external file to connect to database
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-$query = "Select * From Modules JOIN Users on Modules.module_creator = Users.user_id";
-$list_modules = mysql_query($query) or die(mysql_error()); //execute query
+$query = "Select * From Stories JOIN Users on Stories.story_creator = Users.user_id";
+$list_stories = mysql_query($query) or die(mysql_error()); //execute query
 
 ?>
 <h2>New Class</h2>
@@ -38,15 +38,15 @@ $list_modules = mysql_query($query) or die(mysql_error()); //execute query
 	<td width="400px">
 		<select id='stories' name='stories[]' multiple='multiple' class='inputClass'>
 	<? 
-	while ($modules = mysql_fetch_assoc($list_modules)) { 
+	while ($stories = mysql_fetch_assoc($list_stories)) { 
 	
-	$query = "Select * from Author_Permissions where user_id=$user_id and module_id=".$modules['module_id']; //mysql query variable
+	$query = "Select * from Author_Permissions where user_id=$user_id and story_id=".$stories['story_id']; //mysql query variable
 	$list_query = mysql_query($query) or die(mysql_error()); //execute query
 	$results = mysql_fetch_assoc($list_query);//gets info in array
 
-	if ($modules['module_privacy'] == "Public" || $modules['module_creator'] == $user['user_id'] || $user['role'] == "Admin" || $results['id']) {
+	if ($stories['story_privacy'] == "Public" || $stories['story_creator'] == $user['user_id'] || $user['role'] == "Admin" || $results['id']) {
 
-	echo "<option value='".$modules['module_id']."'>".$modules['module_name']."</option>";
+	echo "<option value='".$stories['story_id']."'>".$stories['story_name']."</option>";
 	
 	}
 }

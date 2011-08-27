@@ -19,16 +19,16 @@ $role = $_SESSION['role'];
 <form>
 <table>
 <tr>
-	<td width="150px" id="module_name_label">Name:</td>
-	<td width="200px"><input id="module_name" name="module_name" type="text" width="400px" value="" /></td>
+	<td width="150px" id="story_name_label">Name:</td>
+	<td width="200px"><input id="story_name" name="story_name" type="text" width="400px" value="" /></td>
 </tr>
 <tr>
 	<td id="topic">Topic:</td>
-	<td><input id="module_topic" name="module_topic" type="text" cols="40" value=""/></td>
+	<td><input id="story_topic" name="story_topic" type="text" cols="40" value=""/></td>
 		
 </tr>
 </table>
 <br />
 </form>
-<script>$("#module_name").focus();</script>
+<script>$("#story_name").focus();</script>
 <a class="btn" onclick="create_story();">Create Story</a>

@@ -18,7 +18,7 @@ $query = "Select * from Classes where class_id = '$class_id'";
 $run = mysql_query($query) or die(mysql_error());
 $class = mysql_fetch_assoc($run);
 
-$query = "Select * from Class_Modules JOIN Modules on Modules.module_id = Class_Modules.module_id JOIN Users on Modules.module_creator = Users.user_id where class_id = '$class_id'";
+$query = "Select * from Class_Stories JOIN Stories on Stories.story_id = Class_Stories.story_id JOIN Users on Stories.story_creator = Users.user_id where class_id = '$class_id'";
 $run = mysql_query($query) or die(mysql_error());
 
 $query = "Select * from Class_Members Join Users on Class_Members.user_id = Users.user_id where class_id = '$class_id'";
@@ -30,14 +30,14 @@ $members = mysql_query($query) or die(mysql_error());
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<meta name = "viewport" content = "initial-scale=1.0; maximum-scale=1.0; user-scalable=0; width=device-width;">
+<meta name = "viewport" content = "initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width">
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
 <title>Class Management : <? echo $class['class_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="class.css" rel="stylesheet" type="text/css" />
-<link href="assessment-data.css" rel="stylesheet" type="text/css" />
+<link href="worksheet-data.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
@@ -56,13 +56,13 @@ $members = mysql_query($query) or die(mysql_error());
 	<a class='dbutton' id='add-story'>Add More Stories</a>
 
 	<?
-	while ($modules = mysql_fetch_assoc($run)) {
+	while ($stories = mysql_fetch_assoc($run)) {
 		
 		echo "<div class='story'>";
-		echo "<a class='module choice' id='".$modules['module_id']."'>";
+		echo "<a class='story choice' id='".$stories['story_id']."'>";
 		echo "<img src=' ../../img/books.png' />";
-		echo "<h5>".$modules['module_name']."</h5>";
-		echo "<h6>".$modules['user_name']."</h6>";
+		echo "<h5>".$stories['story_name']."</h5>";
+		echo "<h6>".$stories['user_name']."</h6>";
 		
 		echo "</a></div>";
 	}
@@ -82,8 +82,8 @@ $members = mysql_query($query) or die(mysql_error());
 		<tr>
 			<td>Name</td>
 			<? 
-			while ($modules = mysql_fetch_assoc($run)) {
-				echo "<td>".$modules['module_name']."<td>";
+			while ($stories = mysql_fetch_assoc($run)) {
+				echo "<td>".$stories['story_name']."<td>";
 			}
 			?>
 			<td>Email</td>

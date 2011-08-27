@@ -308,17 +308,29 @@ img.image {
 }
 
 #footer li {
+	padding-left: 0px;
+	padding-right: 0px;
 	position: relative;
-	width: 100px;
+	width: 80px;
 	text-align: center;
 	margin: 0px;
 	list-style-type: none;
 	display: inline-block;
-	padding: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	cursor: pointer;
 /* 	opacity: .6; */
 }
 
+#footer li:hover {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url(../img/footer_highlight.png);
+	 
+}
+
+
+                                                                                                     
 #footer li img {
 	height: 25px;
 	width: 25px;
@@ -478,4 +490,168 @@ a#home:hover {
 	
 	}
 
-                                                                                                     
+.page-instructions {
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	left: 10px;
+	font-style: normal;
+	font-weight: normal;
+	text-align: left;
+	font-size: 16px;
+	z-index: 100;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	color: black;
+	background-color: #ffff99;
+	width: 200px;
+	top: 50px;
+	position: fixed;
+		text-shadow: #6374AB 0px 0px 0px;
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+}
+
+.page-instructions a {
+	margin-left: -10px;
+	margin-bottom: 10px;
+	margin-right: -10px;
+	margin-top: -10px;
+	position: relative;
+	font-size: 12px;
+	text-align: center;
+	color: #999999;
+	width: 220px;
+	display: block;
+	border-bottom-color: #999999;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+.page-instructions p {
+	text-align: left;
+	font-size: 14px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 10px;
+	padding: 0px;
+}
+
+#instructionsToggle {
+	margin-left: 2px;
+	margin-bottom: 2px;
+	margin-right: 4px;
+	margin-top: 4px;
+	font-size: 18px;
+	text-shadow: none;
+	padding: 2px;
+	top: 0px;
+	height: 20px;
+	width: 20px;
+	line-height: 18px;
+	position: absolute;
+	right: 0px;
+	border-radius: 16px;
+	cursor: pointer;
+	
+}
+
+.notShowingInstructions {
+	color: #ffffff;
+	background-color: black;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#000000));
+    background-image: -moz-linear-gradient(#333333,#000000);
+	border: white 2px solid;
+}
+
+.showingInstructions {
+	color: #333333;
+	background-color: white;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
+	background-image: -moz-linear-gradient(#cccccc,#ffffff);
+	border: black 2px solid;
+}
+
+#help {
+	display: none;
+	color: white;
+	font-size: 14px;
+	             
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	             
+	z-index: 999;
+	right: 20px;
+	left: 20px;
+	bottom: 80px;
+	top: 40px;
+	padding: 10px 20px;
+	position: absolute;
+	border-radius: 12px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	text-shadow: #000000 0px 0px 10px;
+}
+
+#help h1 {
+	font-size: 18px;
+	text-align: center;
+	margin: 0px;
+	color: white;
+	padding: 0px;
+}
+#help h2 {
+	font-size: 14px;
+	text-align: center;
+	margin: 0px;
+	color: white;
+	padding: 0px;
+}
+
+div.keyboardShortcuts {
+
+
+	padding: 3px;
+
+
+	margin-right: auto;
+
+
+	margin-left: auto;
+
+
+	max-width: 600px;
+
+
+}
+table.shortcuts {
+
+}
+table.shortcuts td {
+	width: 180px;
+
+}
+table.shortcuts td:first-child, table.shortcuts td:nth-child(3) {
+text-align: right;
+font-weight: bold;
+width: 100px;
+}
+table.shortcuts tr:first-child td {
+font-weight: bold;
+color: yellow;
+padding-top:15px;
+}
+
+
+
+.key {
+	color: yellow;
+}
+

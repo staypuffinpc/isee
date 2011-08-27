@@ -5,8 +5,8 @@ $("document").ready(function(){
 
 var showData = function(){
 	open(800,600);
-	module = this.id;
-	$("#popup-content").load("ajax/assessment-data.php?module="+module);
+	story = this.id;
+	$("#popup-content").load("ajax/worksheet-data.php?story="+story);
 }
 
 function open(width, height) {

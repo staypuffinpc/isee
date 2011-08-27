@@ -14,7 +14,7 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */ //authenticates
 
 $user_id = $_SESSION['user_id'];//gets user info
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 $term = $_POST['term'];
 $definition = $_POST['definition'];
 $term_id = $_POST['term_id'];
@@ -27,7 +27,7 @@ $update = <<<EOF
 	SET 
 		term = "$term", 
 		definition ="$definition",
-		module = $module,
+		story = $story,
 		term_modified_by = $user_id,
 		term_modified_on = NOW()
 		WHERE term_id=$term_id

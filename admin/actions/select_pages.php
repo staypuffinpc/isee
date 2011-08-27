@@ -14,7 +14,7 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
 
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 
 $top = $_POST['top'];
 $left = $_POST['left'];
@@ -27,7 +27,7 @@ $width = $left + $width;
 
 
 /* and page_left >= $left and page_left <= $width */
-$query = "Select * from Pages where page_top >= $top and page_top < $height and page_left >= $left and page_left < $width and module=$module";
+$query = "Select * from Pages where page_top >= $top and page_top < $height and page_left >= $left and page_left < $width and story=$story";
 $results = mysql_query($query) or die(mysql_error()); //execute query
 
 while ($pages = mysql_fetch_assoc($results)) {

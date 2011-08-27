@@ -12,7 +12,7 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 
 
 
@@ -23,11 +23,11 @@ $user_name = $_POST['searchForAuthor'];
 
 
 
-$query = "select * from Author_Permissions where user_id = $user_id and module_id = $module";
+$query = "select * from Author_Permissions where user_id = $user_id and story_id = $story";
 $list = mysql_query($query) or die(mysql_error()); 
 $results = mysql_fetch_assoc($list);//gets info in array
 if (!$results['id']) {
-	$query = "Insert into Author_Permissions (user_id, module_id) values ($user_id, $module)";
+	$query = "Insert into Author_Permissions (user_id, story_id) values ($user_id, $story)";
 	$list = mysql_query($query) or die(mysql_error()); //execute query
 	echo "Author ".$user_name." Added!";
 }

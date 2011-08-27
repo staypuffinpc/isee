@@ -22,7 +22,7 @@ $run = mysql_query($query) or die(mysql_error()); //execute query
 $lastItemID = mysql_insert_id();
 
 foreach($_POST['stories'] as $key=>$value ) {
-$query = "Insert into Class_Modules (class_id, module_id) Values ('$lastItemID', '$value')";
+$query = "Insert into Class_Stories (class_id, story_id) Values ('$lastItemID', '$value')";
 $run = mysql_query($query) or die(mysql_error());
 
 }

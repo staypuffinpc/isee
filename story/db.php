@@ -4,9 +4,9 @@ $query_user = "Select * from Users where user_id='$user_id'"; //mysql query vari
 $list_user = mysql_query($query_user) or die(mysql_error()); //execute query
 $user = mysql_fetch_assoc($list_user);//gets info in array
 
-//get current_page data JOIN Modules on Pages.module = Modules.module_name
+//get current_page data JOIN Stories on Pages.story = Stories.story_name
 $query_page = "SELECT * FROM Pages 
-JOIN Modules on Pages.module = Modules.module_id
+JOIN Stories on Pages.story = Stories.story_id
 WHERE Pages.id=".$page_id.""; //mysql query variable
 $list_page = mysql_query($query_page) or die(mysql_error()); //execute query
 $page = mysql_fetch_assoc($list_page);//gets info in array
@@ -20,32 +20,32 @@ $list_nav = mysql_query($query_nav) or die(mysql_error()); //execute query
 //end get navigation buttons
 
 //query to get progress
-$progress_get = "Select * from User_Progress where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+$progress_get = "Select * from User_Progress where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 $progress_get_list = mysql_query($progress_get) or die(mysql_error()); //execute query
 $progress = mysql_fetch_assoc($progress_get_list);
 
 // adds to progress stack
 if ($progress['progress_page'] == NULL) {
 /* $instructions = true; */
-$query_progress_update = "insert into User_Progress (id,progress_user,progress_page, progress_module) values (null,'$user_id','$page_id','$module')"; //mysql query variable
+$query_progress_update = "insert into User_Progress (id,progress_user,progress_page, progress_story) values (null,'$user_id','$page_id','$story')"; //mysql query variable
 $list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 }
 else {
 $new_page = $progress['progress_page'].", ".$page_id;
-$query_progress_update = "Update User_Progress set progress_page='$new_page' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+$query_progress_update = "Update User_Progress set progress_page='$new_page' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 $list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 $instructions = false;
 }
 
 //adds to story stack
 if ($page['page_type'] == "Story") {
-	if ($progress['progress_story'] == NULL) {
-		$query_progress_update = "Update User_Progress Set progress_story='$page_id' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+	if ($progress['progress_story_pages'] == NULL) {
+		$query_progress_update = "Update User_Progress Set progress_story_pages='$page_id' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 	else {
-		$new_page = $progress['progress_story'].", ".$page_id;
-		$query_progress_update = "Update User_Progress set progress_story='$new_page' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+		$new_page = $progress['progress_story_pages'].", ".$page_id;
+		$query_progress_update = "Update User_Progress set progress_story_pages='$new_page' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 }
@@ -53,12 +53,12 @@ if ($page['page_type'] == "Story") {
 //adds to appendix stack
 if ($page['page_type'] == "Appendix") {
 	if ($progress['progress_appendix'] == NULL) {
-		$query_progress_update = "Update User_Progress Set progress_appendix='$page_id' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+		$query_progress_update = "Update User_Progress Set progress_appendix='$page_id' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 	else {
 		$new_page = $progress['progress_appendix'].", ".$page_id;
-		$query_progress_update = "Update User_Progress set progress_appendix='$new_page' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+		$query_progress_update = "Update User_Progress set progress_appendix='$new_page' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 }
@@ -66,19 +66,19 @@ if ($page['page_type'] == "Appendix") {
 //adds to teaching stack
 if ($page['page_type'] == "Teaching") {
 	if ($progress['progress_teaching'] == NULL) {
-		$query_progress_update = "Update User_Progress Set progress_teaching='$page_id' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+		$query_progress_update = "Update User_Progress Set progress_teaching='$page_id' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 	else {
 		$new_page = $progress['progress_teaching'].", ".$page_id;
-		$query_progress_update = "Update User_Progress set progress_teaching='$new_page' where progress_user='$user_id' and progress_module='$module'"; //mysql query variable
+		$query_progress_update = "Update User_Progress set progress_teaching='$new_page' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
 	}
 }
 
 //look for summary
 $visited_pages = explode(", ", $progress['progress_page']);
-if (in_array($page['module_summary'], $visited_pages)){$summary=true;}else {$summary = false;}
+if (in_array($page['story_summary'], $visited_pages)){$summary=true;}else {$summary = false;}
 $n = count($visited_pages)-1;
 
 do {
@@ -93,28 +93,28 @@ do {
 } while ($n>0);
 
 /* Find out how many questions have yet to be answered */
-$query_assessment = "Select id from User_Assessment where user_id='$user_id' and module='$module'"; //mysql query variable
-$list_assessment = mysql_query($query_assessment) or die(mysql_error()); //execute query
-$assessment = mysql_fetch_assoc($list_assessment);//gets info in array
-$assessment_done = mysql_num_rows($list_assessment); //gets number of links
+$query_worksheet = "Select id from User_Worksheet where user_id='$user_id' and story='$story'"; //mysql query variable
+$list_worksheet = mysql_query($query_worksheet) or die(mysql_error()); //execute query
+$worksheet = mysql_fetch_assoc($list_worksheet);//gets info in array
+$worksheet_done = mysql_num_rows($list_worksheet); //gets number of links
 
 
-$query_assessment = "Select assessment_id from Assessment where assessment_module='$module'";
-$list_assessment = mysql_query($query_assessment) or die(mysql_error()); //execute query
-$assessment = mysql_fetch_assoc($list_assessment);//gets info in array
-$assessment_count = mysql_num_rows($list_assessment);
+$query_worksheet = "Select worksheet_id from Worksheet where worksheet_story='$story'";
+$list_worksheet = mysql_query($query_worksheet) or die(mysql_error()); //execute query
+$worksheet = mysql_fetch_assoc($list_worksheet);//gets info in array
+$worksheet_count = mysql_num_rows($list_worksheet);
 
 
-$assessment_count = $assessment_count - $assessment_done;
+$worksheet_count = $worksheet_count - $worksheet_done;
 
-if (in_array($page_id, $visited_pages)){$current_assessment=0;}
+if (in_array($page_id, $visited_pages)){$current_worksheet=0;}
 else {
-	$query_current_assessment = "Select * from Assessment where assessment_page='$page_id'"; //mysql query variable
-	$list_current_assessment = mysql_query($query_current_assessment) or die(mysql_error()); //execute query
-	$current_assessment = mysql_num_rows($list_current_assessment); //gets number of links
+	$query_current_worksheet = "Select * from Worksheet where worksheet_page='$page_id'"; //mysql query variable
+	$list_current_worksheet = mysql_query($query_current_worksheet) or die(mysql_error()); //execute query
+	$current_worksheet = mysql_num_rows($list_current_worksheet); //gets number of links
 }
 /* Checks for author permissions */
-$query="Select * from Author_Permissions where user_id = '$user_id' and module_id = '$module'";
+$query="Select * from Author_Permissions where user_id = '$user_id' and story_id = '$story'";
 $run = mysql_query($query) or die(mysql_error());
 $results = mysql_fetch_assoc($run);
 

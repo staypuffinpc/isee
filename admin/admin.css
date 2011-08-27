@@ -318,8 +318,28 @@ a.pageRightClickOption:hover {
 	background-image: -moz-linear-gradient(#4767E9,#0D36E7);
 }
 
-#update_module {
+#update_story {
 	position: relative;
 	top: 30px;
+}
+
+.start-finish {
+	z-index: 999;
+	padding-left: 5px;
+	padding-bottom: 3px;
+	padding-right: 5px;
+	padding-top: 3px;
+	font-weight: bold;
+	font-size: 14px;
+	color: white;
+	position: absolute;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
+	background-image: -moz-linear-gradient(#ff0000,#cc0000);
+	border: 1px solid white;
+	border-radius: 4px;
+	cursor: pointer;
+	left: 3px;
+	bottom: 3px;
+	height: 17px;
 }
 

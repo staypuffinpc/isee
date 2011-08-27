@@ -27,7 +27,7 @@ var togglePageClass = function(e) {
 
 var logoutFromMenu = function(){window.location="../logout.php";};
 
-var editModule= function(){ 
+var editStory= function(){ 
 	width = 400;
 	height = 300;
 	open(width, height);
@@ -51,13 +51,6 @@ var termPopup = function(){
 	$("#popup-content").load("ajax/term.php");
 };
 
-var assessmentDataPopup = function(e){ // edit button function
-/* 	e.stopPropagation(); */
-	width = 1000;
-	height = 500;
-	open(width, height);
-	$("#popup-content").load("ajax/assessment-data.php");
-};
 
 var newPage = function(){ 
 	unbindThemAll();
@@ -76,7 +69,7 @@ var keyboard = function(e) {if (e.keyCode == '27') //escape event listener
 		if($("#fadebackground:visible").length !==0)
 			{close();} // if a popup is up, this closes it
 		}
-		if (e.keyCode == '112') {$("#update").toggle();}
+		if (e.keyCode == '112') {console.log("update");$("#update").toggle();}
 };
 
 var selectorStart = function(e){
@@ -92,6 +85,7 @@ var selectorStart = function(e){
 
 var selectorMove = function(e){
 	if (mouse_down) {
+		unbindThemAll();
 		right = e.pageX;
 		bottom = e.pageY;
 		width = Math.abs(right-left);
@@ -104,6 +98,7 @@ var selectorMove = function(e){
 			"width":width,
 			"height":height
 		}).show();
+	bindThemAll();
 	}
 return false;
 };
@@ -111,6 +106,7 @@ return false;
 
 var selectorEnd = function(e){
 	if (mouse_down) {
+		unbindThemAll();
 		mouse_down = false;
 		right = e.pageX;
 		bottom = e.pageY;
@@ -141,7 +137,8 @@ var selectorEnd = function(e){
 					url: "actions/select_pages.php",
 					data: "top="+t+"&left="+l+"&width="+width+"&height="+height,
 					success: function(phpfile){
-					$("#update").html(phpfile);}
+					$("#update").html(phpfile);
+					bindThemAll();}
 				});
 		return false;
 	}
@@ -198,6 +195,7 @@ var relatePage = function(){
 var closeOnClick = function(){close();}; 
 
 var termChange = function(){
+	unbindThemAll();
 	console.log("function triggered");
 	$('#edit_this_term').submit();
 	value=$('#edit_this_term').serialize();
@@ -214,6 +212,7 @@ var termChange = function(){
 		data: value,
 		success: function(phpfile){
 		$("#update-status").html(phpfile);
+		bindThemAll();
 		}
 	});
 };
@@ -221,13 +220,14 @@ var termChange = function(){
 var closeOnClick = function(){close();}; 
 
 var newTerm = function() {
+	unbindThemAll();
 	console.log("new term clicked");
 	$.ajax({
 		type: "POST",
 		url: "actions/new_term.php",
 		success: function(phpfile){
 		$("#popup-content").load('ajax/term.php?term='+phpfile);
-		
+		bindThemAll();
 		}
 	});
 
@@ -245,28 +245,20 @@ var editTerm = function() {
 	id = this.id;
 	openInTermEditor(id);
 }
-/* --------------------------end-handlers--------------------------- */
 
-resizeGrid(lowest, rightest);
-$(window).resize(function(){
-	resizeGrid(lowest, rightest);
-});
-
-$("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();});
-
-
-$(".page").bind("contextmenu", function(e){
-	currentPageId = this.id;
-	console.log(currentPageId);
-	$("#pageRightClick").css({
-	"left" : e.pageX,
-	"top" : e.pageY	
-	}).show();
-	return false;
-});
-
+var startMover = function(e) {
+/* 	$(".page").draggable("disabled",true); */
+	$(this).draggable({
+	revert: "invalid",
+	start: function(event, ui){unbindThemAll();},
+	stop: function(event, ui){bindThemAll();/* $(".page").draggable("disabled", false) */;}
+	
+	});
+		
+}
 /* actions for dragging pages */
-$(".page").live('mouseover', function () {
+
+var moveThePage = function () {
 	
 	$(this).draggable({
 	start: function(event, ui) {
@@ -308,38 +300,115 @@ $(".page").live('mouseover', function () {
 		$(".line").fadeIn();
 	}
 });
+}
+
+var deleteTerm = function(e) {
+	e.stopImmediatePropagation();
+	var answer = confirm("Are you sure you want to delete this term?");
+	if (answer) {
+		info = $(this).attr('class').split(" "),
+		$.ajax({
+			type: "POST",
+			url: "actions/deleteTerm.php",
+			data: "term_id="+info[1],
+			success:function(phpfile){$("#update").html(phpfile);$("#"+info[1]).remove();}
+		});
+	}
+}
+
+var findTerms = function(e) {
+	e.stopImmediatePropagation();
+	var answer = confirm("This will attempt to add all key terms from your that don't have definitions to the list. Are you sure you want to continue?");
+	if (answer) {
+		$.ajax({
+			url: "actions/findTerms.php",
+			success:function(phpfile) {$("#update").html(phpfile);$("#popup-content").load("ajax/term.php");}
+		
+		});
+	}
+}
+/* --------------------------end-handlers--------------------------- */
+
+resizeGrid(lowest, rightest);
+$(window).resize(function(){
+	resizeGrid(lowest, rightest);
 });
 
+$("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();bindThemAll();});
+$("#fadebackground, .close-icon").click(closeOnClick)
+$("#update").draggable();
+$("#mapgrid").click(function(){});
+
+
+$(".page").bind("contextmenu", function(e){
+	currentPageId = this.id;
+	console.log(currentPageId);
+	$("#pageRightClick").css({
+	"left" : e.pageX,
+	"top" : e.pageY	
+	}).show();
+	return false;
+});
 
 /* sets pages and droppable regions */
 $(".page").droppable({
-	
-	accept: ".relate",
+	accept: ".relate, .start-finish",
 	drop: function(event, ui) {
-	child = this.id;
-	parent = $(ui.draggable).attr("id").substr(6);
-	
-	$.ajax({
-		type: "POST",
+	if ($(ui.draggable).hasClass("relate")) {
+		console.log('relate');
+		child = this.id;
+		parent = $(ui.draggable).attr("id").substr(6);
+		
+		$.ajax({
+			type: "POST",
 			url: "actions/add_relation.php",
 			data: "parent="+parent+"&child="+child,
 			success: function(phpfile){
-			$("#update").append(phpfile);}
+				$("#update").append(phpfile);}
+			});
+	}
+	
+	if ($(ui.draggable).attr('id') == "start") {
+		console.log("start");
+		$("#start").remove();
+		$("#"+this.id).append("<div class='start-finish' id='start' title='blah'>Start</div>");
+		$.ajax({
+			type: "POST",
+			url: "actions/update_start.php",
+			data: "page_id="+this.id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+				bindThemAll();
+			}	
+		
+		
 		});
+	}
+	if ($(ui.draggable).attr('id') == "finish") {
+		console.log("finish");
+		$("#finish").remove();
+		$("#"+this.id).append("<div class='start-finish' id='finish'>Finish</div>");
+		$.ajax({
+			type: "POST",
+			url: "actions/update_finish.php",
+			data: "page_id="+this.id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+				bindThemAll();
+			}	
+		
+		
+		});
+	}	
 	}
 
 });
 
-$("#fadebackground, .close-icon").click(closeOnClick)
 
 
 
 
-$("#update").draggable();
-
-
-
-
+/* binding and unbinding functions */
 bindThemAll();
 
 function bindThemAll() {
@@ -347,10 +416,9 @@ function bindThemAll() {
 	$("body").bind("click",hidePageRightClick);
 	$(".page").click(togglePageClass);
 	$("#logoutFromMenu").click(logoutFromMenu);
-	$("#edit").click(editModule);
+	$("#edit").click(editStory);
 	$("#permissions").click(permissions);
 	$("#terms").click(termPopup);
-	$("#assessment_data").click(assessmentDataPopup);
 	$("#new_page").click(newPage);
 	$('html').keyup(keyboard);
 	$("#mapgrid").mousedown(selectorStart);
@@ -364,6 +432,11 @@ function bindThemAll() {
 	$("tr.clickable-item").live("click", editTerm);
 	$("#term-change").live('click', termChange);
 	$("#new-term").live('click', newTerm);
+	$("#start").live("click", startMover);
+	$("#finish").live("click", startMover)
+	$(".page").live('mouseover', moveThePage);
+	$(".deleteTerm").live("click", deleteTerm);
+	$("#findTerms").live("click", findTerms);
 	
 }
 
@@ -372,10 +445,9 @@ function unbindThemAll() {
 	$("body").unbind("click",hidePageRightClick);
 	$(".page").unbind('click', togglePageClass);
 	$("#logoutFromMenu").unbind('click', logoutFromMenu);
-	$("#edit").unbind('click', editModule);
+	$("#edit").unbind('click', editStory);
 	$("#permissions").unbind('click', permissions);
 	$("#terms").unbind('click', termPopup);
-	$("#assessment_data").unbind('click', assessmentDataPopup);
 	$("#new_page").unbind('click', newPage);
 	$('html').unbind('keyup', keyboard);
 	$("#mapgrid").unbind('mousedown', selectorStart);
@@ -388,10 +460,15 @@ function unbindThemAll() {
 	$("tr.clickable-item").unbind();
 	$("#term-change").unbind('click', termChange);
 	$("#new-term").unbind();
+	$("#start").unbind();
+	$("#finish").unbind();
+	$(".deleteTerm").unbind();
+	$("#findTerms").unbind();
+
 	
 }
 
-
+/* end of binding functions */
 
 }); //end of document.ready
 
@@ -439,8 +516,8 @@ function open(width, height) { //opens popup
 	$("#fadebackground, #popup").fadeIn();
 }
 
-function update_module() { // loads php to update module
-	if(!$("#module_name").val()) {alert("You must have a module name");$("#module_name_label").css("color" , "red");return false;}
+function update_story() { // loads php to update story
+	if(!$("#story_name").val()) {alert("You must have a story name");$("#story_name_label").css("color" , "red");return false;}
 
 	value=$('form').serialize();
 		$.ajax({
@@ -450,15 +527,15 @@ function update_module() { // loads php to update module
 			success: function(phpfile){
 			$("#update").append(phpfile);
 			
-			topic = $("input[name=module_topic]").val();
-			name = $("input[name=module_name]").val();
+			topic = $("input[name=story_topic]").val();
+			name = $("input[name=story_name]").val();
 			$("#header").html(topic+": "+name);
 			close();
 			}
 		});
 }
 
-function update_relation() { // loads php to update module
+function update_relation() { // loads php to update story
 	value=$('form').serialize();
 		$.ajax({
 		type: "POST",
@@ -471,7 +548,7 @@ function update_relation() { // loads php to update module
 		});
 }
 
-function delete_relation() { // loads php to update module
+function delete_relation() { // loads php to update story
 	value=$('form').serialize();
 		$.ajax({
 		type: "POST",

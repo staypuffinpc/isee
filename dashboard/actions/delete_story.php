@@ -12,30 +12,30 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module=$_POST['story'];
+$story=$_POST['story'];
 
 ?>
-<h2>Module Delete</h2> <?
-echo "<div id='deleting-module'>";
+<h2>Story Delete</h2> <?
+echo "<div id='deleting-story'>";
 
-$query = "DELETE from Pages where module='$module'";
+$query = "DELETE from Pages where story='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module Pages deleted.<br />";
-$query = "DELETE from Page_Relations where page_module='$module'";
+echo "Story Pages deleted.<br />";
+$query = "DELETE from Page_Relations where page_story='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module Pages Relations deleted.<br />";
-$query = "DELETE from Assessment where assessment_module='$module'";
+echo "Story Pages Relations deleted.<br />";
+$query = "DELETE from Worksheet where worksheet_story='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module Assessment questions deleted.<br />";
-$query = "DELETE from User_Assessment where module='$module'";
+echo "Story Worksheet questions deleted.<br />";
+$query = "DELETE from User_Worksheet where story='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module Assessment Answers deleted.<br />";
-$query = "DELETE from User_Progress where progress_module='$module'";
+echo "Story Worksheet Answers deleted.<br />";
+$query = "DELETE from User_Progress where progress_story='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module User Progress deleted.<br />";
-$query = "DELETE from Modules where module_id='$module'";
+echo "Story User Progress deleted.<br />";
+$query = "DELETE from Stories where story_id='$story'";
 $list = mysql_query($query) or die(mysql_error()); //execute query
-echo "Module Information deleted.<br />";
+echo "Story Information deleted.<br />";
 ?>
 </div>
 

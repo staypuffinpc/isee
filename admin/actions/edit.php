@@ -12,26 +12,26 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 include_once('../db.php');
-$module_name = $_POST['module_name'];
-$module_topic = $_POST['module_topic'];
-$module_first_page = $_POST['module_first_page'];
-$module_summary = $_POST['module_summary'];
-$module_privacy = $_POST['privacy'];
+$story_name = $_POST['story_name'];
+$story_topic = $_POST['story_topic'];
+$story_first_page = $_POST['story_first_page'];
+$story_summary = $_POST['story_summary'];
+$story_privacy = $_POST['privacy'];
 
-$query_update = "Update Modules Set
-module_name = '$module_name',
-module_topic = '$module_topic',
-module_first_page = '$module_first_page',
-module_summary = '$module_summary',
-module_privacy = '$module_privacy'
-Where module_id='$module'"; //mysql query variable
+$query_update = "Update Stories Set
+story_name = '$story_name',
+story_topic = '$story_topic',
+story_first_page = '$story_first_page',
+story_summary = '$story_summary',
+story_privacy = '$story_privacy'
+Where story_id='$story'"; //mysql query variable
 $list_update = mysql_query($query_update) or die(mysql_error()); //execute query
 
 
 
 
-echo $module_name." updated.<br />";
+echo $story_name." updated.<br />";
 
 ?>

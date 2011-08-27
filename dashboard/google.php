@@ -67,6 +67,8 @@ $_SESSION['user_id'] = $user_id = $user['user_id'];
 $_SESSION['user_name'] = $user['user_name'];
 $_SESSION['role']= $user['role'];
 $_SESSION['user_image'] = $user['user_image'];
+$_SESSION['admin'] = false;
+
 /* if ($user['admin'] == 1) {$_SESSION['admin'] = "yes";} //commented out to see if needed 8/17/2011 */
 include_once('dashboard.php');
          }

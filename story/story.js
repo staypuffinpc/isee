@@ -47,17 +47,18 @@ else {$("#line"+relation_id).hide();}
 function main() {
 	$.ajax({
 		type: "POST",
-		url: "ajax/assessmentEm.php",
+		url: "ajax/worksheetEm.php",
 /* 		data: "user="+user+"&page="+page, */
 		success: function(phpfile) {
-			$("#assessment").html(phpfile);
+			$("#worksheet").html(phpfile);
 		}
 	
 	
 	});
 
 	$("#footer li img, #footer li p").css("opacity",".5");
-	$("#page2").hide("slow", function(){$("#page1").fadeIn();});
+	$("#page2").fadeOut();
+	$("#page1").fadeIn();
 	status = 0;
 	$("#story img, #story p").css("opacity","1"); //makes story bright
 }
@@ -67,11 +68,11 @@ function close() {
 	definitionShow = "off";
 }
 
-function update_answer (user, name, value, module){
+function update_answer (user, name, value, story){
 	$.ajax({
    		type: "GET",
    		url: "actions/update_answer.php",
-   		data: "user="+user+"&name="+name+"&value="+value+"&module="+module,
+   		data: "user="+user+"&name="+name+"&value="+value+"&story="+story,
    		success: function(phpfile){
    			$("#update").html(phpfile);
    			console.log("function running");
@@ -104,9 +105,9 @@ $.ajax({
 	}); //end ajax call	
 }
 
-function assessment_announce(n) {
+function worksheet_announce(n) {
 	$("body").append("<audio autoplay='true'><source src='unlock.wav' type='audio/wav' />Your browser does not support the audio element.</audio>");
-	$("#assessment_announce_window").slideToggle().delay(1000).fadeOut(5000);
+	$("#worksheet_announce_window").slideToggle().delay(1000).fadeOut(5000);
 }
 
 function google_analytics() {
@@ -136,6 +137,29 @@ function showPageInstructions() {
 			
 }
 
+function navigate(target) {
+	if (target == "map") {$("#page2").css({"margin-left":0, "left":0, "padding" :240});}
+			else {$("#page2").css({"margin-left":"-350px", "left":"50%", "padding" : 0});}
+		
+		$("#footer li img, #footer li p").css("opacity","0.5");
+		
+		if ($("#page1:visible").length !== 0) { // if page 1 is visible
+			$("#"+target+" img, #"+target+" p").css("opacity","1");
+			$("#page1").fadeOut("slow");
+			$("#page2").fadeIn("slow");
+			$("#page2").load("ajax/"+target+".php", function(){if(instructionsShowing == false) {$(".page-instructions").hide();}});
+			status = target;
+		}
+		else { // if the page is not visible
+			if (target=="story") {main();return;}
+			$("#"+target+" img, #"+target+" p").css("opacity","1");
+			$("#page2").html(" ");
+/* 			$("#page2").hide("fast",function(){$("#page2").show();}); */
+			$("#page2").load("ajax/"+target+".php", function(){if(instructionsShowing == false) {$(".page-instructions").hide();}});
+			status = target;
+		}
+}
+
 $(document).ready(function(){
 	Scroller('viewport');
 	google_analytics();
@@ -147,57 +171,100 @@ $(document).ready(function(){
 	$("#story img, #story p").css("opacity","1"); //makes story bright at the beginning
 
 	//footer event listner
-	$("#footer li").click(function(){
+	$("#footer li.core").click(function(){
 		$("textarea, :input").blur();
 		_gaq.push(['_trackEvent', 'Footer', this.id, this.id+' in the footer was clicked.']);
-		if (status !== this.id) {
-		
-		if (this.id == "map") {$("#page2").css({"margin-left":0, "left":0, "padding" :240});}
-			else {$("#page2").css({"margin-left":"-350px", "left":"50%", "padding" : 0});}
-		
-		$("#footer li img, #footer li p").css("opacity","0.5");
-		
-		if ($("#page1:visible").length !== 0) { // if page 1 is visible
-			if (this.id=="story") {return;}
-			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
-			$("#page1").hide("fast", function(){$("#page2").show();});
-			$("#page2").load("ajax/"+this.id+".php");
-			
-			status = this.id;
-		}
-		else { // if the page is not visible
-			if (this.id=="story") {main();return;}
-			$("#"+this.id+" img, #"+this.id+" p").css("opacity","1");
-			
-			$("#page2").html(" ");
-			$("#page2").hide("fast",function(){$("#page2").show();});
-			$("#page2").load("ajax/"+this.id+".php");
-			status = this.id;
-		}
-		}
+		if (status !== this.id && this.id !="story") {navigate(this.id);}
 		else {main();}
 	});
 
 	
 	/*  key listener */
+	
+	
 	$('html').keyup(function(event) {
 		if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {return false;}
-		if (event.keyCode == '68'){ // m key
-			window.location="../dashboard/index.php";
-		}
-		
-		if (event.keyCode == '27') {// escape key
-		$("textarea, :input").blur();
-
-		if($("#fadebackground:visible").length !==0)
-			{close();} // if a popup is up, this closes it
-			else { // if not then it escapes the navigation
-			if ($("#page1:visible").length !==0) {return;}
-			else {main();}
-			}
-		}
-		if (event.keyCode == '73') { // i key
-			showPageInstructions();
+		key = event.keyCode;
+		switch (key) {
+			case 27: //escape key
+				$("textarea, :input").blur();
+				if($("#help:visible").length !==0) {$("#help").hide();break;}
+				if($("#fadebackground:visible").length !==0){close();} // if a popup is up, this closes it
+					else { // if not then it escapes the navigation
+						if ($("#page1:visible").length !==0) {return;}
+						else {main();}
+					}
+				break;
+			case 191:
+				$("#help").toggle();
+				break;
+			case 72: //h key
+				window.location="../dashboard/index.php";
+				break;
+			case 83: // s key
+				main();
+				break;
+			case 71: //g key
+				navigate("glossary");
+				break;
+			case 65: //a key
+				navigate("appendices");
+				break;
+			case 68: // d key
+				navigate("discuss");
+				break;
+			case 87: //w key
+				navigate("worksheet");
+				break;
+			case 77: //m key
+				navigate("map");
+				break;	
+			case 73: // i key
+				showPageInstructions();
+				break;
+			case 69: // e key
+				if (author) {
+					window.location = "../admin/page/page.php?page_id="+page+"&story="+story;
+				}
+				break;
+			case 86:
+				if (author) {
+					window.location = "../admin/index.php?story="+story;
+				}
+				break;
+			case 67: // c key
+				if (author) {
+					var answer = confirm("Are you sure you want to clear your progress data?");
+					if (answer) {
+						$.ajax({
+							url: "actions/progressClear.php",
+							success: function(phpfile){$("#update").html(phpfile);location.reload(true);}
+						});
+					}
+				}
+				break;
+			case 88: //x key
+				if (author) {
+					var answer = confirm("Are you sure you want to clear your worksheet data?");
+					if (answer) {
+						$.ajax({
+							url: "actions/worksheetClear.php",
+							success: function(phpfile){$("#update").html(phpfile);location.reload(true);}
+						});
+					}
+				}
+				break;
+			case 90: //z key
+				if (author) {
+					var answer = confirm("Are you sure you want to clear your quiz data?");
+					if (answer) {
+						$.ajax({
+							url: "actions/quizClear.php",
+							success: function(phpfile){$("#update").html(phpfile);location.reload(true);}
+						});
+					}
+				}
+				break;
 		}
 	
 	
@@ -218,7 +285,7 @@ $(document).ready(function(){
 	
 
 	$(":input, textarea").live('change', function(){
-		update_answer(user,this.name,this.value,module);
+		update_answer(user,this.name,this.value,story);
 	});
 	
 	

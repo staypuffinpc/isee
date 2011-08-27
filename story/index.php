@@ -15,9 +15,9 @@ $link=connect(); //call function from external file to connect to database
 
 $user_id = $_SESSION['user_id'];
 
-/* Gets and/or Sets the current module */
-if (!isset($_GET['module'])) {$module=$_SESSION['module'];}
-else {$module = $_GET['module'];$_SESSION['module']=$module; }
+/* Gets and/or Sets the current story */
+if (!isset($_GET['story'])) {$story=$_SESSION['story'];}
+else {$story = $_GET['story'];$_SESSION['story']=$story; }
 
 /* checks to make sure there is a page to display */
 if(!isset($_GET['page_id'])) {echo "<script>window.location = '../index.php'</script>";}//gets page id
@@ -26,7 +26,7 @@ $_SESSION['current_page'] = $page_id; // puts page in a session variable
 
 include_once("db.php"); // most of the db calls needed for this page
 session_write_close();
-$query = "Select * from Assessment where assessment_module='$module' and embedded='1' and assessment_page='$page_id' order by assessment_order ASC";
+$query = "Select * from Worksheet where worksheet_story='$story' and embedded='1' and worksheet_page='$page_id' order by worksheet_order ASC";
 $run = mysql_query($query) or die(mysql_error());
 
 ?>
@@ -35,11 +35,11 @@ $run = mysql_query($query) or die(mysql_error());
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<meta name = "viewport" content = "initial-scale=1.0; maximum-scale=1.0; user-scalable=0; width=device-width;">
+<meta name = "viewport" content = "initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width">
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title><? echo $page['module_name'].": ".$page['page_name']; // Gets Content ?> </title>
+<title><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> </title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="story.css" rel="stylesheet" type="text/css" />
 <link href="../styles/stylist.css" rel="stylesheet" type="text/css" />
@@ -52,43 +52,55 @@ $run = mysql_query($query) or die(mysql_error());
 
 
 <script type="text/javascript">
+var user = <? echo $user_id; ?>; // sends php variable to js
+var story = <? echo $story; ?>;  // sends php variable to js
+var page = <? echo $page_id; ?>; // gets php variable
+var author = false;
+<? if ($author) {echo "author = true;";} ?>
 $(document).ready(function(){
-	user = <? echo $user_id; ?>; // sends php variable to js
-	module = <? echo $module; ?>;  // sends php variable to js
-	var page = <? echo $page_id; ?>;
-	<? if (!mysql_num_rows($run)) {?>
-		$("#assessment").hide();
+	<? if ($_SESSION['admin']) { ?>
+	$("#header, #greeting").css({
+		"color" : "red"
+	});
+	author = true;
+	console.log("admin");
+	<? 
+	
+	
+	}
+	
+	if (!mysql_num_rows($run)) {?>
+		$("#worksheet").hide();
 	
 	<? }
 	$length = strlen($page['page_references']);
 	if ($length<1) {echo "$('#references').hide();";} 
 	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
-	
-	if ($current_assessment > 0) {echo "assessment_announce(".$current_assessment.");"; }
-	if ($author) {echo "$('#edit-page, #view-map').show();";} // adds authoring buttons if the user is an author
-	if ($summary) { ?> //shows summary button if it is available to the user
-		$("#summary-button").show().click(function(){window.location="index.php?page_id=<? echo $page['module_summary']; ?>";});
+	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
+	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
+	if (!$author) { echo "$('#edit-page, #view-map').hide();"; } 
+	if (!$summary) { ?> //shows summary button if it is available to the user
+		$("#summary-button").hide().click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
+		$("#quiz-button").hide();
 	<? } ?>
 	//the edit button if the person is an author
 	$("#edit-page").click(function(){
-		window.location = "../admin/page/page.php?page_id="+<? echo $page_id; ?>+"&module="+<? echo $module; ?>;
+		window.location = "../admin/page/page.php?page_id="+<? echo $page_id; ?>+"&story="+<? echo $story; ?>;
 	}); 
 	// event listeners for keyboar keys to avoid navigation and recording issues	
-	$('html').keyup(function(event) {
-		if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {return false;} 	
-		if (event.keyCode == '69'){window.location = "../admin/page/page.php?page_id="+<? echo $page_id; ?>+"&module="+<? echo $module; ?>;}
-	});
+	
 	//the map button if the person is an author
 	$("#view-map").click(function () {
-		window.location="../admin/index.php?module="+<? echo $module; ?>;
+		window.location="../admin/index.php?story="+<? echo $story; ?>;
 	});
+	
 });
 <? if ($user['instructionsShowing'] == "false") {echo "var instructionsShowing = false;";} else { echo "var instructionsShowing = true;";} ?>
 
 </script>
 </head>
 <body>
-<div id="header"><? echo $page['module_name'].": ".$page['page_name']; // Gets Content ?> 
+<div id="header"><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> 
 <a id="home" href="../dashboard/index.php"></a>
 <div id="instructionsToggle" class="
 	<? 
@@ -107,24 +119,24 @@ $(document).ready(function(){
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['page_summary'] == 2) { include("ajax/summary.php");}?>
 
-		<div id="assessment" class="assessment-content">
+		<div id="worksheet" class="worksheet-content">
 		<div id="check">check your understanding</div>
 		<? 
 		while ($Aresults = mysql_fetch_assoc($run)) {
-			echo "<h4>{$Aresults['assessment_type']}</h4>";
-			echo $Aresults['assessment_text'];
-			echo "<br />".$Aresults['assessment_response'];
-			$query = "SELECT * From User_Assessment where user_id = '".$user_id."' and assessment_id = '".$Aresults['assessment_id']."'"; //mysql query variable
+			echo "<h4>{$Aresults['worksheet_type']}</h4>";
+			echo $Aresults['worksheet_text'];
+			echo "<br />".$Aresults['worksheet_response'];
+			$query = "SELECT * From User_Worksheet where user_id = '".$user_id."' and worksheet_id = '".$Aresults['worksheet_id']."'"; //mysql query variable
 			$list = mysql_query($query) or die(mysql_error()); //execute query
 			$answers = mysql_fetch_assoc($list);//gets info in array
 	
 			if ($answers['user_answer'] !== NULL) {
-				if ($Aresults['assessment_type'] == "Multiple Choice" || $Aresults['assessment_type'] == "True or False") {
-					?><script>$("input[name='<? echo $Aresults['assessment_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script><? }
-			 	if ($Aresults['assessment_type'] == "Fill in the Blank") {
-			 		?><script>$("input[name='<? echo $Aresults['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
-				if ($Aresults['assessment_type'] == "Short Answer") {
-			 		?><script>$("textarea[name='<? echo $Aresults['assessment_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
+				if ($Aresults['worksheet_type'] == "Multiple Choice" || $Aresults['worksheet_type'] == "True or False") {
+					?><script>$("input[name='<? echo $Aresults['worksheet_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script><? }
+			 	if ($Aresults['worksheet_type'] == "Fill in the Blank") {
+			 		?><script>$("input[name='<? echo $Aresults['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
+				if ($Aresults['worksheet_type'] == "Short Answer") {
+			 		?><script>$("textarea[name='<? echo $Aresults['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
 			}
 			
 		}?>
@@ -137,7 +149,7 @@ $(document).ready(function(){
 			<? 
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 					echo "<p>".$results_nav['page_stem']." "; ?>	
-					<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&module=<? echo $module; ?>"><? //makes page link 
+					<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&story=<? echo $story; ?>"><? //makes page link 
 					echo $results_nav['page_link']."</a>".$results_nav['page_punctuation'];?>
 					</p> <? 
 			}		
@@ -154,7 +166,7 @@ $(document).ready(function(){
 
 <div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
 
-<p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['module_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
+<p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['story_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
 <p>The simulation will lead you through the instruction and the story simultaneously.  Story pages present you with an actual context to apply the topics covered in this chapter.  On these pages, you’re given choices of what action you would like to take.  At times, you’ll “step out” of the story and be presented with an instructional page.  Instructional pages are presented “just in time,” to teach you a concept at the moment (or right before) you’ll see that concept play out in the story.</p>
 
 
@@ -168,18 +180,25 @@ $(document).ready(function(){
 
 <div id="footer">
 
-<a class="btn" id="edit-page">edit page</a>
-<a class="btn" id="view-map">view story map</a>
-<a class="btn" id="summary-button">Go to Summary</a>
+<!--
+<a class="btn" id="edit-page">Edit</a>
+<a class="btn" id="view-map">Map</a>
+<a class="btn" id="summary-button">Summary</a> 
+<a class="btn" id="quiz-button">Quiz</a>
+-->
 
 	<ul>
-		<li id="story"><div><img src="../img/glossary.png" /></div><p>Story</p></li>
-		<li id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
-<!-- 		<li id="comments"><div><img src="../img/chat.png" /></div>Comments</li> -->
-<!-- 		<li id="journal"><div><img src="images/journal.png" /></div>Journal</li> -->
-		<li id="assessment"><div><img src="../img/bar-chart.png" /></div><p>Quiz</p><div id="assessment_count"><? echo $assessment_count; ?></div></li>
-		<li id="map"><div><img src="../img/tree.png" /></div><p>Progress Map</p></li>
-		
+		<li id="edit-page"><div><img src="../img/edit-page.png" /></div><p>Edit</p></li>
+		<li id="view-map"><div><img src="../img/map.png" /></div><p>Map (admin)</p></li>
+		<li class="core" id="story"><div><img src="../img/story.png" /></div><p>Story</p></li>
+		<li class="core" id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
+		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li>
+		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li>
+		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Worksheet</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
+		<li class="core" id="map"><div><img src="../img/map.png" /></div><p>Progress Map</p></li>
+		<li id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
+		<li id="quiz-button"><div><img src="../img/quiz.png" /></div><p>Quiz</p></li>
+
 	</ul>
 	
 
@@ -198,14 +217,35 @@ $(document).ready(function(){
 </div>
 </div>
 
-<div id="assessment_announce_window">
-	<? if ($current_assessment == 1) {echo "You have unlocked 1 answer on the quiz.";}
-		else {echo "You have unlocked ".$current_assessment." answers on the quiz.";}
+<div id="worksheet_announce_window">
+	<? if ($current_worksheet == 1) {echo "You have unlocked 1 answer on the worksheet.";}
+		else {echo "You have unlocked ".$current_worksheet." answers on the worksheet.";}
 	?>
 	<img src="../img/open.png" width="64px" />
 </div>
 
+<div id="help"><h1>Help Menu</h1>
+<hr />
+<div class="keyboardShortcuts">
+<h2>Keyboard Shortcuts</h2>
+<table class="shortcuts">
+	<tr><td></td><td>Navigation</td><td></td><td>Admin</td></tr>
+	<tr><td><span class="key">esc </span> :</td><td>Goes Back to the Story</td><td><span class='key'>e </span>:</td><td>Edit Current Page</td></tr>
+	<tr><td><span class="key">h	</span> :</td><td>Home (dashboard)</td><td><span class='key'>v </span>:</td><td>View Full Map</td></tr>
+	<tr><td><span class="key">s </span> :</td><td>Story Page</td><td><span class='key'>c </span>:</td><td>Clear Progress</td></tr>
+	<tr><td><span class="key">g </span> :</td><td>Glossary</td><td><span class="key">x </span>:</td><td>Clear Worksheet</td></tr>
+	<tr><td><span class="key">d </span> :</td><td>Discuss</td><td><span class="key">z </span>:</td><td>Clear Quiz</td></tr>
+	<tr><td><span class="key">a </span> :</td><td>Appendices</td></tr>
+	<tr><td><span class="key">w </span> :</td><td>Worksheet</td></tr>
+	<tr><td><span class="key">m </span> :</td><td>Progress Map</td></tr>
+	<tr><td><span class="key">i </span> :</td><td>Toggles Page Instructions</td></tr>
 
+	<tr><td><span class="key">? </span> :</td><td>Toggles this Menu</td><td></td><td></td></tr>
+</table>
+</div>
+
+
+</div>
 <div id="popup" class="popup"><div class="close-icon"></div>
 <div id="popup-content"></div> <!-- end popup-content -->
 </div> <!-- end popup -->

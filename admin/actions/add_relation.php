@@ -12,12 +12,12 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 $child=$_POST['child'];
 $parent = $_POST['parent'];
 echo "Loaded.<br />";
 if ($parent !== $child) {
-$query="Insert into Page_Relations (page_relation_id, page_child, page_parent, page_module, page_stem, page_link, page_punctuation) Values (NULL, '$child','$parent','$module','Go to page','$child','.')";
+$query="Insert into Page_Relations (page_relation_id, page_child, page_parent, page_story, page_stem, page_link, page_punctuation) Values (NULL, '$child','$parent','$story','Go to page','$child','.')";
 $list_query = mysql_query($query) or die(mysql_error()); //execute query
 $lastItemID = mysql_insert_id();
 

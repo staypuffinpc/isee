@@ -1,6 +1,6 @@
 <?
-$query = "Select * From Modules JOIN Users on Modules.module_creator = Users.user_id";
-$list_modules = mysql_query($query) or die(mysql_error()); //execute query
+$query = "Select * From Stories JOIN Users on Stories.story_creator = Users.user_id";
+$list_stories = mysql_query($query) or die(mysql_error()); //execute query
 
 $query_user = "Select * From Users where user_id=$user_id"; //mysql query variable
 $list_user = mysql_query($query_user) or die(mysql_error()); //execute query
@@ -15,7 +15,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<meta name = "viewport" content = "initial-scale=1.0; maximum-scale=1.0; user-scalable=0; width=device-width;">
+<meta name = "viewport" content = "initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width">
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -98,7 +98,7 @@ EOF;
 				<h1>My Stories</h1>
 				<div id="search"><div id="search-text">Search</div><input type="text" value="Search functionality coming soon." id="search-box" onkeyup="lookup(this.value);" disabled/></div>
 				<div class="content" id='storyList'>
-				<? include("ajax/module-list.php"); ?>
+				<? include("ajax/story-list.php"); ?>
 
 
  				</div>

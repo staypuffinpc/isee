@@ -1,4 +1,3 @@
-
 <?
 /* Depending on the url this provides absolute links to the files that are needed for every file. */
 $requestingURL = $_SERVER['SERVER_NAME'];

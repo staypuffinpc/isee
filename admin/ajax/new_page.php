@@ -12,27 +12,19 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$module = $_SESSION['module'];
+$story = $_SESSION['story'];
 include_once('../db.php');
 $user_id=$_SESSION['user_id'];
 
 
-$query="Insert into Pages (id, module, page_author, page_created, page_top, page_left) Values (NULL, '$module','$user_id',NOW(), 200, 450)";
+$query="Insert into Pages (id, story, page_author, page_created, page_top, page_left) Values (NULL, '$story','$user_id',NOW(), 200, 450)";
 $list_query = mysql_query($query) or die(mysql_error()); //execute query
 $lastItemID = mysql_insert_id();
 $new_page = "<div class='page temp-new-page' id='".$lastItemID."'>".$new_pages['page_name']."<div class='edit-page' id='edit".$lastItemID."'></div><div class='delete' id='delete".$lastItemID."'></div><div class='relate' id='relate".$lastItemID."' title='Add New Connection'></div></div>";
 echo "New Page. <br />";
 
 ?>
-<!DOCTYPE >
-<html>
-<head>
 
-
-
-
-</head>
-<body>
 Page Created <br />
 
 <script>
@@ -40,19 +32,52 @@ Page Created <br />
 	lastItemID = <? echo $lastItemID; ?>;
 	$("#"+lastItemID).droppable({
 	
-	accept: ".relate",
+	accept: ".relate, .start-finish",
 	drop: function(event, ui) {
-	alert("test");
-	child = this.id;
-	parent = $(ui.draggable).attr("id").substr(6);
-	
-	$.ajax({
-		type: "POST",
+	if ($(ui.draggable).hasClass("relate")) {
+		console.log('relate');
+		child = this.id;
+		parent = $(ui.draggable).attr("id").substr(6);
+		
+		$.ajax({
+			type: "POST",
 			url: "actions/add_relation.php",
 			data: "parent="+parent+"&child="+child,
 			success: function(phpfile){
-			$("#update").append(phpfile);}
+				$("#update").append(phpfile);}
+			});
+	}
+	
+	if ($(ui.draggable).attr('id') == "start") {
+		console.log("start");
+		$("#start").remove();
+		$("#"+this.id).append("<div class='start-finish' id='start'>Start</div>");
+		$.ajax({
+			type: "POST",
+			url: "actions/update_start.php",
+			data: "page_id="+this.id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+			}	
+		
+		
 		});
+	}
+	if ($(ui.draggable).attr('id') == "finish") {
+		console.log("finish");
+		$("#finish").remove();
+		$("#"+this.id).append("<div class='start-finish' id='finish'>Finish</div>");
+		$.ajax({
+			type: "POST",
+			url: "actions/update_finish.php",
+			data: "page_id="+this.id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+			}	
+		
+		
+		});
+	}	
 	}
 
 });
