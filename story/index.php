@@ -46,6 +46,8 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
 <script type="text/javascript" src="story.js"></script>
 <script type="text/javascript" src="../js/jquery-scroll.js"></script>
 <script type="text/javascript" src="../js/scroll.js"></script> <!-- makes things scroll on idevices -->
@@ -58,6 +60,7 @@ var page = <? echo $page_id; ?>; // gets php variable
 var author = false;
 <? if ($author) {echo "author = true;";} ?>
 $(document).ready(function(){
+/* 	toggleHelp(); */
 	<? if ($_SESSION['admin']) { ?>
 	$("#header, #greeting").css({
 		"color" : "red"
@@ -78,11 +81,15 @@ $(document).ready(function(){
 	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
 	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
 	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
-	if (!$author) { echo "$('#edit-page, #view-map').hide();"; } 
+	if (!$author) { echo "$('#edit-page, #view-map').hide();$('td.admin').remove();"; } 
 	if (!$summary) { ?> //shows summary button if it is available to the user
-		$("#summary-button").hide().click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
+		$("#summary-button").hide()
+		
+
 		$("#quiz-button").hide();
 	<? } ?>
+	$("#summary-button").click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
+		$("#quiz-button").click(function(){window.location="quiz.php";});
 	//the edit button if the person is an author
 	$("#edit-page").click(function(){
 		window.location = "../admin/page/page.php?page_id="+<? echo $page_id; ?>+"&story="+<? echo $story; ?>;
@@ -102,16 +109,10 @@ $(document).ready(function(){
 <body>
 <div id="header"><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> 
 <a id="home" href="../dashboard/index.php"></a>
-<div id="instructionsToggle" class="
-	<? 
-	if ($user['instructionsShowing'] == "false") {echo 'notShowingInstructions';}
-	else {echo 'showingInstructions';}
-	?>
 
-">?</div>
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
-<a id="logoutFromMenu" class="btn" href="../logout.php">Logout</a>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
+<a id="helpToggle">?</a>
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
@@ -176,7 +177,13 @@ $(document).ready(function(){
 </div> <!-- end page1 div -->
 <div class="content" id="page2"></div>
 </div>
+<div id="instructionsToggle" class="
+	<? 
+	if ($user['instructionsShowing'] == "false") {echo 'notShowingInstructions';}
+	else {echo 'showingInstructions';}
+	?>
 
+"><p>i</p></div>
 
 <div id="footer">
 
@@ -188,16 +195,16 @@ $(document).ready(function(){
 -->
 
 	<ul>
-		<li id="edit-page"><div><img src="../img/edit-page.png" /></div><p>Edit</p></li>
-		<li id="view-map"><div><img src="../img/map.png" /></div><p>Map (admin)</p></li>
+		<li class='adminLink' id="edit-page"><div><img src="../img/edit-page.png" /></div><p>Edit</p></li>
+		<li class='adminLink' id="view-map"><div><img src="../img/map.png" /></div><p>Map (admin)</p></li>
 		<li class="core" id="story"><div><img src="../img/story.png" /></div><p>Story</p></li>
 		<li class="core" id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
 		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li>
 		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li>
 		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Worksheet</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
 		<li class="core" id="map"><div><img src="../img/map.png" /></div><p>Progress Map</p></li>
-		<li id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
-		<li id="quiz-button"><div><img src="../img/quiz.png" /></div><p>Quiz</p></li>
+		<li class="finished" id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
+		<li class="finished" id="quiz-button"><div><img src="../img/quiz.png" /></div><p>Quiz</p></li>
 
 	</ul>
 	
@@ -229,20 +236,43 @@ $(document).ready(function(){
 <div class="keyboardShortcuts">
 <h2>Keyboard Shortcuts</h2>
 <table class="shortcuts">
-	<tr><td></td><td>Navigation</td><td></td><td>Admin</td></tr>
-	<tr><td><span class="key">esc </span> :</td><td>Goes Back to the Story</td><td><span class='key'>e </span>:</td><td>Edit Current Page</td></tr>
-	<tr><td><span class="key">h	</span> :</td><td>Home (dashboard)</td><td><span class='key'>v </span>:</td><td>View Full Map</td></tr>
-	<tr><td><span class="key">s </span> :</td><td>Story Page</td><td><span class='key'>c </span>:</td><td>Clear Progress</td></tr>
-	<tr><td><span class="key">g </span> :</td><td>Glossary</td><td><span class="key">x </span>:</td><td>Clear Worksheet</td></tr>
-	<tr><td><span class="key">d </span> :</td><td>Discuss</td><td><span class="key">z </span>:</td><td>Clear Quiz</td></tr>
+	<tr><td></td><td>Navigation</td><td class="admin"></td><td class="admin">Admin</td></tr>
+	<tr><td><span class="key">esc </span> :</td><td>Goes Back to the Story</td><td class="admin"><span class='key'>e </span>:</td><td class="admin">Edit Current Page</td></tr>
+	<tr><td><span class="key">h	</span> :</td><td>Home (dashboard)</td><td class="admin"><span class='key'>v </span>:</td><td class="admin">View Full Map</td></tr>
+	<tr><td><span class="key">s </span> :</td><td>Story Page</td><td class="admin"><span class='key'>c </span>:</td><td class="admin">Clear Progress</td></tr>
+	<tr><td><span class="key">g </span> :</td><td>Glossary</td><td class="admin"><span class="key">x </span>:</td><td class="admin">Clear Worksheet</td></tr>
+	<tr><td><span class="key">d </span> :</td><td>Discuss</td><td class="admin"><span class="key">z </span>:</td><td class="admin">Clear Quiz</td></tr>
 	<tr><td><span class="key">a </span> :</td><td>Appendices</td></tr>
 	<tr><td><span class="key">w </span> :</td><td>Worksheet</td></tr>
 	<tr><td><span class="key">m </span> :</td><td>Progress Map</td></tr>
 	<tr><td><span class="key">i </span> :</td><td>Toggles Page Instructions</td></tr>
 
-	<tr><td><span class="key">? </span> :</td><td>Toggles this Menu</td><td></td><td></td></tr>
+	<tr><td><span class="key">? </span> :</td><td>Toggles this Menu</td><td class="admin"></td><td class="admin"></td></tr>
 </table>
 </div>
+<div class='help' id="help-home">
+	<img src='../img/help-arrow.png' />
+	<p>Use this icon or press "h" to go back to the main menu.</p>
+</div>
+<div class='help' id="help-help">
+	<img src="../img/help-arrow.png" />
+	<p>Use this icon or press "?" to open this help menu.</p>
+
+</div>
+<div class='help' id='help-instructions'>
+<p>Use this icon or press "i" to show on-page instructions.</p>
+	<img src="../img/help-arrow.png" />	
+
+</div>
+<div class='help' id='help-footer'>
+		<img src="../img/help-arrow.png" />	
+		<p>These icons in orange are always available. They provide additional resources while going through the story. See the table above for the keyboard shortcuts.<br /><br />
+		Additional icons are available to authors on the left.<br /><br />
+		Once you finish the story, you will have icons on the right that take you to the Summary page and the Quiz. </p>
+	
+</div>
+
+
 
 
 </div>

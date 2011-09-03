@@ -36,18 +36,21 @@ $story_info = mysql_fetch_assoc($run);
   
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+
 <script type="text/javascript" src="quiz.js"></script>
 
 </head>
 <body>
 <div id="header">Quiz Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href="../index.php"></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><img src="../<? echo $_SESSION['user_image']; ?>" /><? echo $_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">
-<a class="btn" id="newItem">Add New Item</a>
+<a class="mc newItem btn" id="newMultipleChoiceItem">Add New Multiple Choice Item</a>
+<a class="fb newItem btn" id="newFillInTheBlankItem">Add New Fill in the Blank Item</a>
+
 </div>
 
 <div id="viewport">

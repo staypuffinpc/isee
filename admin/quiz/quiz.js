@@ -2,8 +2,11 @@ $(document).ready(function(){
 	updateList();
 	$("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();});
 
-	$("#newItem").click(function(){
+	$(".newItem").click(function(){
+		info = $(this).attr("class").split(" ");
 		$.ajax({
+			type: "POST",
+			data: "type="+info[0],
 			url: "actions/newItem.php",
 			success:function(phpfile) {
 				$("#update").html(phpfile);

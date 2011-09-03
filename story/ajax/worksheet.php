@@ -55,7 +55,7 @@ if ($worksheet['embedded'] == 1 && !in_array($worksheet['worksheet_page'], $visi
 else {
 ?>
 <tr>
-<td><? echo "<strong>".$worksheet['worksheet_type']."</strong><br />".$worksheet['worksheet_order'].". ".$worksheet['worksheet_text']."<br /><br />".$worksheet['worksheet_response']."<a class='btn submit'>Submit Answer</a>";?></td>
+<td><? echo "<strong>".$worksheet['worksheet_type']."</strong><br />".$worksheet['worksheet_order'].". ".$worksheet['worksheet_text']."<br /><br />".$worksheet['worksheet_response']."";?></td>
 <td>
 <?
 $query_lock = "SELECT * FROM User_Progress where progress_user = '".$user_id."' and progress_story='$story'"; //mysql query variable
@@ -94,7 +94,7 @@ else {echo "<img class='answer-img closed' id='".$worksheet['worksheet_id']."' s
 }} while ($worksheet = mysql_fetch_assoc($list_worksheet));
 ?>
 
-
+<tr><td><a class='btn submit'>Submit Answers</a></td></tr>
 </table>
 </div>
 <div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>

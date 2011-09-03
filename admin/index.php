@@ -49,6 +49,8 @@ include_once("db.php");
   
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
 <script type="text/javascript" src="../js/jquery.client.js"></script>
 <script type="text/javascript" src="../js/jquery-scroll.js"></script>
 
@@ -72,8 +74,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <body id="mainbody">
 <div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href='../dashboard/index.php'></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 
@@ -83,6 +84,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <a class="btn" id="worksheet" href="worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
 <a class="btn" id="quiz" href="quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
 <a class="btn" id="terms">Edit Terms</a>
+<a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
 <a class="btn" id="new_page">Add New Page</a>
 </div>
 

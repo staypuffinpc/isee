@@ -160,6 +160,25 @@ function navigate(target) {
 		}
 }
 
+function toggleHelp() {
+$("#help").toggle();
+				if ($("#help:visible").length !==0) {
+					$("li.core p, li img").css({"opacity" : "1", "color" : "orange"});
+					$("li.adminLink p").css({"opacity" : "1", "color" : "#66ffff"});
+					$("li.finished p").css({"opacity" : "1", "color" : "green"});
+					pos = $("#footer ul").position();
+					$("#help-footer").css({"left" : pos.left});
+					
+					
+				}
+				else {
+					$("li p, li img").css({"opacity" : "0.6", "color" : "white"});
+
+				}
+
+
+}
+
 $(document).ready(function(){
 	Scroller('viewport');
 	google_analytics();
@@ -184,11 +203,13 @@ $(document).ready(function(){
 	
 	$('html').keyup(function(event) {
 		if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {return false;}
+		event.preventDefault();
 		key = event.keyCode;
 		switch (key) {
 			case 27: //escape key
 				$("textarea, :input").blur();
-				if($("#help:visible").length !==0) {$("#help").hide();break;}
+				if($("#greeting").height()>50) {toggleGreeting();break;}
+				if($("#help:visible").length !==0) {toggleHelp();break;}
 				if($("#fadebackground:visible").length !==0){close();} // if a popup is up, this closes it
 					else { // if not then it escapes the navigation
 						if ($("#page1:visible").length !==0) {return;}
@@ -196,7 +217,8 @@ $(document).ready(function(){
 					}
 				break;
 			case 191:
-				$("#help").toggle();
+				toggleHelp();
+				
 				break;
 			case 72: //h key
 				window.location="../dashboard/index.php";
@@ -275,11 +297,19 @@ $(document).ready(function(){
 	$("#fadebackground,.close-icon").click(function(){close();}); //close event listener
 	$("#mainMenu").click(function(){window.location="../dashboard/index.php";});//main menu event listener
 	$("#logout").click(function(){window.location="../logout.php";});//logout event listener
+	
+	$(".submit").live("click", function(){
+		alert("Your Worksheet answers have been recorded and submitted.");
+	
+	});
 		
 	$(".keyterm").click(function(){
 		
 		definition(this);
 	});
+	
+	$("#helpToggle").click(function(){toggleHelp();});
+	
 	
 	$('#ajax').hide().ajaxStart(function() {$(this).css({"opacity": "0.7"}).fadeIn();}).ajaxStop(function() {$(this).fadeOut();});
 	
@@ -290,8 +320,7 @@ $(document).ready(function(){
 	
 	
 	$(".casestudy").append("<div class='casestudy-title'>case study</div>");
-/* 	$(".exampleinaction").append("<div class='exampleinaction-title'>example in action</div>"); */
-	$(".example, .exampleinaction").append("<div class='example-title'>example</div>");
+	$(".example").append("<div class='example-title'>example</div>");
 	$(".review").append("<div class='review-title'>review</div>");
 	$(".thoughtprovokingquestion").append("<div class='thoughtprovokingquestion-title'>think about it</div>");
 	$(".thoughtprovokingquestion").append("<div class='question2-img'><img src='../img/question2.jpg' /></div>");
@@ -299,6 +328,8 @@ $(document).ready(function(){
 	$(".keytakeaway").append("<div class='keytakeaway-title'><img src='../img/key.jpg' /></div>");
 	$(".essentialquestion").append("<div class='essentialquestion-title'><img src='../img/question1.jpg' /></div>");
 	
+
+
 
 });
 

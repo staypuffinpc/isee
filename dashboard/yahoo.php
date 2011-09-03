@@ -16,7 +16,7 @@ try {
     } else {
         if($openid->validate()){
             $userAttributes = $openid->getAttributes();
-            $user_image = "../img/yahoo.jpg";
+            $user_image = "../img/yahoo.png";
 
             $email = $userAttributes['contact/email'];
             $user_profile = $openid->identity;

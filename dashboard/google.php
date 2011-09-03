@@ -20,7 +20,7 @@ try {
             $firstName = $userAttributes['namePerson/first'];
             $lastName = $userAttributes['namePerson/last'];
             $email = $userAttributes['contact/email'];
-            $user_image = "../img/google.jpg";
+            $user_image = "../img/google.png";
             $user_profile = $openid->identity;
          	$user_name = $firstName." ".$lastName;
          	$provider = "google";

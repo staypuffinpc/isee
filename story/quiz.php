@@ -38,6 +38,8 @@ $run = mysql_query($query) or die(mysql_error());
   
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
 <script type="text/javascript">
 $("document").ready(function(){
 	
@@ -73,8 +75,7 @@ var items = Array();
 <body>
 <div id="header">Quiz: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><img src="<? echo $_SESSION['user_image']; ?>" /><? echo $_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">
@@ -95,15 +96,26 @@ while ($items = mysql_fetch_assoc($run)) {
 	
 EOF;
 
-	$query = "Select * from Quiz_Responses where item_id='".$items['item_id']."' order by RAND()";
-	$responses = mysql_query($query) or die(mysql_error());
-	while ($response = mysql_fetch_assoc($responses)) {
-	
-	echo <<<EOF
-	<input type="radio" name="answer[{$items['item_id']}]" value="{$response['id']}" class="required"/> <div class="ce item_response {$response['id']}">{$response['item_response']}</div><br />
-	
+	switch ($items['item_type']) {
+		case "Multiple Choice":
+			$query = "Select * from Quiz_Responses where item_id='".$items['item_id']."' order by RAND()";
+			$responses = mysql_query($query) or die(mysql_error());
+			while ($response = mysql_fetch_assoc($responses)) {
+			echo <<<EOF
+				<input type="radio" name="answer[{$items['item_id']}]" value="{$response['id']}" class="required"/> <div class="ce item_response {$response['id']}">{$response['item_response']}</div><br />
 EOF;
-	}
+			} //end while
+			break;
+		case "Fill in the Blank":
+			echo <<<EOF
+				<input type="text" name="answer[{$items['item_id']}]" value="" class="required"/><br />
+EOF;
+			break;
+	
+	
+	} //end switch
+	
+	
 
 	echo "</li>\n";
 	$i++;

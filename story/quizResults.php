@@ -27,7 +27,7 @@ if(isset($_GET['answer'])){
 		$run = mysql_query($query) or die(mysql_error());
 	}
 $percentage = $correct/$total*100;
-$query = "Insert into User_scores (user_id, story_id, total, correct, percentage, date) values ('$user_id', '$story', '$total', '$correct', '$percentage', NOW())";
+$query = "Insert into User_Scores (user_id, story_id, total, correct, percentage, date) values ('$user_id', '$story', '$total', '$correct', '$percentage', NOW())";
 $run = mysql_query($query) or die(mysql_error());
 }
 
@@ -72,6 +72,8 @@ $run = mysql_query($query) or die(mysql_error());
   
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
 <script type="text/javascript">
 $("document").ready(function(){
 	
@@ -83,8 +85,7 @@ $("input").attr("disabled", true);
 <body>
 <div id="header">Quiz Results: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><img src="<? echo $_SESSION['user_image']; ?>" /><? echo $_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">

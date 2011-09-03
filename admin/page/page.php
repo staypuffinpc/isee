@@ -62,6 +62,8 @@ $i = 0; //this is getting the item sorter ready.
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+
 <script type="text/javascript" src="page.js"></script>
 
 <script type="text/javascript">
@@ -83,8 +85,7 @@ window.location = "../../index.php";
 <div id="header">
 	<? echo $page['story_name']; ?>  : <input type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" /> 
 <a id="home" href="../index.php"></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 
 <div id="viewport">

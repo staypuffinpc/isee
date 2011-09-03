@@ -47,7 +47,7 @@ background-color: white;
 /* 	width: 768px; */
 /* width: 100%; */
 	top:38px;
-	bottom: 58px;
+	bottom: 54px;
 	left:0px;
 	right:0px;
 	/*
@@ -103,9 +103,15 @@ color: black;
 }
 
 #logoutFromMenu {
+	position: relative;
+	top: 3px;
+	text-decoration:none;
+/*
+	display: none;
 	right: 32px;
 	top: 0px;
 	position: absolute;
+*/
 }
 #main {
 	min-width: 700px;
@@ -254,14 +260,29 @@ img.image {
 }
 
 #greeting {
+	padding-right: 6px;
+	padding-left: 6px;
 	font-size: 14px;
 	line-height: 37px;
 	top: 0px;
-	right: 122px;
+	right: 36px;
 	position: absolute;
 	float: right;
 	z-index: 4;
 	color: white;
+	text-shadow: none;
+	overflow-y: hidden;
+	height:38px;
+	cursor: pointer;
+}
+#greeting span.name {
+	text-decoration: underline;
+
+}
+
+#greeting:hover {
+	background-color: rgba(255,255,255,0.2);
+
 }
 
 #greeting img {
@@ -269,12 +290,25 @@ img.image {
 	margin-bottom: 6px;
 	margin-top: 6px;
 	width: 26px;
-	float: left;
+	float: right;
 	margin-right: 5px;
 	border-radius: 6px;
 	overflow: hidden;
 	box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.9);
 }
+
+/*
+#greeting #options {
+	height:50px;
+	position:absolute;
+	top: 38px;
+	left:1px;
+	right:1px;
+	bottom:1px;
+	
+
+}
+*/
 
 #footer {
 	font-weight: bold;
@@ -283,10 +317,10 @@ img.image {
 	color: white;
 	font-size: 12px;
 	font-family: sans-serif;
-	height: 48px;
+	height: 53px;
 	padding: 5px;
 	background-color: #323232;
-	text-shadow: 0px 1px 0px black;
+/* 	text-shadow: 0px 1px 0px black; */
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#000));
     background-image: -moz-linear-gradient(#333333,#000);
     text-align:center;
@@ -299,10 +333,13 @@ img.image {
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
+    padding: 0px;
+    
     
 }
 
 #footer ul {
+	display: inline-block;
 	padding: 0px;
 	margin: 0px;
 }
@@ -323,9 +360,7 @@ img.image {
 }
 
 #footer li:hover {
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-image: url(../img/footer_highlight.png);
+	background-color: rgba(255,255,255, 0.2);
 	 
 }
 
@@ -447,19 +482,7 @@ a.dbutton:active {
 }
 
 /* this is a hold over from a previous version. It is needed so that the early stories work right. */
-div.exampleinaction {
-	clear: both;
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
-	border-color: #0099ff;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
-}
+
 a#home {
 	height: 32px;
 	float: right;
@@ -546,56 +569,82 @@ a#home:hover {
 }
 
 #instructionsToggle {
-	margin-left: 2px;
-	margin-bottom: 2px;
-	margin-right: 4px;
-	margin-top: 4px;
-	font-size: 18px;
+	text-align: right;
+	color: black;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 24px;
 	text-shadow: none;
-	padding: 2px;
-	top: 0px;
-	height: 20px;
-	width: 20px;
-	line-height: 18px;
+	bottom: 50px;
+	height: 100px;
+	width: 100px;
+	line-height: 24px;
 	position: absolute;
-	right: 0px;
-	border-radius: 16px;
+	right: -2px;
 	cursor: pointer;
-	
+}
+
+#instructionsToggle p {
+	bottom: 10px;
+	right: 25px;
+	position: absolute;
+	padding: 0px;
+	margin: 0px;
 }
 
 .notShowingInstructions {
-	color: #ffffff;
-	background-color: black;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#000000));
-    background-image: -moz-linear-gradient(#333333,#000000);
-	border: white 2px solid;
+	
 }
 
 .showingInstructions {
-	color: #333333;
-	background-color: white;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
-	background-image: -moz-linear-gradient(#cccccc,#ffffff);
-	border: black 2px solid;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	background-image: url(../img/page-curl.jpg);
+	background-image-width: 100px;
+	}
+
+
+a#helpToggle {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color:white;
+	color: black;
+	text-shadow: none;
+	border-radius: 16px;
+	line-height: 24px;
+	height: 24px;
+	width: 24px;
+	border: 2px solid black;
+	font-size: 18px;
+	cursor:pointer;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	    background-image: -moz-linear-gradient(#ffffff,#cccccc);
 }
 
+a#helpToggle:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
+	background-image: -moz-linear-gradient(#cccccc,#ffffff);
+
+}
+
+
 #help {
-	display: none;
 	color: white;
 	font-size: 14px;
-	             
+	display: none;             
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	             
 	z-index: 999;
-	right: 20px;
-	left: 20px;
+	right: 30px;
+	left: 30px;
 	bottom: 80px;
-	top: 40px;
+	top: 50px;
 	padding: 10px 20px;
 	position: absolute;
 	border-radius: 12px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.8);
 	color: white;
 	text-shadow: #000000 0px 0px 10px;
 }
@@ -616,23 +665,13 @@ a#home:hover {
 }
 
 div.keyboardShortcuts {
-
-
 	padding: 3px;
-
-
 	margin-right: auto;
-
-
 	margin-left: auto;
-
-
 	max-width: 600px;
-
-
 }
 table.shortcuts {
-
+	margin:auto;
 }
 table.shortcuts td {
 	width: 180px;
@@ -648,8 +687,6 @@ font-weight: bold;
 color: yellow;
 padding-top:15px;
 }
-
-
 
 .key {
 	color: yellow;

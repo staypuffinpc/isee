@@ -286,6 +286,7 @@ padding: 0px;
 	opacity: .9;
 }
 #worksheet_announce_window {
+	z-index: 6;
 	border-color: #cccccc;
 	border-width: 3px;
 	border-style: solid;
@@ -342,16 +343,7 @@ div.casestudy-title {
 	font-style: italic;
 	color: #9900cc;
 }
-div.exampleinaction-title {
-	left: 30px;
-	padding-right: 10px;
-	padding-left: 10px;
-	background-color: white;
-	top: -15px;
-	position: absolute;
-	font-style: italic;
-	color: #ff0066;
-}
+
 div.example-title {
 	left: 30px;
 	padding-right: 10px;
@@ -484,10 +476,82 @@ text-align: center;
 }
 
 .submit {
-	position: relative;
-	top: 10px;
+	
 
+	width: 100%;
+	
+
+}
+
+.help {
+	position: absolute;
+}
+
+.help p {
+	width: 100px;
+	padding: 10px;
+	font-size: 12px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	color: black;
+	background-color: white;
+	text-shadow: none;
+	border-radius: 4px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.help img {
+	display: inline;
 }
 
 #help-home {
+	left: 0px;
+	top: 0px;
 }
+
+#help-home img {
+-webkit-transform: rotate(-25deg);
+-moz-transform: rotate(-25deg);
+}
+
+#help-help {
+	right: 0px;
+	top: 0px;
+}
+
+#help-help img {
+position: relative;
+left:70px;
+-webkit-transform: rotate(35deg);
+-moz-transform: rotate(35deg);
+}
+
+#help-instructions {
+	right: 0;
+	bottom: 0;
+}
+
+#help-instructions img {
+position: relative;
+left:100px;
+-webkit-transform: rotate(160deg);
+-moz-transform: rotate(160deg);
+}
+
+#help-footer {
+	bottom: 0;
+}
+
+#help-footer img {
+position: relative;
+top: 40px;
+-webkit-transform: rotate(140deg);
+-moz-transform: rotate(140deg);
+
+}
+
+#help-footer p {
+width: 500px;
+display:inline-block;
+}
+

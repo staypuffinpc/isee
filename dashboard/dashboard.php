@@ -19,12 +19,14 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>IP&T 301 Simulator</title>
+<title>Interactive Story-Based Educational Environment</title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="dashboard.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
 <script type="text/javascript" src="dashboard.js"></script>
 
 <script type="text/javascript">
@@ -54,8 +56,8 @@ EOF;
 
 <body>
 <div id="main">
-<div id="header">IP&T 301 Simulation Website
-	<a class="btn" id="logoutFromMenu">Logout</a>
+<div id="header">Interactive Story-Based Educational Environment
+	<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 	
 		<div id="left-column" class="column">

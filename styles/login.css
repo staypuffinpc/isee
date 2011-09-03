@@ -1,10 +1,74 @@
- #login-Icons {
+body {
+	background-repeat: repeat-x;
+	background-image: url(../img/white.png);
+	background-color: #7FFF7F;
+	padding: 0px;
+	margin: 0px;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+}
+
+#splash {
+	height: 350px;
+	width: 550px;
+	padding: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 75px;
+	color: black;
+	background-color: white;
+	font-size: 18px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px 8px 8px 8px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+	position: relative;
+}
+
+
+
+#title {
+	font-size: 120px;
+	font-family: "Josefin Slad", Federo;
+	text-transform: uppercase;
+	float: right;
+	text-align: right;
+}
+
+img#teacher-splash {
+	left: -35px;
+	bottom: -20px;
+	position: absolute;
+}
+
+#login-Icons {
+	text-align: center;
+	right: 20px;
+	bottom: 20px;
+	position: absolute;
+}
+
+
+
+#login {
+	margin-left: 0px;
+	margin-bottom: 16px;
+	margin-right: 0px;
+	margin-top: 0px;
+	font-size: 32px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	padding: 0px;
 	text-align: center;
 }
 
-#login-Icons img {
-	margin-right: 10px;
-	float: left;
+a img.icons {
+	margin: 5px;
+	display: inline;
 	height: 64px;
 	width: 64px;
 	border-width: 0px;
@@ -13,53 +77,15 @@
 	border-radius: 8px;
 }
 
-#login-Icons a {
-	font-size: 18px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	text-decoration: none;
-	color: black;
-	margin: 5px;
-	padding: 5px;
-	text-align: left;
-	border-color: #cccccc;
-	border-style: solid;
-	border-width: 1px;
-	height: 64px;
-	width: 160px;
-	text-shadow: 0 1px 1px rgba(255,255,255,.8);
-	display: inline-block;
-	background-color: #cccccc;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
-	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#CCCCCC));
-	background: -moz-linear-gradient(top,  #ffffff,  #CCCCCC);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#CCCCCC');
-}
-
-
-#login-Icons a:hover {
-	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#999999));
-	background: -moz-linear-gradient(top,  #ffffff,  #999999);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#999999');
-}
-
-#login-Icons a:active {
-	position: relative;
-	top: 1px;
-	background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#ffffff));
-	background: -moz-linear-gradient(top,  #CCCCCC,  #ffffff);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#ffffff');
-}
-
-
-#login-Icons a p {
+#title2 {
+	font-size: 26px;
+	font-family: "Josefin Slab";
+	text-transform: lowercase;
+	margin-top: 75px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 590px;
 	text-align: center;
-	margin-left: 0px;
-	margin-bottom: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 }
 
 #admin {
@@ -74,4 +100,49 @@
 	position: absolute;
 	display: none;
 }
+
+  
+      
+	                          
+
+ 
+  
+
+#box {
+	height: 400px;
+	width: 640px;
+	padding: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 100px;
+	color: black;
+	background-color: white;
+	font-size: 18px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px 8px 8px 8px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+	position: relative;
+}
+
+h1 {
+	text-align: center;
+	font-size: 32px;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+#images {
+	width: 450px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+#images a {
+	float: left;
+
+}
+
 

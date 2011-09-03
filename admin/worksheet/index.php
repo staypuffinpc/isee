@@ -35,6 +35,8 @@ include_once("../db.php");
   
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+
 <script type="text/javascript" src="worksheet.js"></script>
 
 
@@ -54,8 +56,7 @@ $(document).ready(function(){
 <body>
 <div id="header">Worksheet Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href="../index.php"></a>
-<a class="btn" id="logoutFromMenu">Logout</a>
-<div id="greeting"><img src="../<? echo $_SESSION['user_image']; ?>" /><? echo $_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 

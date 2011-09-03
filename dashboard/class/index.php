@@ -41,13 +41,13 @@ $members = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="class.js"></script>
 </head>
 
 <body>
 <div id="header">Class Management : <? echo $class['class_name']; ?>
-	<a class="btn" id="logoutFromMenu">Logout</a>
-	<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> ".$_SESSION['user_name']; ?></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div><!--  end header div -->
 <div id="viewport">

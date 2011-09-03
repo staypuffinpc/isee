@@ -23,7 +23,7 @@ $user = json_decode(file_get_contents($graph_url));
 $email = $user->email;
 $user_profile = $user->link;
 $user_name = $user->name;
-$user_image = "../img/facebook.jpg";
+$user_image = "../img/facebook.png";
 $provider = "facebook";
  		
 /* Depending on the url this provides absolute links to the files that are needed for every file. */

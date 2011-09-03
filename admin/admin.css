@@ -55,7 +55,7 @@ span {
 	width: 100%;
 	position: fixed;
 	top:38px;
-	z-index: 4;
+	z-index: 3;
 	font-family: Helvetica, Verdana, Arial, sans-serif;
 	background-color: #e8e8e8;
     text-align: left;
@@ -333,8 +333,6 @@ a.pageRightClickOption:hover {
 	font-size: 14px;
 	color: white;
 	position: absolute;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
-	background-image: -moz-linear-gradient(#ff0000,#cc0000);
 	border: 1px solid white;
 	border-radius: 4px;
 	cursor: pointer;
@@ -343,3 +341,9 @@ a.pageRightClickOption:hover {
 	height: 17px;
 }
 
+#finish {
+background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
+	background-image: -moz-linear-gradient(#ff0000,#cc0000);}
+#start {
+background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D785), to(#397D02));
+	background-image: -moz-linear-gradient(#A6D785,#397D02);}
