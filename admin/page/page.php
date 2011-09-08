@@ -215,11 +215,10 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 
 	<h2>Summary</h2>
-	<? if ($page['page_summary'] == 2) {echo "<p>This is the Summary page.</p>";}
+	<? if ($page['id'] == $page['story_summary']) {echo "<p>This is the Summary page.</p>";}
 	else { ?>
 	<p><input name="page_summary" type="radio" value="0"<? if ($page['page_summary'] == 0) {echo " checked";}?> />Do Not Include in the Summary</p>
 	<p><input name="page_summary" type="radio" value="1"<? if ($page['page_summary'] == 1) {echo " checked";}?> />Include in the Summary</p>
-	<p><input name="page_summary" type="radio" value="2"<? if ($page['page_summary'] == 2) {echo " checked";}?> />This is a Summary/Finish Page</p>
 
 	<? } ?>
 	<h2>Tools</h2>
