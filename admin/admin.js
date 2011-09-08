@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 
 var top;
@@ -10,10 +8,10 @@ var mouse_down = false;
 var meta_down;
 var multiple_drag;
 var start_pos;
-var currentPageId = 1;
 
 /* ------------------------------handlers--------------------------- */
 var togglePageClass = function(e) {
+	$("#pageRightClick").hide();
 	unbindThemAll();
 	var selectorKey = 0;
 	if ($.client.os == "Mac") {selectorKey = e.metaKey;}
@@ -52,8 +50,9 @@ var termPopup = function(){
 };
 
 
-var newPage = function(){ 
+var newPage = function(e){ 
 	unbindThemAll();
+	e.stopImmediatePropagation();
 	$.ajax({
 		type: "POST",
 			url: "ajax/new_page.php",
@@ -73,6 +72,8 @@ var keyboard = function(e) {if (e.keyCode == '27') //escape event listener
 };
 
 var selectorStart = function(e){
+	console.log("selector-start");
+	$("#pageRightClick").hide();
 	mouse_down = true;
 	$("#selector").css("background-color", "#666666");
 	$(".page").removeClass("selected");
@@ -84,6 +85,8 @@ var selectorStart = function(e){
 }; 
 
 var selectorMove = function(e){
+	console.log("selector-move");
+
 	if (mouse_down) {
 		unbindThemAll();
 		right = e.pageX;
@@ -145,17 +148,20 @@ var selectorEnd = function(e){
 	
 }; 
 
-var editPage = function(){
+var editPage = function(e){
+	e.stopImmediatePropagation();
 	left=document.body.scrollLeft;
 	top=document.body.scrollTop;
-	id=this.id.substr(4);
-	window.location="page/page.php?page_id="+id+"&left="+left+"&top="+top;
+	if ($(this).parent().attr("class").indexOf("page")== -1){id=$(this).parent().attr("class");}
+	else {id=this.id.substr(4);}
+	window.location=("page/page.php?page_id="+id+"&left="+left+"&top="+top);
 };
 
 var deletePage = function(e){
 	e.stopImmediatePropagation();
 	unbindThemAll();
-	id=this.id.substr(6);
+	if ($(this).parent().attr("class").indexOf("page")== -1){id=$(this).parent().attr("class");}
+	else {id=this.id.substr(6);}
 	var answer = confirm("This action cannot be undone. All associated links to this page will also be deleted. Are you sure you want to delete this page? ")
 		if(answer) {
 			$("#update").load("actions/delete_page.php?page_id="+id);
@@ -219,8 +225,9 @@ var termChange = function(){
 
 var closeOnClick = function(){close();}; 
 
-var newTerm = function() {
+var newTerm = function(e) {
 	unbindThemAll();
+	e.stopImmediatePropagation();
 	console.log("new term clicked");
 	$.ajax({
 		type: "POST",
@@ -236,10 +243,6 @@ var hidePageRightClick = function() {
 	$("#pageRightClick").hide();
 };
 
-var editPage2 = function() {
-	console.log(currentPageId);
-	window.location="page/page.php?page_id="+currentPageId;
-};
 
 var editTerm = function() {
 	id = this.id;
@@ -259,17 +262,19 @@ var startMover = function(e) {
 /* actions for dragging pages */
 
 var moveThePage = function () {
-	
+
 	$(this).draggable({
+	
+
 	start: function(event, ui) {
 		
 		if ($(this).hasClass('selected')) {
 			multiple_drag = true;
 			start_pos = $(this).position()
 			$(this).addClass('dragger');
+			unbindThemAll();
 		}
 		else {$(".selected").removeClass('selected');}
-		unbindThemAll();
 		$(".line").fadeOut();
 	},
 	drag: function(event, ui) {/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
@@ -327,6 +332,33 @@ var findTerms = function(e) {
 		});
 	}
 }
+
+var showContextmenu = function(e){
+	$("#pageRightClick").css({
+	"left" : e.pageX,
+	"top" : e.pageY	
+	}).show().removeClass().addClass(this.id);
+	return false;
+}
+
+var toggleFinish = function(e) {
+	e.stopImmediatePropagation();
+	id=$(this).parent().attr("class");
+	
+$.ajax({
+		type: "POST",
+		url: "actions/toggleFinish.php",
+		data: "id="+id,
+		success: function(phpfile){
+			$("update").html(phpfile);
+			if ($("#"+id+" div").last().attr("class") == "start-finish-summary finish") 
+				{$("#"+id+" div").last().remove();} 
+			else 
+				{$("#"+id).append("<div class='start-finish-summary finish'>Finish</div>");}
+		}
+	});
+
+}
 /* --------------------------end-handlers--------------------------- */
 
 resizeGrid(lowest, rightest);
@@ -340,19 +372,11 @@ $("#update").draggable();
 $("#mapgrid").click(function(){});
 
 
-$(".page").bind("contextmenu", function(e){
-	currentPageId = this.id;
-	console.log(currentPageId);
-	$("#pageRightClick").css({
-	"left" : e.pageX,
-	"top" : e.pageY	
-	}).show();
-	return false;
-});
+
 
 /* sets pages and droppable regions */
 $(".page").droppable({
-	accept: ".relate, .start-finish",
+	accept: ".relate, #start, #summary",
 	drop: function(event, ui) {
 	if ($(ui.draggable).hasClass("relate")) {
 		console.log('relate');
@@ -367,11 +391,10 @@ $(".page").droppable({
 				$("#update").append(phpfile);}
 			});
 	}
-	
 	if ($(ui.draggable).attr('id') == "start") {
 		console.log("start");
 		$("#start").remove();
-		$("#"+this.id).append("<div class='start-finish' id='start' title='blah'>Start</div>");
+		$("#"+this.id).append("<div class='start-finish-summary' id='start' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>");
 		$.ajax({
 			type: "POST",
 			url: "actions/update_start.php",
@@ -384,13 +407,13 @@ $(".page").droppable({
 		
 		});
 	}
-	if ($(ui.draggable).attr('id') == "finish") {
-		console.log("finish");
-		$("#finish").remove();
-		$("#"+this.id).append("<div class='start-finish' id='finish'>Finish</div>");
+	if ($(ui.draggable).attr('id') == "summary") {
+		console.log("summary");
+		$("#summary").remove();
+		$("#"+this.id).append("<div class='start-finish-summary' id='Summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>");
 		$.ajax({
 			type: "POST",
-			url: "actions/update_finish.php",
+			url: "actions/update_summary.php",
 			data: "page_id="+this.id,
 			success: function(phpfile){
 				$("#update").html(phpfile);
@@ -399,12 +422,13 @@ $(".page").droppable({
 		
 		
 		});
-	}	
+	}
 	}
 
 });
 
 
+$(".page").live("contextmenu", showContextmenu);
 
 
 
@@ -424,19 +448,19 @@ function bindThemAll() {
 	$("#mapgrid").mousedown(selectorStart);
 	$("#mapgrid").mousemove(selectorMove);
 	$("html").mouseup(selectorEnd);
-	$(".edit-page").live('click', editPage);
-	$("#editPage2").live('click', editPage2);
-	$(".delete").live('click', deletePage);
+	$(".edit-page, #edit-page").live('click', editPage);
+	$(".delete, #delete").live('click', deletePage);
 	$(".arrow").live('click', pageRelation);
 	$(".relate").live('mouseover', relatePage);
 	$("tr.clickable-item").live("click", editTerm);
 	$("#term-change").live('click', termChange);
 	$("#new-term").live('click', newTerm);
 	$("#start").live("click", startMover);
-	$("#finish").live("click", startMover)
+	$("#summary").live("click", startMover);
 	$(".page").live('mouseover', moveThePage);
 	$(".deleteTerm").live("click", deleteTerm);
 	$("#findTerms").live("click", findTerms);
+	$("#toggleFinish").live("click", toggleFinish);
 	
 }
 
@@ -453,19 +477,18 @@ function unbindThemAll() {
 	$("#mapgrid").unbind('mousedown', selectorStart);
 	$("#mapgrid").unbind('mousemove', selectorMove);
 	$("html").unbind('mouseup', selectorEnd);
-	$(".edit-page").unbind('click', editPage);
-	$(".delete").unbind('click', deletePage);
+	$(".edit-page, #edit-page").unbind('click', editPage);
+	$(".delete, #delete").unbind('click', deletePage);
 	$(".arrow").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
 	$("tr.clickable-item").unbind();
 	$("#term-change").unbind('click', termChange);
 	$("#new-term").unbind();
 	$("#start").unbind();
-	$("#finish").unbind();
+	$("#summary").unbind();
 	$(".deleteTerm").unbind();
 	$("#findTerms").unbind();
-
-	
+	$("#toggleFinish").unbind("click", toggleFinish);
 }
 
 /* end of binding functions */

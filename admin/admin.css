@@ -220,10 +220,10 @@ div.goto-page {
 
 .selected {
 	color: white;
-	background-color: #3366cc;
+	background-color: #333333;
 	-moz-box-shadow: 0px 0px 200px rgba(0, 0, 255, 1);
 	-webkit-box-shadow: 0px 0px 200px rgba(0, 0, 255, 1);
-	box-shadow: 0px 0px 200px rgba(0, 0, 255, 1);
+	box-shadow: 0px 0px 200px #666666;
 	
 }
 
@@ -302,6 +302,7 @@ box-shadow: 0px 0px 4px, rgba(255,255,255, 0.9);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
 	border-radius: 5px;
+	width: 170px;
 }
 
 a.pageRightClickOption {
@@ -323,7 +324,7 @@ a.pageRightClickOption:hover {
 	top: 30px;
 }
 
-.start-finish {
+.start-finish-summary {
 	z-index: 999;
 	padding-left: 5px;
 	padding-bottom: 3px;
@@ -341,9 +342,14 @@ a.pageRightClickOption:hover {
 	height: 17px;
 }
 
-#finish {
-background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
-	background-image: -moz-linear-gradient(#ff0000,#cc0000);}
+#summary {
+color:black;
+border-color: #999999;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e8e8e8));
+	background-image: -moz-linear-gradient(#ffffff,#e8e8e8);}
 #start {
 background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D785), to(#397D02));
 	background-image: -moz-linear-gradient(#A6D785,#397D02);}
+.finish {
+background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
+	background-image: -moz-linear-gradient(#ff0000,#cc0000);}

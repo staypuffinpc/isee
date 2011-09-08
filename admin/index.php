@@ -105,8 +105,9 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
 	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Connection"></div>
 	<?
-	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish'>Start</div>";}
-	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='finish' class='start-finish'>Finish</div>";}
+	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>";}
+	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='summary' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>";}
+	if ($pages['finish_page'] == "true") {echo "<div class='start-finish-summary finish'>Finish</div>";}
 	?>
 </div>
 <script> 
@@ -148,10 +149,12 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 <div id="popup"><div class="close-icon"></div><div id="popup-content"></div></div>
 <div id="selector"></div>
 <div id="pageRightClick">
-	<a class="pageRightClickOption" id="editPage2">Edit Page</a>
-	<a class="pageRightClickOption">Duplicate</a>
-	<a class="pageRightClickOption">Delete</a>
+	<a class="pageRightClickOption" id="editPage">Edit Page</a>
+	<a class="pageRightClickOption" id="duplicate">Duplicate</a>
+	<a class="pageRightClickOption" id="delete">Delete</a>
+	<a class="pageRightClickOption" id="toggleFinish">Toggle Finish Page</a>
 
 </div>
+
 </body>
 </html>

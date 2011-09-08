@@ -365,3 +365,14 @@ select.inputClass {
 	position: relative;
 }
 
+a#request {
+}
+
+#request-box {
+	display: none;
+	position: absolute;
+	padding: 10px;
+	left: 0px;
+	bottom: 10px;
+}
+

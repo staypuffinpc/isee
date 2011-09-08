@@ -14,12 +14,12 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$m = $_SESSION['story'];
+$s = $_SESSION['story'];
 $u = $_SESSION['user_id'];
-$query = "DELETE from User_Quiz where story='$m' and user_id='$u'"; //mysql query variable
+$query = "DELETE from User_Quiz where story='$s' and user_id='$u'"; //mysql query variable
 $run = mysql_query($query) or die(mysql_error());
 
-$query = "DELETE from User_Scores where story_id='$m' and user_id='$u'"; //mysql query variable
+$query = "DELETE from User_Scores where story_id='$s' and user_id='$u'"; //mysql query variable
 $run = mysql_query($query) or die(mysql_error());
 
 echo "quiz cleared.<br />"

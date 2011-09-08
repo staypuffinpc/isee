@@ -191,7 +191,20 @@ $(document).ready(function() {
 	
 	});
 	
-
+	$("#request").click(function(){
+		console.log("clicked");
+		$.ajax({
+			url: "actions/request-teacher.php",
+			success: function(phpfile){
+				$("#update").html(phpfile); 
+				alert("Your request has been submitted.");
+				
+			}
+		
+		
+		});
+	
+	});
 
 });
 

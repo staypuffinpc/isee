@@ -12,23 +12,17 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$story_id = $_SESSION['story'];
+$user_id = $_SESSION['user_id'];
 
-$query = "Select * from Pages where story='$story_id' and page_type='Teaching' order by print_order ASC";
+$query = "Select * from Users where user_id='$user_id'";
 $run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
 
-while ($results = mysql_fetch_assoc($run)) {
-echo "<div class='page-name'>".$results['page_name']."</div>";
 
-$content = str_replace("/isee/images/", "http://ipt.byu.edu/isee/images/", $results['page_content']);
+$email = "benmcmurry@gmail.com";
+$message = $results['user_name']." is requesting to be a teacher. id: ".$results['user_id'];
+$subject = "Teacher Request";
+mail($email, $subject, $message);
+echo $email;
 
-echo $content;
-	
-echo "<div class='page-break'> </div>";
-}
-echo "<h2>References</h2>";
-mysql_data_seek($run, 0);
-while ($results = mysql_fetch_assoc($run)) {
-echo $results['page_references'];
-}
 ?>

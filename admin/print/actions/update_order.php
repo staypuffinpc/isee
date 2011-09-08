@@ -18,9 +18,17 @@ foreach($_POST['item'] as $key=>$value) {
 	$query = "Update Pages set print_order='$value' where id='$key'";
 	$run = mysql_query($query) or die(mysql_error());
 	echo "$key updated to $value.<br />";
-	echo "<script>$('#content').load('ajax/print.php');</script>";
 	
 }
-
-
 ?>
+<script>
+$.ajax({
+	url: "ajax/print.php",
+	success: function(phpfile){
+		$("#content").html(phpfile);
+		addTitles();
+	}
+});
+
+</script>";
+

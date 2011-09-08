@@ -52,10 +52,25 @@ $("document").ready(function(){
 	
 	
 	$("#score").click(function(){
+		$("input").each(function() {
+			value = $(this).val();
+			value = value.replace(/\"/gi,"");
+			$(this).val(value);
+		});
 		l = items.length;
-		for (j=1; j<l; j++){
-			value = $("input[name=answer["+items[j]+"]]:checked").val();
-			if (value == null) {alert("You have not completed the test. Please answer question "+j+"."); return;}
+		for(j=1;j<l; j++) {
+			
+			if ($("input[name='answer["+items[j]+"]']").is(":radio")){
+				if($("input[name='answer["+items[j]+"]']:checked").val()==undefined){
+					alert("You have not completed the test. Please answer question "+j+"."); return;
+				}
+			}
+
+			if ($("input[name='answer["+items[j]+"]']").is(":text")){
+				if($("input[name='answer["+items[j]+"]']").val()==""){
+					alert("You have not completed the test. Please answer question "+j+"."); return;
+				}
+			}
 		}
 		var answer = confirm("Are you sure you want to score your quiz?");
 		if (answer) {
@@ -108,7 +123,7 @@ EOF;
 			break;
 		case "Fill in the Blank":
 			echo <<<EOF
-				<input type="text" name="answer[{$items['item_id']}]" value="" class="required"/><br />
+				<input type="text" name="answer[{$items['item_id']}]" class="required"/><br />
 EOF;
 			break;
 	

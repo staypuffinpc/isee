@@ -20,9 +20,28 @@ $correct = 0;
 if(isset($_GET['answer'])){
 	foreach($_GET['answer'] as $key=>$value) {
 		$total++;
-		$query = "Select * from Quiz_Items where item_id='$key' and item_answer='$value'";
+		$query = "Select item_type from Quiz_items where item_id = '$key'";
 		$run = mysql_query($query) or die(mysql_error());
-		if (!mysql_num_rows($run)) {$answer = 0;} else {$answer=1; $correct++;}
+		$results = mysql_fetch_assoc($run);
+		$type = $results['item_type'];
+		
+		switch ($type) {
+			case "Multiple Choice":
+				$query = "Select * from Quiz_Items where item_id='$key' and item_answer='$value'";
+				$run = mysql_query($query) or die(mysql_error());
+				if (!mysql_num_rows($run)) {$answer = 0;} else {$answer=1; $correct++;}	
+				break;
+			case "Fill in the Blank":
+				$value = trim($value); //removed excess spaces at beginning and ending
+				$punctuation = array(".",",","!","?");
+				$value = str_replace($punctuation,"", $value); 
+				
+				$query = "Select * from Quiz_Responses where item_id='$key' and item_response like '%$value%'";
+				$run = mysql_query($query) or die(mysql_error());
+				if (!mysql_num_rows($run)) {$answer = 0;} else {$answer=1; $correct++;}	
+				break;
+		}		
+		
 		$query = "Insert into User_Quiz (user_id, item_id, user_answer, story, user_correct) values('$user_id', '$key','$value', '$story','$answer')";
 		$run = mysql_query($query) or die(mysql_error());
 	}
@@ -99,6 +118,7 @@ $("input").attr("disabled", true);
 <div id="viewport">
 <div class="content">
 <form id="quiz">
+
 <ul id="item-list">
 <?
 $i=1;
@@ -110,22 +130,35 @@ EOF;
 	if ($items['user_correct'] == 1) {echo "<span class='correct'>Correct!</span>";}	
 	else {echo "<span class='incorrect'>Incorrect!</span>";}
 	echo "</div>";
-	
+	$type = $items['item_type'];
 	$query = "Select * from Quiz_Responses where item_id='".$items['item_id']."'";
 	$responses = mysql_query($query) or die(mysql_error());
-	while ($response = mysql_fetch_assoc($responses)) {
 	
-		echo <<<EOF
-		<input type="radio" name="{$items['item_id']}" value="{$response['id']}"
-		 
+	switch ($type) {
+		case "Multiple Choice":
+			while ($response = mysql_fetch_assoc($responses)) {
+				echo <<<EOF
+				<input type="radio" name="{$items['item_id']}" value="{$response['id']}"
 EOF;
-		if ($response['id'] == $items['user_answer']) {echo " checked ";}	
+				if ($response['id'] == $items['user_answer']) {echo " checked ";}	
+					echo "/> <div class='ce item_response ".$response['id'];	
+				if($response['id'] == $items['item_answer']) {echo " correctChoice";}
+					echo "'>".$response['item_response']."</div><br />";
+			}
+			break;
+		case "Fill in the Blank":
+			echo "Your Response: ".$items['user_answer']."<br />";
+			$possibles = "Possible Responses: ";
+			$i = 0;
+			while ($response = mysql_fetch_assoc($responses)) {
+				if ($i==0) {$possibles = $possibles.$response['item_response'];}
+				else {$possibles = $possibles.", ".$response['item_response'];}
+				$i++;
+			}
+			echo $possibles;
+			break;
 	
-		echo "/> <div class='ce item_response ".$response['id'];	
-		
-		if($response['id'] == $items['item_answer']) {echo " correctChoice";}
-		
-		echo "'>".$response['item_response']."</div><br />";
+	
 	}
 		echo "<div class='explanation'>".$items['item_explanation']."</div>";
 

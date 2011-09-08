@@ -1,16 +1,8 @@
 $("document").ready(function(){
 var current_element;
 var name="";
-$(".casestudy").append("<div class='casestudy-title'>case study</div>");
-/* 	$(".exampleinaction").append("<div class='exampleinaction-title'>example in action</div>"); */
-	$(".example").append("<div class='example-title'>example</div>");
-	$(".review").append("<div class='review-title'>review</div>");
-	$(".thoughtprovokingquestion").append("<div class='thoughtprovokingquestion-title'>think about it</div>");
-	$(".thoughtprovokingquestion").append("<div class='question2-img'><img src='../../img/question2.jpg' /></div>");
-	$(".tip").append("<div class='tip-title'>tip</div>");
-	$(".keytakeaway").append("<div class='keytakeaway-title'><img src='../../img/key.jpg' /></div>");
-	$(".essentialquestion").append("<div class='essentialquestion-title'><img src='../../img/question1.jpg' /></div>");
 
+addTitles();
 
 $("html").click(function(){
 	$("#saves, #pageRightClick").hide();
@@ -137,4 +129,16 @@ console.log("updating order");
 			success: function(phpfile){
 			$("#update").append(phpfile);}
 		});	
+}
+
+function addTitles() {
+$(".casestudy").append("<div class='casestudy-title'>case study</div>");
+	$(".example").append("<div class='example-title'>example</div>");
+	$(".review").append("<div class='review-title'>review</div>");
+	$(".thoughtprovokingquestion").append("<div class='thoughtprovokingquestion-title'>think about it</div>");
+	$(".thoughtprovokingquestion").append("<div class='question2-img'><img src='../../img/question2.jpg' /></div>");
+	$(".tip").append("<div class='tip-title'>tip</div>");
+	$(".keytakeaway").append("<div class='keytakeaway-title'><img src='../../img/key.jpg' /></div>");
+	$(".essentialquestion").append("<div class='essentialquestion-title'><img src='../../img/question1.jpg' /></div>");
+
 }

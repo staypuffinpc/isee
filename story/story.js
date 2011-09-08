@@ -90,9 +90,9 @@ $.ajax({
    		data: "term="+word,
    		success: function(phpfile){
    			var p = $(term);
-			var position = p.position();
+			var position = p.offset();
 			width = $(term).width();
-			if (position.top > 300) {var top = position.top-175;} else {var top = position.top+60;}
+			if (position.top > 300) {var top = position.top-220;} else {var top = position.top+40;}
 			if (position.left > 800) {var left = position.left+width-200;} else {var left = position.left;}
 			
 			$("#definition").animate({"top" : top,"left" :left});
@@ -106,7 +106,8 @@ $.ajax({
 }
 
 function worksheet_announce(n) {
-	$("body").append("<audio autoplay='true'><source src='unlock.wav' type='audio/wav' />Your browser does not support the audio element.</audio>");
+	/* n.stopImmediatePropagation(); */
+	$("body").append("<audio autoplay='true'><source src='creaky_door.wav' type='audio/wav' />Your browser does not support the audio element.</audio>");
 	$("#worksheet_announce_window").slideToggle().delay(1000).fadeOut(5000);
 }
 

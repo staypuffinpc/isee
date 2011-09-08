@@ -173,7 +173,7 @@ $i++;}
 	
 	</div>
 	<div id="navigation">
-	<h3>Navigation</h3>
+	<h3>Navigation Prompt</h3>
 		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<? echo $page['page_navigation_text']; ?>" />
 		<div class="options">
 			<a class="btn" id="addSubheading">Add a Navigation Subheading</a>
@@ -219,6 +219,8 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 	else { ?>
 	<p><input name="page_summary" type="radio" value="0"<? if ($page['page_summary'] == 0) {echo " checked";}?> />Do Not Include in the Summary</p>
 	<p><input name="page_summary" type="radio" value="1"<? if ($page['page_summary'] == 1) {echo " checked";}?> />Include in the Summary</p>
+	<p><input name="page_summary" type="radio" value="2"<? if ($page['page_summary'] == 2) {echo " checked";}?> />This is a Summary/Finish Page</p>
+
 	<? } ?>
 	<h2>Tools</h2>
 	<a class="dbutton" id="imageCreator">Image Creator</a>

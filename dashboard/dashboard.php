@@ -19,7 +19,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Interactive Story-Based Educational Environment</title>
+<title>Interactive Story-Based E-Learning Environment</title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="dashboard.css" rel="stylesheet" type="text/css" />
 
@@ -37,6 +37,7 @@ if ($user['role'] !== "Teacher")
 	{ 
 	echo <<<EOF
 		$("#create-new-class").hide();
+		$("#request-box").show();
 		update_classes_height();	
 		update_stories_height();
 EOF;
@@ -56,7 +57,7 @@ EOF;
 
 <body>
 <div id="main">
-<div id="header">Interactive Story-Based Educational Environment
+<div id="header">Interactive Story-Based E-Learning Environment
 	<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 	
@@ -68,6 +69,7 @@ EOF;
 					echo "<img width='48px' src='".$user['user_image']."' />";
 					echo "<h3>".$user['user_name']."</h3>"; 
 					echo "<h4>".$user['role']."</h4>";
+					echo "<div id='request-box'><a class='btn' id='request'>Become a Teacher</a></div>";
 					?>
 				</div>
 			</div> <!-- end profile div -->

@@ -14,9 +14,9 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-$m = $_SESSION['story'];
+$s = $_SESSION['story'];
 $u = $_SESSION['user_id'];
-$query_progressClear = "DELETE from User_Progress where progress_story='$m' and progress_user='$u'"; //mysql query variable
+$query_progressClear = "DELETE from User_Progress where progress_story='$s' and progress_user='$u'"; //mysql query variable
 $list_progressClear = mysql_query($query_progressClear) or die(mysql_error()); //execute query
 
 echo "progress cleared.<br />"

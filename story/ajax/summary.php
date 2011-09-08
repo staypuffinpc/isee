@@ -1,7 +1,7 @@
 <?
 /* Show summary info when available */
 
-$user_id = $_GET['user_id']; //gets user id
+$user_id = $_SESSION['user_id']; //gets user id
 
 $query_summary = "Select * from Pages where page_summary='1' and story = ".$_SESSION['story']." order by page_name ASC"; //mysql query variable
 $list_summary = mysql_query($query_summary) or die(mysql_error()); //execute query

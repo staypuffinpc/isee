@@ -59,7 +59,7 @@ function ie_box() {
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Interactive Story-based Educational Environment</title>
+<title>Interactive Story-based E-Learning Environment</title>
 <!-- <link href="styles/style.css" rel="stylesheet" type="text/css" /> -->
 <link href="styles/login.css" rel="stylesheet" type="text/css" />
 <link href="editor.css" rel="stylesheet" type="text/css" />
@@ -105,7 +105,7 @@ ie_box();
 
 </div> <!-- end loginIcons -->
 </div> <!-- end splash --> 
-<div id="title2">Interactive Story-Based Educational Environment</div>
+<div id="title2">Interactive Story-Based E-Learning Environment</div>
 
 <!-- editor elements -->
 <div id="admin">

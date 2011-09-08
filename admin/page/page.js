@@ -117,8 +117,10 @@ $("html").keyup(function(e){
 
 /* end of worksheet listeners. */
 
-	height = $("#hiddenDiv").height();
+	/*
+height = $("#hiddenDiv").height();
 	$("textarea#content").css({"height":height});
+*/
 	$("#menu").draggable();
 	$("#menuToggle").toggle(function() {$("#menu").fadeOut();$(this).html("Show Menu");}, function() {$("#menu").fadeIn();$(this).html("Hide Menu");});
 	$("#borrowToggle").toggle(

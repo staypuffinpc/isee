@@ -76,9 +76,28 @@ if ($page['page_type'] == "Teaching") {
 	}
 }
 
+if ($page['finish_page'] == "true") {
+	if ($progress['progress_finish'] == NULL) {
+		$query_progress_update = "Update User_Progress Set progress_finish='$page_id' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
+		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
+	}
+	else {
+		$new_page = $progress['progress_finish'].", ".$page_id;
+		$query_progress_update = "Update User_Progress set progress_finish='$new_page' where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
+		$list_progress_update = mysql_query($query_progress_update) or die(mysql_error()); //execute query
+	}
+}
+
+
 //look for summary
-$visited_pages = explode(", ", $progress['progress_page']);
-if (in_array($page['story_summary'], $visited_pages)){$summary=true;}else {$summary = false;}
+$progress_get = "Select * from User_Progress where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
+$progress_get_list = mysql_query($progress_get) or die(mysql_error()); //execute query
+$progress = mysql_fetch_assoc($progress_get_list);
+if (strlen($progress['progress_finish']) >0){$finish=true;}else {$finish = false;}
+
+
+
+/* commented out on 9/8/2011 RemoveMeComments
 $n = count($visited_pages)-1;
 
 do {
@@ -91,6 +110,7 @@ do {
 		}
 	else {$n=$n-1;}
 } while ($n>0);
+*/
 
 /* Find out how many questions have yet to be answered */
 $query_worksheet = "Select id from User_Worksheet where user_id='$user_id' and story='$story'"; //mysql query variable
@@ -104,6 +124,7 @@ $list_worksheet = mysql_query($query_worksheet) or die(mysql_error()); //execute
 $worksheet = mysql_fetch_assoc($list_worksheet);//gets info in array
 $worksheet_count = mysql_num_rows($list_worksheet);
 
+$visited_pages = explode(", ", $progress['progress_page']);
 
 $worksheet_count = $worksheet_count - $worksheet_done;
 

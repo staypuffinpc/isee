@@ -32,7 +32,7 @@ EOF;
 	$query = "Select * from Quiz_Responses where item_id='".$items['item_id']."'";
 	$responses = mysql_query($query) or die(mysql_error());
 	while ($response = mysql_fetch_assoc($responses)) {
-/* 	if ($items['item_type') == "Multiple Choice") { */
+	if ($items['item_type'] == "Multiple Choice") {
 	echo <<<EOF
 	<div class="deleteResponse {$response['id']}" title="Click to delete this response.">x</div><input type="radio" name="{$items['item_id']}" value="{$response['id']}" 
 EOF;
@@ -41,12 +41,12 @@ EOF;
 	echo <<<EOF
 	/> <div class="ce item_response {$response['id']}">{$response['item_response']}</div><br />
 EOF;
-	/*
-} //end multiple choice if
+	} //end multiple choice if
 	if ($items['item_type'] == "Fill in the Blank"){
-	
+	echo <<<EOF
+		<div class="ce item_response {$response['id']}">{$response['item_response']}</div><br />
+EOF;
 	} // end fill in the blank item type
-*/
 	} //end response while
 	
 

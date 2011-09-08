@@ -60,8 +60,7 @@ var page = <? echo $page_id; ?>; // gets php variable
 var author = false;
 <? if ($author) {echo "author = true;";} ?>
 $(document).ready(function(){
-/* 	toggleHelp(); */
-	<? if ($_SESSION['admin']) { ?>
+	<? if ($_SESSION['admin']) {// sets the header color to red to identify that admin is logged in. ?>
 	$("#header, #greeting").css({
 		"color" : "red"
 	});
@@ -72,8 +71,8 @@ $(document).ready(function(){
 	
 	}
 	
-	if (!mysql_num_rows($run)) {?>
-		$("#worksheet").hide();
+	if (!mysql_num_rows($run)) { //hides worksheet section if there are no embedded questions. ?>
+		$("#worksheet").hide(); 
 	
 	<? }
 	$length = strlen($page['page_references']);
@@ -82,9 +81,8 @@ $(document).ready(function(){
 	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
 	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
 	if (!$author) { echo "$('#edit-page, #view-map').hide();$('td.admin').remove();"; } 
-	if (!$summary) { ?> //shows summary button if it is available to the user
-		$("#summary-button").hide()
-		
+	if (!$finish) { ?> //shows summary button if it is available to the user
+		$("#summary-button").hide();
 
 		$("#quiz-button").hide();
 	<? } ?>
@@ -118,7 +116,7 @@ $(document).ready(function(){
 	<div class="content" id="page1">
 <!-- 		<div id="page-content"> -->
 			<? echo $page['page_content']; // Gets Content 
-			if ($page['page_summary'] == 2) { include("ajax/summary.php");}?>
+			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>
 
 		<div id="worksheet" class="worksheet-content">
 		<div id="check">check your understanding</div>
@@ -148,6 +146,8 @@ $(document).ready(function(){
 			<div id="decision-time">decision time</div>
 			<h3><? echo $page['page_navigation_text']; ?></h3>
 			<? 
+			if ($page['id'] == $page['story_summary'] || $page['finish_page'] == "true") { echo "<h3>Take the <a href='quiz.php'>quiz</a>.</h3>";}
+			if ($page['finish_page'] == "true") {echo "<h3> See what you missed. Visit the <a href='index.php?page_id={$page['story_summary']}'>Summary Page</a>.";}
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 					echo "<p>".$results_nav['page_stem']." "; ?>	
 					<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&story=<? echo $story; ?>"><? //makes page link 
@@ -186,21 +186,13 @@ $(document).ready(function(){
 "><p>i</p></div>
 
 <div id="footer">
-
-<!--
-<a class="btn" id="edit-page">Edit</a>
-<a class="btn" id="view-map">Map</a>
-<a class="btn" id="summary-button">Summary</a> 
-<a class="btn" id="quiz-button">Quiz</a>
--->
-
 	<ul>
 		<li class='adminLink' id="edit-page"><div><img src="../img/edit-page.png" /></div><p>Edit</p></li>
 		<li class='adminLink' id="view-map"><div><img src="../img/map.png" /></div><p>Map (admin)</p></li>
 		<li class="core" id="story"><div><img src="../img/story.png" /></div><p>Story</p></li>
 		<li class="core" id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
-		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li>
-		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li>
+<!-- 		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li> -->
+<!-- 		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li> -->
 		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Worksheet</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
 		<li class="core" id="map"><div><img src="../img/map.png" /></div><p>Progress Map</p></li>
 		<li class="finished" id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
