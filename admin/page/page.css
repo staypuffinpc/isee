@@ -311,7 +311,7 @@ ul textarea{
 }
 
 .text, .answer, .response, .embeddedContainer, .embedded {
-	display: inline;
+	display: inline-block;
 }
 
 .type {
@@ -330,6 +330,12 @@ ul textarea{
 }
 
 .ce {
+	margin: 3px;
+	min-width: 10px;
+	padding: 10px;
+	border-color: #999999;
+	border-width: 1px;
+	border-style: dashed;
 	cursor: text;
 	-moz-user-select:text;
 	-khtml-user-select: text;
@@ -360,13 +366,18 @@ ul textarea{
 
 .ui-state-highlight {
 	background-color: #a7cafe;
-	height: 21px;
+	height: 42px;
 	border-color: #666666;
 	border-style: dashed;
 	border-width: 1px;
 }
 
 .page_stem, .page_punctuation, .page_link {
+	border-color: #999999;
+	border-style: dashed;
+	border-width: 1px;
+	min-width: 10px;
+	padding: 10px;
 	display: inline-block;
 	cursor: text;
 	-moz-user-select:text;
