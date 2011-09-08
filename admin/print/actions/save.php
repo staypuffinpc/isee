@@ -15,7 +15,7 @@ $link=connect(); //call function from external file to connect to database
 $story=$_SESSION['story'];
 $name=$_POST['name'];
 $content=$_POST['data'];
-
+if ($name !== "null") {
 $query = "Select * from Prints where story='$story' and name='$name'";
 $run = mysql_query($query) or die(mysql_error());
 if (mysql_num_rows($run)<1) {
@@ -27,5 +27,8 @@ else {
 	$run = mysql_query($query) or die(mysql_error());
 	
 }
+
+}
+
 
 ?>

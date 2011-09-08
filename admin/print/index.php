@@ -37,8 +37,9 @@ $story = mysql_fetch_assoc($run);
 <script type="text/javascript" src="../../js/common.js"></script>
 
 <script type="text/javascript" src="print.js"></script>
-
-
+<script type="text/javascript">
+var defaultName="My Print Layout";
+</script>
 </head>
 <body>
 <div id="header"><? echo $story['story_name']; ?>
@@ -49,6 +50,7 @@ $story = mysql_fetch_assoc($run);
 	<div class='title' id="page-order">Page Order</div>
 	<a class='btn' id="print" HREF="javascript:window.print()">Print</a><a class='btn' id="save">Save</a>
 	<a class='btn' id='load'>Load a previous version</a>
+	<p id="filename">Filename: <script>document.write(defaultName);</script></p>
 </div>
 <ul id="item-list">
 	
@@ -59,6 +61,10 @@ $story = mysql_fetch_assoc($run);
 <div id="content">
 	<? include("ajax/print.php"); ?>
 </div>
+<form>
+	<textarea name="data" id="prep">
+	</textarea>
+</form>
 <div id="saves">
 
 </div>

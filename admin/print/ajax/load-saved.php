@@ -18,5 +18,6 @@ $query = "Select * from Prints where id='$id'";
 $run = mysql_query($query) or die(mysql_error());
 $results = mysql_fetch_assoc($run);
 echo $results['content'];
+echo "<script>$('#filename').html('Filename: {$results['name']}');defaultName='{$results['name']}';</script>";
 
 ?>

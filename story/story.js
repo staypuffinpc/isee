@@ -180,6 +180,16 @@ $("#help").toggle();
 
 }
 
+function formatGlossary(){
+	$("table.glossary td").each(function(){
+		$(this).children('p').first().css("margin-top","0px");
+	});
+	$("table.glossary tr:even").css("background-color", "#e8e8e8");
+	$("table.glossary tr:odd").css("background-color", "#ffffff");
+
+
+}
+
 $(document).ready(function(){
 	Scroller('viewport');
 	google_analytics();

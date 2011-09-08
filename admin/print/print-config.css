@@ -297,4 +297,32 @@ a.saved:hover {
 #reference_title {
 }
 
+p#filename {
+	display: inline-block;
+}
+
+table.glossary {
+	font-size: 14px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+table.glossary td {
+	padding: 10px;
+	vertical-align: top;
+}
+
+table.glossary td p {
+	margin-top: 10px;
+	margin-bottom: 0px;
+
+}
+
+td.term {
+	font-size: 12px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	width: 250px;
+}
 

@@ -1,9 +1,9 @@
 $("document").ready(function(){
 var current_element;
-var name="";
+
 
 addTitles();
-
+formatGlossary();
 $("html").click(function(){
 	$("#saves, #pageRightClick").hide();
 	$(".selected").each(function(){$(this).removeClass("selected");});
@@ -24,8 +24,8 @@ $("img").mousedown(function(e){
 });
 }
 $("img").draggable();
-$("#content p, #content div, #content img, #content h1, #content h2, #content h3, #content h4, #content h5, #content h6, #content span ").blur(function(){$(this).attr("contenteditable", false)});
-$("#content p, #content div, #content img, #content h1, #content h2, #content h3, #content h4, #content h5, #content h6, #content span ").live("contextmenu", function(e){
+$("#content p, #content div, #content img, #content h1, #content h2, #content h3, #content h4, #content h5, #content h6, #content span, tr ").blur(function(){$(this).attr("contenteditable", false)});
+$("#content p, #content div, #content img, #content h1, #content h2, #content h3, #content h4, #content h5, #content h6, #content span, tr ").live("contextmenu", function(e){
 	$(".selected").each(function(){$(this).removeClass('selected');});
 	current_element = this;
 	$(this).addClass('selected');
@@ -33,7 +33,7 @@ $("#content p, #content div, #content img, #content h1, #content h2, #content h3
 	"left" : e.pageX,
 	"top" : e.pageY	
 	}).show();
-	$("#removeMe").click(function(){$(current_element).remove();$("#pageRightClick").hide();});
+	$("#removeMe").click(function(){$(current_element).remove();formatGlossary();$("#pageRightClick").hide();});
 	$("#editMe").click(function(){
 		$(current_element).attr("contenteditable", true)
 		.removeClass('selected')
@@ -63,19 +63,22 @@ $("#content").click(function(){
 });
 
 $("#save").click(function(){
-	
-	var name = prompt("Please give this saved version a name. Please note that if the name already exists, it will be replaced with this version.");
-	
-	data = $("#content").html();
+	$("#prep").val($("#content").html());
+	data = $("form").serialize();
+	var name = prompt("Please give this saved version a name. Please note that if the name already exists, it will be replaced with this version.", defaultName);
+	if (name == undefined) {return;}
+/* 	data = $("#content").html(); */
 	$.ajax({
 		type: "POST",
 		url: "actions/save.php",
-		data: "name="+name+"&data="+data,
+		data: data+"&name="+name,
 		success: function(phpfile){
 			$("#update").html(phpfile);
+			$('#filename').html("Filename: "+name);defaultName=name;
 		}
 	});
 	saved='true';
+	
 });
 
 
@@ -140,5 +143,15 @@ $(".casestudy").append("<div class='casestudy-title'>case study</div>");
 	$(".tip").append("<div class='tip-title'>tip</div>");
 	$(".keytakeaway").append("<div class='keytakeaway-title'><img src='../../img/key.jpg' /></div>");
 	$(".essentialquestion").append("<div class='essentialquestion-title'><img src='../../img/question1.jpg' /></div>");
+
+}
+
+function formatGlossary(){
+	$("table.glossary td").each(function(){
+		$(this).children('p').first().css("margin-top","0px");
+	});
+	$("table.glossary tr:even").css("background-color", "#e8e8e8");
+	$("table.glossary tr:odd").css("background-color", "#ffffff");
+
 
 }

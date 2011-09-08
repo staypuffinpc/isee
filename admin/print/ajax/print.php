@@ -31,4 +31,24 @@ mysql_data_seek($run, 0);
 while ($results = mysql_fetch_assoc($run)) {
 echo $results['page_references'];
 }
+
+$query_terms = "Select * from Terms Where story='$story' ORDER BY term ASC"; //mysql query variable
+$list_terms = mysql_query($query_terms) or die(mysql_error()); //execute query
+$terms = mysql_fetch_assoc($list_terms);//gets info in array
 ?>
+<h2>Glossary</h2>
+<table class="glossary">
+<?
+do { ?>
+	<tr>
+	<td class="term"><? echo $terms['term']; ?></td>
+	<td><? echo $terms['definition']; ?></td>
+	
+	</tr>
+
+
+<? } while ($terms = mysql_fetch_assoc($list_terms));
+
+
+?>
+</table>

@@ -26,7 +26,7 @@ $terms = mysql_fetch_assoc($list_terms);//gets info in array
 <?
 do { ?>
 	<tr>
-	<td style="font-weight: bold;"><? echo $terms['term']; ?></td>
+	<td class='term'><? echo $terms['term']; ?></td>
 	<td><? echo $terms['definition']; ?></td>
 	
 	</tr>
@@ -41,5 +41,7 @@ do { ?>
 <p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
 </div>
 
-<script>	google_analytics();
+<script>
+google_analytics();
+formatGlossary();
 </script>
