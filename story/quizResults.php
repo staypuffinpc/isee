@@ -2,11 +2,11 @@
 /* Depending on the url this provides absolute links to the files that are needed for every file. */
 $requestingURL = $_SERVER['SERVER_NAME'];
 if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/project/authenticate.php");
+	include_once("/Users/Ben/Sites/isee/authenticate.php");
 	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
 	}
 else {
-	include_once("/home4/byuiptne/public_html/301/project/authenticate.php");
+	include_once("/home4/byuiptne/public_html/isee/authenticate.php");
 	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
 	
 	}
@@ -20,7 +20,7 @@ $correct = 0;
 if(isset($_GET['answer'])){
 	foreach($_GET['answer'] as $key=>$value) {
 		$total++;
-		$query = "Select item_type from Quiz_items where item_id = '$key'";
+		$query = "Select item_type from Quiz_Items where item_id = '$key'";
 		$run = mysql_query($query) or die(mysql_error());
 		$results = mysql_fetch_assoc($run);
 		$type = $results['item_type'];
