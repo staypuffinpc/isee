@@ -126,10 +126,10 @@ form {
 }
 
 .worksheet textarea, worksheet-content textarea {
-	width: 600px;
+	width: 100%;
 }
 .worksheet input[type="text"], .worksheet-content input[type="text"] {
-width: 600px;
+width: 100%;
 }
  
 .answer-img {
@@ -322,8 +322,35 @@ top: 0px;
 }
 
 table.worksheet {
-	border-spacing: 0px 40px;
+	border-collapse: collapse;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	width: 700px;
+	border-color: #cccccc;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #e8e8e8;
+/* 	border-spacing: 30px 0px; */
 	
+}
+
+table.worksheet td {
+	padding: 10px;
+}
+td.treasure-chest {
+
+
+	position: relative;
+
+
+}
+
+tr.page-link {
+
+	font-weight: bold;
+
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
 }
 
 table.glossary td {
@@ -467,18 +494,27 @@ text-align: center;
 }
 
 .sorry {
-	height: 64px;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	font-size: 32px;
+	font-size: 24px;
+	padding: 16px;
 	text-align: center;
-	background-color: black;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#cc0000), to(#990000));
+	background-image: -moz-linear-gradient(#cc0000, #990000);
+	font-weight: bold;
+	text-shadow: #9900 1px 1px 4px;
 	color: white;
 }
 
 .submit {
-	
+	margin-left: -10px;
+	padding-left: 0px;
+	padding-bottom: 40px;
+	padding-right: 0px;
+	padding-top: 10px;
+	text-align: center;
+	display: block;
 
-	width: 100%;
+	width: 720px;
 	
 
 }
@@ -579,3 +615,4 @@ td.term {
 	font-weight: bold;
 	width: 250px;
 }
+
