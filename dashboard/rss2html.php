@@ -21,12 +21,12 @@
 // Set the following variable useFopenURL to one if you want/need to use
 // fopen() instead of CURL or FeedForAll_fopen()
 $useFopenURL = 0;
-date_default_timezone_set('America/Denver');
+/* date_default_timezone_set('America/Denver'); */
 //
 // If XLMFILE is passed as part of the URL, XMLFILE=, then it will be used
 // otherwise the the file below is used.
 //$XMLfilename = "http://examlple.com/sample.xml";
-$XMLfilename = "https://github.com/benmcmurry/project/commits/master.atom";
+$XMLfilename = "https://github.com/benmcmurry/isee/commits/master.atom";
 
 //
 // If TEMPLATE is passed as part of the URL. TEMPLATE=, then it will be used
