@@ -77,7 +77,8 @@ EOF;
 			<div id="updates" class="panel">
 				<h1>Updates</h1>
 				<div class="content">	
-					<? include_once('rss2html.php'); ?>
+					<iframe src="https://github.com/benmcmurry/isee/commits/master"></iframe>
+					<? /* include_once('rss2html.php'); */ ?>
 				</div>
 			</div> <!-- end updates div -->
 		</div>	<!-- end left column div -->

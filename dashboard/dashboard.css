@@ -112,6 +112,7 @@ font-size: 16px;
 }
 
 #updates {
+	width: 100%;
 	position: absolute;
 	bottom: 0px;
 	top:170px;
@@ -374,5 +375,10 @@ a#request {
 	padding: 10px;
 	left: 0px;
 	bottom: 10px;
+}
+
+iframe {
+	width: 98%;
+	height: 80%;
 }
 
