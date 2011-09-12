@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Sunshine Poppy";
+  src: url(Sunshine-Poppy.ttf) format("truetype");
+}
+
+
 body {
 	background-repeat: repeat-x;
 	background-image: url(../img/white.png);
@@ -34,7 +40,7 @@ body {
 
 #title {
 	font-size: 120px;
-	font-family: "Josefin Slad", Federo;
+	font-family: "Sunshine Poppy";
 	text-transform: uppercase;
 	float: right;
 	text-align: right;
@@ -56,14 +62,14 @@ img#teacher-splash {
 
 
 #login {
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	margin-left: 0px;
 	margin-bottom: 16px;
 	margin-right: 0px;
 	margin-top: 0px;
 	font-size: 32px;
-	font-family: Georgia, "Times New Roman", Times, serif;
 	padding: 0px;
-	text-align: center;
+	text-align: left;
 }
 
 a img.icons {
@@ -78,13 +84,13 @@ a img.icons {
 }
 
 #title2 {
-	font-size: 26px;
-	font-family: "Josefin Slab";
+	font-size: 20px;
+	font-family: "Sunshine Poppy";
 	text-transform: lowercase;
 	margin-top: 75px;
 	margin-right: auto;
 	margin-left: auto;
-	width: 590px;
+	width: 600px;
 	text-align: center;
 }
 
