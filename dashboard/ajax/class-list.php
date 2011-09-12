@@ -22,7 +22,7 @@ while ($results = mysql_fetch_assoc($run)) {
 
 echo "<div class='story'><a class='classLink choice' id='".$results['class_id']."'>";
 
-echo "<img class='icon' src='../img/class.gif' />";
+echo "<img class='icon' src='../img/chalkboard.png' />";
 echo "<h5>".$results['class_name']."</h5>";
 echo "<h6>".$results['user_name']."</h6>";
 echo "<a href='class/index.php?class_id=".$results['class_id']."' class='editLink'><img src='../img/configuration.png' /></a>"; 
@@ -35,7 +35,7 @@ $run = mysql_query($query) or die(mysql_error());
 while ($results = mysql_fetch_assoc($run)) {
 echo "<div class='story'><a class='classLink choice' id='".$results['class_id']."'>";
 
-echo "<img class='icon' src='../img/class.gif' />";
+echo "<img class='icon' src='../img/chalkboard.png' />";
 echo "<h5>".$results['class_name']."</h5>";
 echo "</a></div>";
 
