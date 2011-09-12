@@ -20,19 +20,19 @@
 //
 // Set the following variable useFopenURL to one if you want/need to use
 // fopen() instead of CURL or FeedForAll_fopen()
-$useFopenURL = 0;
-/* date_default_timezone_set('America/Denver'); */
+$useFopenURL = 1;
+date_default_timezone_set('America/Denver');
 //
 // If XLMFILE is passed as part of the URL, XMLFILE=, then it will be used
 // otherwise the the file below is used.
 //$XMLfilename = "http://examlple.com/sample.xml";
-$XMLfilename = "https://github.com/benmcmurry/isee/commits/master.atom";
+$XMLfilename = "http://github.com/benmcmurry/isee/commits/master.atom";
 
 //
 // If TEMPLATE is passed as part of the URL. TEMPLATE=, then it will be used
 // otherwise the the file below is used.
 //$TEMPLATEfilename = "http://examlple.com/sample-template.html";
-$TEMPLATEfilename = "sample-template.html";
+$TEMPLATEfilename = "rss2html/sample-template.html";
 
 //
 // Since some feeds may have titles or descriptins in the feed or items that

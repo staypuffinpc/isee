@@ -2,16 +2,20 @@ var refresh = false;
 
 function update_height() {
 
+updates_width = $("#profile").width();
+console.log(updates_width);
 updates_height = $("#updates").height()-36;
-	
-	$("#updates .content").css({
+	$("#updates").css({"width" : updates_width});
+	$("#updates content").css({
+	"width" : updates_width,
 	"height": updates_height,
 	"margin-right": "0px",
 	"margin-top" : "0px",
-	"padding-top" : "5px"
+	"padding-top" : "0px"
 	
 	
 	});
+	$("pre").css("width", $("#profile").width());
 }
 
 function update_classes_height () {
@@ -205,6 +209,9 @@ $(document).ready(function() {
 		});
 	
 	});
+
+	
+
 
 });
 

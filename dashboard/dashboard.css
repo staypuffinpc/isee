@@ -99,7 +99,6 @@ font-size: 16px;
 
 .panel .content {
 	margin:5px;
-	overflow:auto;
 }
 
 #profile {
@@ -112,11 +111,13 @@ font-size: 16px;
 }
 
 #updates {
-	width: 100%;
 	position: absolute;
 	bottom: 0px;
 	top:170px;
+	overflow-y: scroll;
+
 }
+
 a.manage {
 
 
@@ -375,10 +376,8 @@ a#request {
 	padding: 10px;
 	left: 0px;
 	bottom: 10px;
+	
 }
 
-iframe {
-	width: 98%;
-	height: 80%;
-}
+
 
