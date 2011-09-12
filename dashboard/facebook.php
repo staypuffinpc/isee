@@ -2,7 +2,7 @@
 
 $app_id = "176079105779474";
 $app_secret = "48296dba973555d5aab064c9cf904761";
-$my_url = "http://301.byuipt.net/production/dashboard/facebook.php";
+$my_url = "http://ipt.byu.edu/isee/dashboard/facebook.php";
 
 $code = $_REQUEST["code"];
 
