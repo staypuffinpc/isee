@@ -19,23 +19,30 @@ $story = $_SESSION['story'];
 
 $query_terms = "Select * from Terms Where story='$story' ORDER BY term ASC"; //mysql query variable
 $list_terms = mysql_query($query_terms) or die(mysql_error()); //execute query
-$terms = mysql_fetch_assoc($list_terms);//gets info in array
+
+$query = "Select page_content, id, page_name from Pages where story='$story'";
+$run = mysql_query($query) or die(mysql_error());
+
+
 ?>
 <h2>Glossary</h2>
 <table class="glossary">
 <?
-do { ?>
+while ($terms = mysql_fetch_assoc($list_terms)) { ?>
 	<tr>
 	<td class='term'><? echo $terms['term']; ?></td>
-	<td><? echo $terms['definition']; ?></td>
-	
-	</tr>
-
-
-<? } while ($terms = mysql_fetch_assoc($list_terms));
-
-
-?>
+	<td><? echo $terms['definition']; ?>
+	<?
+	mysql_data_seek($run, 0);
+	while ($results = mysql_fetch_assoc($run)) {
+		$pos = strpos($results['page_content'], $terms['term']);
+		if ($pos === false) {}
+		else {
+			echo "<a href='index.php?page_id={$results['id']}'>{$results['page_name']}</a> ";
+		}
+	} ?>
+	</td></tr>
+<? } ?>
 </table>
 <div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
 <p>The glossary contains a list of all of the key terms from throughout the story.  On instructional pages, key terms are the bolded words with a dotted underline.  You can click on that term for a quick definition.</p>
