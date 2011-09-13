@@ -142,7 +142,7 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { // while 3
 </div>
 <script>
 console.log("<? echo $top; ?>");console.log("<? echo $left; ?>");
-height = <? echo $top; ?>*1+200;
+height = <? echo $top; ?>*1+300;
 left = <? echo $left; ?>*1+250;
 console.log(height+" "+left);
 $('.map-wrapper').css({
