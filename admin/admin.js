@@ -361,9 +361,9 @@ $.ajax({
 }
 /* --------------------------end-handlers--------------------------- */
 
-resizeGrid(lowest, rightest);
+/* resizeGrid(lowest, rightest); */
 $(window).resize(function(){
-	resizeGrid(lowest, rightest);
+/* 	resizeGrid(lowest, rightest); */
 });
 
 $("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this).hide();bindThemAll();});

@@ -30,7 +30,12 @@ $query_user_progress = "Select progress_page from User_Progress where progress_u
 $list_user_progress = mysql_query($query_user_progress) or die(mysql_error()); //execute query
 $progress = mysql_fetch_assoc($list_user_progress);//gets info in array
 $progress = explode(", ", $progress['progress_page']);
+?>
+<div class="map-wrapper">
 
+<?
+$top = 0;
+$left = 0;
 if (in_array($results['story_summary'], $progress)) {$summary = true;} else {$summary = false;}
 
 if (!$summary) {
@@ -49,9 +54,11 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1
  		<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
 			<? echo $page_name; ?>
 		</div>
-	
-	
-	<? }
+		<?	
+			if($pages['page_top'] > $top) {$top = $pages['page_top'];}
+			if($pages['page_left'] > $left) {$left = $pages['page_left'];}
+		
+	 }
 	else {
 	$query_child_search = "Select * from Page_Relations where page_child='".$pages['id']."'";
 	$list_child_search = mysql_query($query_child_search) or die(mysql_error()); //execute query
@@ -62,8 +69,9 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1
 		<div class="page inactive" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
 			<? echo "?"; ?>
 		</div>
-
 		<?
+		if($pages['page_top'] > $top) {$top = $pages['page_top'];}
+		if($pages['page_left'] > $left) {$left = $pages['page_left'];}
 		break;
 		}
 	
@@ -89,9 +97,11 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1.5
  		<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
 			<? echo $page_name; ?>
 		</div>
+	<?
+		if($pages['page_top'] > $top) {$top = $pages['page_top'];}
+		if($pages['page_left'] > $left) {$left = $pages['page_left'];}
 	
-	
-	<? }
+	}
 	else {?>
 	
 		<div class="page inactive" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
@@ -129,7 +139,17 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { // while 3
 <? } //end while 3
 ?>
 <div id="youarehere">You are<br/>here.</div>
+</div>
 <script>
+console.log("<? echo $top; ?>");console.log("<? echo $left; ?>");
+height = <? echo $top; ?>*1+200;
+left = <? echo $left; ?>*1+250;
+console.log(height+" "+left);
+$('.map-wrapper').css({
+	"height" : height,
+	"width" : left
+});
+
 $(".page").click(function(){
 	_gaq.push(['_trackEvent', 'Map Click', this.id, this.id+' on the map was clicked.']); //GA tracking
 	if ($(this).hasClass('inactive')) {alert("You have not visited this page yet.");}

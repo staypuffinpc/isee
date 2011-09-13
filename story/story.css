@@ -14,12 +14,7 @@
 
 #summary-button {
 	display: none;
-	/*
-top: 0px;
-	right: 0px;
-	width: 80px;
-	position: absolute;
-*/
+
 }
 
 .content {
@@ -27,10 +22,7 @@ top: 0px;
 	padding-bottom: 50px;
 	padding-right: 0px;
 	padding-top: 20px;
-	/*
-margin-right: auto;
-	margin-left: auto;
-*/
+
 	width: 700px;
 	position: absolute;
 	left: 50%;
@@ -43,19 +35,10 @@ margin-right: auto;
 }
 #page2 {
 	display: none;
-	/*
-border-style: none;
-	position: absolute;
-	left: 50%;
-	
-	/* 	overflow: scroll; */
 	margin-left: -350px;
 	margin-right: auto;
 	top: 0;
 	bottom: 0;
-*/
-
-	
 }
 
 form {
@@ -80,7 +63,7 @@ form {
 	overflow-y: scroll;
 	display:none;
 }
- .worksheet-content {
+ .worksheet-embedded {
 	margin-top: 32px;
 	position: relative;
 	border-top-color: blue;
@@ -503,6 +486,7 @@ text-align: center;
 	font-weight: bold;
 	text-shadow: #9900 1px 1px 4px;
 	color: white;
+	margin-top: 10px;
 }
 
 .submit {
@@ -514,7 +498,7 @@ text-align: center;
 	text-align: center;
 	display: block;
 
-	width: 720px;
+	width: inherit;
 	
 
 }
@@ -614,5 +598,29 @@ td.term {
 	text-transform: uppercase;
 	font-weight: bold;
 	width: 250px;
+}
+
+span.page-list-count {
+
+	font-weight: bold;
+
+}
+
+.page-list {
+
+	font-size: 12px;
+
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+	margin-top: 6px;
+
+}
+
+.page2-wrapper, .worksheet {
+	padding-bottom: 50px;
+}
+
+.map-wrapper {
+
 }
 

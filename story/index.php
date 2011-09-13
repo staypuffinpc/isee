@@ -119,7 +119,7 @@ $(document).ready(function(){
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>
 
-		<div id="worksheet" class="worksheet-content">
+		<div id="worksheet" class="worksheet-embedded">
 		<div id="check">check your understanding</div>
 		<? 
 		while ($Aresults = mysql_fetch_assoc($run)) {
@@ -176,7 +176,7 @@ $(document).ready(function(){
 </div>
 
 </div> <!-- end page1 div -->
-<div class="content" id="page2"></div>
+<div  id="page2" class="content"></div>
 </div>
 <div id="instructionsToggle" class="
 	<? 

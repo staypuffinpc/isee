@@ -205,9 +205,10 @@ div.goto-page {
 }
 
 #mapgrid {
-	right: 0px;
+/* 	right: 0px; */
 	left: 0px;
-	bottom: 0px;
+/* 	bottom: 0px; */
+/* 	height: 100%; */
 	top: 0px;
 	position: absolute;
 	-moz-user-select: -moz-none;
@@ -215,7 +216,8 @@ div.goto-page {
 	-webkit-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-	
+	padding-right: 100px;
+	padding-bottom: 100px;
 }
 
 .selected {

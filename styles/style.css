@@ -46,6 +46,7 @@ p {
     
 }
 #viewport {
+padding: 0px;
 background-color: white;
 	position:absolute;
 /* 	width: 768px; */
@@ -58,7 +59,6 @@ background-color: white;
 left: 50%;
 	margin-left: -384px;
 */
-	padding:0px;
 	overflow-y:auto;
 	overflow-x:auto;
 }

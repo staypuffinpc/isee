@@ -139,8 +139,8 @@ function showPageInstructions() {
 }
 
 function navigate(target) {
-	if (target == "map") {$("#page2").css({"margin-left":0, "left":0, "padding" :240});}
-			else {$("#page2").css({"margin-left":"-350px", "left":"50%", "padding" : 0});}
+	if (target == "map") {$("#page2").css({"margin-left":0, "left":0,"width":"auto"});}
+			else {$("#page2").css({"margin-left":"-350px", "left":"50%"});}
 		
 		$("#footer li img, #footer li p").css("opacity","0.5");
 		

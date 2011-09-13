@@ -94,8 +94,8 @@ else {echo "<img class='answer-img closed' id='".$worksheet['worksheet_id']."' s
 <?
 }} while ($worksheet = mysql_fetch_assoc($list_worksheet));
 ?>
-<div class="submit">
-<a class='blockButton btn'>Submit Answers</a>
+<div>
+<a class='blockButton btn submit'>Submit Answers</a>
 </div>
 </div>
 <div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>

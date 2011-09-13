@@ -59,8 +59,10 @@ include_once("db.php");
 
 
 <script type="text/javascript">
-var lowest = 0; var rightest = 0;
-<? if ($story == NULL) {?>
+<? 
+$h = 0;
+$w = 0;
+if ($story == NULL) {?>
 window.location = "../dashboard/";
 <?
 }
@@ -110,18 +112,14 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 	if ($pages['finish_page'] == "true") {echo "<div class='start-finish-summary finish'>Finish</div>";}
 	?>
 </div>
-<script> 
-	if (<? echo $pages['page_top']; ?> > lowest) {lowest = <? echo $pages['page_top']; ?>;} 
-	if (<? echo $pages['page_left']; ?> > rightest) {rightest = <? echo $pages['page_left']; ?>;} 
-	
-	
-	</script>
-	
-
-<? } /* end while */
-?>
 
 <?
+	if($pages['page_top'] > $h) {$h = $pages['page_top'];}
+	if($pages['page_left'] > $w) {$w = $pages['page_left'];}
+	
+
+} /* end while */
+
 while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 
 <div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div>
@@ -138,9 +136,21 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 <!-- <div id="newpage" class="page" style="top:40;left:450;z-index=99">New Page</div> -->
 <div id="update"></div>
 <div id="fadebackground"></div>
+
+<?
+	$h=$h+50;
+	$w=$w+200;
+
+?>
+
 <div id="mapgrid"></div>
 <script>
+$("#mapgrid").css({
+	"width" : <? echo $w; ?>,
+	"height" : <? echo $h; ?>
+});
 
+console.log("width:<? echo $w; ?>px;height=<? echo $h; ?>px");
 
 
 </script>
