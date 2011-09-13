@@ -338,7 +338,8 @@ $(document).ready(function(){
 	$(".tip").append("<div class='tip-title'>tip</div>");
 	$(".keytakeaway").append("<div class='keytakeaway-title'><img src='../img/key.jpg' /></div>");
 	$(".essentialquestion").append("<div class='essentialquestion-title'><img src='../img/question1.jpg' /></div>");
-	
+	$(".trythis").append("<div class='trythis-title'>try this</div>");
+
 
 
 

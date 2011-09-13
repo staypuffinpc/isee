@@ -88,8 +88,7 @@ xinha_init = xinha_init ? xinha_init : function()
    xinha_config.stylistLoadStylesheet(_editor_url + "../styles/stylist.css", {
    	'div.example' : 'Example',
    	'div.frontmatter' : 'Front Matter',
-	
-   	'div.figure' : 'Figure',
+	'div.figure' : 'Figure',
    	'div.essentialquestion' : 'Essential Question',
    	'div.review' : 'Review',
    	'div.casestudy' : 'Case Study',
@@ -99,7 +98,8 @@ xinha_init = xinha_init ? xinha_init : function()
    	'div.caption' : 'Caption',
    	'div.objective' : 'Objective',
    	'.keyterm' : 'Key Term',
-   	'div.tip' : 'Tip'
+   	'div.tip' : 'Tip',
+   	'div.trythis' : 'Try This'
    	
    	
    	});
