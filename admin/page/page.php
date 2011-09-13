@@ -83,13 +83,15 @@ window.location = "../../index.php";
 <form>	<input type="hidden" id="page_id" name="page_id" value="<? echo $page_id ?>" />
 
 <div id="header">
-	<? echo $page['story_name']; ?>  : <input type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" /> 
+	<? echo $page['story_name']; ?>  	
 <a id="home" href="../index.php"></a>
 <div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 
 <div id="viewport">
 <div class="content" id="page1">
+<input type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" />
+
 <textarea name="content" id="content">
 		<? echo $page['page_content']; // Gets Content ?>
 </textarea>

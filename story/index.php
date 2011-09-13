@@ -39,7 +39,7 @@ $run = mysql_query($query) or die(mysql_error());
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> </title>
+<title>ISEE - <? echo $page['story_name']; // Gets Content ?> </title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="story.css" rel="stylesheet" type="text/css" />
 <link href="../styles/stylist.css" rel="stylesheet" type="text/css" />
@@ -114,6 +114,7 @@ $(document).ready(function(){
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
+	<h2><? echo $page['page_name']; ?></h2>
 <!-- 		<div id="page-content"> -->
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>

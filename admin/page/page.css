@@ -51,7 +51,7 @@ left: 50%;
 
 textarea {
 /* min-height: 400px; */
-width: 100%;
+width: 898px;
 height: 100%;
 margin-top: 100px;
 padding: 0px;
@@ -74,10 +74,11 @@ a[href^="http://"] {
 
 }
 
-input {
-	font-size: 16px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	margin-left: 30px;
+input[type=text] {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 32px;
+	width: 904px;
+	text-align: center;
 }
 
 
@@ -418,6 +419,12 @@ display: inline;
 
 .page_ending {
 	display: inline-block;
+}
+
+#page_name {
+	
+
+
 }
 
 /*	

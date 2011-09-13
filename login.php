@@ -59,7 +59,7 @@ function ie_box() {
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Interactive Story-based E-Learning Environment</title>
+<title>ISEE</title>
 <!-- <link href="styles/style.css" rel="stylesheet" type="text/css" /> -->
 <link href="styles/login.css" rel="stylesheet" type="text/css" />
 <link href="editor.css" rel="stylesheet" type="text/css" />

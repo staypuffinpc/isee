@@ -19,7 +19,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Interactive Story-Based E-Learning Environment</title>
+<title>ISEE</title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="dashboard.css" rel="stylesheet" type="text/css" />
 
