@@ -6,7 +6,7 @@ if ($requestingURL == 'localhost') {
 	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
 	}
 else {
-	include_once("/home4/byuiptne/public_html/301/isee/authenticate.php");
+	include_once("/home4/byuiptne/public_html/isee/authenticate.php");
 	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
 	
 	}
