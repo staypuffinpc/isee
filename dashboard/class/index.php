@@ -52,6 +52,7 @@ $members = mysql_query($query) or die(mysql_error());
 </div><!--  end header div -->
 <div id="viewport">
 	<div class="content" id="page1">
+	<div id="class-code">Class Code: <? echo $class['enroll_code']; ?></div>
 	<div id='story-list'>
 	<a class='dbutton' id='add-story'>Add More Stories</a>
 
