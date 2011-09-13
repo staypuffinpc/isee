@@ -214,6 +214,7 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 	<p><input name="page_type" type="radio" value="Story" <? if ($page['page_type'] == "Story") {echo " checked";} ?> />Story</p>
 	<p><input name="page_type" type="radio" value="Teaching" <? if ($page['page_type'] == "Teaching") {echo " checked";} ?> />Teaching</p>
+	<p><input name="page_type" type="radio" value="" <? if ($page['page_type'] == "") {echo " checked";} ?> />Nothing</p>
 
 
 	<h2>Summary</h2>

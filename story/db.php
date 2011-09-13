@@ -93,7 +93,12 @@ if ($page['finish_page'] == "true") {
 $progress_get = "Select * from User_Progress where progress_user='$user_id' and progress_story='$story'"; //mysql query variable
 $progress_get_list = mysql_query($progress_get) or die(mysql_error()); //execute query
 $progress = mysql_fetch_assoc($progress_get_list);
-if (strlen($progress['progress_finish']) >0){$finish=true;}else {$finish = false;}
+if (strlen($progress['progress_finish']) >0){$finish=true;}
+	else {
+	$temp = strpos($progress['progress_page'], $page['story_summary']);
+	if ($temp === false) {$finish = false;}
+		else {$finish = true;}
+}
 
 
 

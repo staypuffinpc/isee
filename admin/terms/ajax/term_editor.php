@@ -14,7 +14,6 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
 $term_id = $_POST['term_id'];
-include_once('../../authenticate.php');
 
 $user_id=$_SESSION['user_id'];
 $story = $_SESSION['story'];

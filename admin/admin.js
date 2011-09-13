@@ -41,15 +41,6 @@ var permissions = function(e){
 
 };
 
-var termPopup = function(){ 
-	width = 1000;
-	height = 500;
-	open(width, height);
-	open();
-	$("#popup-content").load("ajax/term.php");
-};
-
-
 var newPage = function(e){ 
 	unbindThemAll();
 	e.stopImmediatePropagation();
@@ -200,54 +191,14 @@ var relatePage = function(){
 
 var closeOnClick = function(){close();}; 
 
-var termChange = function(){
-	unbindThemAll();
-	console.log("function triggered");
-	$('#edit_this_term').submit();
-	value=$('#edit_this_term').serialize();
-	term_id = $("input#term_id").val();
-	term = $("input#term").val();
-	definition = $("textarea#definition").val();
-	
-	$('.'+term_id).html(term);
-	$('.'+term_id+'D').html(definition);
-
-	$.ajax({
-		type: "POST",
-		url: "actions/term_change.php",
-		data: value,
-		success: function(phpfile){
-		$("#update-status").html(phpfile);
-		bindThemAll();
-		}
-	});
-};
-
 var closeOnClick = function(){close();}; 
 
-var newTerm = function(e) {
-	unbindThemAll();
-	e.stopImmediatePropagation();
-	console.log("new term clicked");
-	$.ajax({
-		type: "POST",
-		url: "actions/new_term.php",
-		success: function(phpfile){
-		$("#popup-content").load('ajax/term.php?term='+phpfile);
-		bindThemAll();
-		}
-	});
-
-};
 var hidePageRightClick = function() {
 	$("#pageRightClick").hide();
 };
 
 
-var editTerm = function() {
-	id = this.id;
-	openInTermEditor(id);
-}
+
 
 var startMover = function(e) {
 /* 	$(".page").draggable("disabled",true); */
@@ -307,31 +258,7 @@ var moveThePage = function () {
 });
 }
 
-var deleteTerm = function(e) {
-	e.stopImmediatePropagation();
-	var answer = confirm("Are you sure you want to delete this term?");
-	if (answer) {
-		info = $(this).attr('class').split(" "),
-		$.ajax({
-			type: "POST",
-			url: "actions/deleteTerm.php",
-			data: "term_id="+info[1],
-			success:function(phpfile){$("#update").html(phpfile);$("#"+info[1]).remove();}
-		});
-	}
-}
 
-var findTerms = function(e) {
-	e.stopImmediatePropagation();
-	var answer = confirm("This will attempt to add all key terms from your that don't have definitions to the list. Are you sure you want to continue?");
-	if (answer) {
-		$.ajax({
-			url: "actions/findTerms.php",
-			success:function(phpfile) {$("#update").html(phpfile);$("#popup-content").load("ajax/term.php");}
-		
-		});
-	}
-}
 
 var showContextmenu = function(e){
 	$("#pageRightClick").css({
@@ -442,7 +369,6 @@ function bindThemAll() {
 	$("#logoutFromMenu").click(logoutFromMenu);
 	$("#edit").click(editStory);
 	$("#permissions").click(permissions);
-	$("#terms").click(termPopup);
 	$("#new_page").click(newPage);
 	$('html').keyup(keyboard);
 	$("#mapgrid").mousedown(selectorStart);
@@ -452,14 +378,10 @@ function bindThemAll() {
 	$(".delete, #delete").live('click', deletePage);
 	$(".arrow").live('click', pageRelation);
 	$(".relate").live('mouseover', relatePage);
-	$("tr.clickable-item").live("click", editTerm);
-	$("#term-change").live('click', termChange);
-	$("#new-term").live('click', newTerm);
 	$("#start").live("click", startMover);
 	$("#summary").live("click", startMover);
 	$(".page").live('mouseover', moveThePage);
-	$(".deleteTerm").live("click", deleteTerm);
-	$("#findTerms").live("click", findTerms);
+	
 	$("#toggleFinish").live("click", toggleFinish);
 	
 }
@@ -471,7 +393,6 @@ function unbindThemAll() {
 	$("#logoutFromMenu").unbind('click', logoutFromMenu);
 	$("#edit").unbind('click', editStory);
 	$("#permissions").unbind('click', permissions);
-	$("#terms").unbind('click', termPopup);
 	$("#new_page").unbind('click', newPage);
 	$('html').unbind('keyup', keyboard);
 	$("#mapgrid").unbind('mousedown', selectorStart);
@@ -481,13 +402,10 @@ function unbindThemAll() {
 	$(".delete, #delete").unbind('click', deletePage);
 	$(".arrow").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
-	$("tr.clickable-item").unbind();
-	$("#term-change").unbind('click', termChange);
-	$("#new-term").unbind();
+	
 	$("#start").unbind();
 	$("#summary").unbind();
-	$(".deleteTerm").unbind();
-	$("#findTerms").unbind();
+	
 	$("#toggleFinish").unbind("click", toggleFinish);
 }
 
@@ -631,15 +549,5 @@ function resizeGrid(lowest,rightest) {
 	$("#mapgrid").css({"height":height, "width":width});
 }
 
-function openInTermEditor(id) {
-$.ajax({
-	type: "POST",
-	url: "ajax/term_editor.php",
-	data: "term_id="+id,
-	success: function(phpfile){
-		$("#tabular-data-info").html(phpfile);
-	}
-});
 
-}
 
