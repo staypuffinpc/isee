@@ -13,7 +13,8 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-
+$magT = $_SESSION['magT'];
+$magL = $_SESSION['magL'];
 $id=$_POST['page'];
 /*
 $top = $_POST['top'];
@@ -33,7 +34,7 @@ $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
 do {
 if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].");console.log(1);</script>";
+echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(1);</script>";
 }
 } while ($update_line = mysql_fetch_assoc($list_update_line));
 
@@ -43,7 +44,7 @@ $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
 do {
 if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].");console.log(2);</script>";
+echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(2);</script>";
 }
 } while ($update_line = mysql_fetch_assoc($list_update_line));
 

@@ -9,6 +9,7 @@ var meta_down;
 var multiple_drag;
 var start_pos;
 
+
 /* ------------------------------handlers--------------------------- */
 var togglePageClass = function(e) {
 	$("#pageRightClick").hide();
@@ -76,7 +77,6 @@ var selectorStart = function(e){
 }; 
 
 var selectorMove = function(e){
-	console.log("selector-move");
 
 	if (mouse_down) {
 		unbindThemAll();
@@ -502,7 +502,7 @@ function delete_relation() { // loads php to update story
 		});
 }
 
-function line(parent, child, relation_id) { //draws lines
+function line(parent, child, relation_id, magT, magL) { //draws lines
 
 	var parentPos = $("#"+parent).position();
 	var childPos = $("#"+child).position();
@@ -522,8 +522,8 @@ function line(parent, child, relation_id) { //draws lines
 	
 	h = Math.cos(angle*Math.PI/180)*half;
 	
-	newtop = parentPos.top-half+h+25;
-	left = childPos.left+((parentPos.left-childPos.left)/2)+100;
+	newtop = parentPos.top-half+h+magT;
+	left = childPos.left+((parentPos.left-childPos.left)/2)+magL;
 	
 	
 	$("#line"+relation_id).css({

@@ -3,11 +3,13 @@ html {
 
 }
 body {
+	padding-left: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
 	background-image: url(../img/grid.png);
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	background-repeat: repeat;
 	margin: 0px;
-	padding: 0px;
 
 	
 
@@ -70,6 +72,7 @@ span {
 
 
 .page {
+	font-size: 4px;
 	background-color: white;
 	color:black;
 	z-index: 2;
@@ -369,6 +372,13 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 
 
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+
+}
+
+#top-stuff {
+	overflow: hidden;
+/* 	display: none; */
 
 
 }

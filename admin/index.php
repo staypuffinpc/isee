@@ -25,6 +25,23 @@ $story = $_GET['story'];
 $_SESSION['story'] = $story;}
 include_once("db.php");
 
+if (isset($_GET['x'])) {$x = $_GET['x'];}
+else {$x = 1;}
+$magT = 100/(2*$x);
+$magL = 100/$x;
+$pw = $magL*2;
+$ph = $magT;
+$f = 16/$x;
+$img_size = 20/$x;
+$arrow_size = 30/$x;
+$arrow_location = -14/$x;
+$relate_right = 52/$x;
+$edit_page_right = 28/$x;
+$delete_right = 3/$x;
+$grid_size = 210/$x;
+
+$_SESSION['magT'] = $magT;
+$_SESSION['magL'] = $magL;
 
 
 ?>
@@ -74,6 +91,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 </script>
 </head>
 <body id="mainbody">
+<div id="top-stuff">
 <div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href='../dashboard/index.php'></a>
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
@@ -89,7 +107,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
 <a class="btn" id="new_page">Add New Page</a>
 </div>
-
+</div>
 <?
 
 while ($pages = mysql_fetch_assoc($list_pages)) { 
@@ -100,10 +118,10 @@ if ($pages['page_type']=="Teaching") {$type_class="teaching";}
 if ($pages['page_type']=="Appendix") {$type_class="appendix";}
 if ($pages['page_type']==NULL) {$type_class="blank";}
 ?> 
-<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>;left:<? echo $pages['page_left']; ?>" id="<? echo $pages['id']; ?>">
+<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
 	<div title="View this page in the story." class="goto-page"><a href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"><img src="../img/external.png" /></a></div>
-	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"><img src="../img/edit.png" /></div>
+	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"><!-- <img src="../img/edit.png" /> --></div>
 	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
 	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Connection"></div>
 	<?
@@ -126,7 +144,7 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 
 </div>
 <script>
-	line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id']; ?>);
+	line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);
 
 </script>
 
@@ -146,11 +164,49 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 <div id="mapgrid"></div>
 <script>
 $("#mapgrid").css({
-	"width" : <? echo $w; ?>,
-	"height" : <? echo $h; ?>
+	"width" : <? echo $w/$x; ?>,
+	"height" : <? echo $h/$x; ?>,
+});
+
+$("body").css({
+	"background-size" : "<? echo $grid_size; ?>px"
 });
 
 console.log("width:<? echo $w; ?>px;height=<? echo $h; ?>px");
+
+
+$(".page").css({
+	"width"	: <? echo $pw; ?>,
+	"height": <? echo $ph; ?>,
+	"font-size" : "<? echo $f; ?>px"
+});
+
+$(".relate, .edit-page, .delete").css({
+	"background-size": "<? echo $img_size; ?>px",
+	"width": "<? echo $img_size; ?>px",
+	"height": "<? echo $img_size; ?>px",
+});
+
+
+$(".relate").css({
+	"right" : "<? echo $relate_right; ?>px"
+});
+
+$(".delete").css({
+	"right" : "<? echo $delete_right; ?>px"
+});
+
+
+$(".edit-page").css({
+	"right" : "<? echo $edit_page_right; ?>px"
+});
+
+$(".arrow").css({
+	"background-size": "<? echo $arrow_size; ?>px",
+	"left" : "<? echo $arrow_location; ?>px",
+});
+
+	
 
 
 </script>

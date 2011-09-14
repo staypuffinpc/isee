@@ -16,6 +16,8 @@ $link=connect(); //call function from external file to connect to database
 $id=$_POST['page'];
 $top = $_POST['top'];
 $left = $_POST['left'];
+$magT = $_SESSION['magT'];
+$magL = $_SESSION['magL'];
 
 $update = "UPDATE Pages SET 
 page_left = '".$left."', 
@@ -32,7 +34,7 @@ $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
 do {
 if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].");</script>";
+echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");</script>";
 }
 } while ($update_line = mysql_fetch_assoc($list_update_line));
 
@@ -43,7 +45,7 @@ $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
 do {
 if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].");</script>";
+echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");</script>";
 }
 } while ($update_line = mysql_fetch_assoc($list_update_line));
 
