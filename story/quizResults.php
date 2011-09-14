@@ -72,6 +72,13 @@ EOF;
 $run = mysql_query($query) or die(mysql_error());
 $story_info = mysql_fetch_assoc($run);
 
+$query = "Select id, page_name from Pages where story='$story'";
+$run = mysql_query($query) or die(mysql_error());
+while ($results = mysql_fetch_assoc($run)) {
+	$page[$results['id']] = $results['page_name'];
+
+}
+
 
 $query = "Select * from User_Quiz Join Quiz_Items on User_Quiz.item_id = Quiz_Items.item_id where user_id='$user_id' and story='$story' order by id ASC";
 $run = mysql_query($query) or die(mysql_error());
@@ -161,7 +168,18 @@ EOF;
 	
 	}
 		echo "<div class='explanation'>".$items['item_explanation']."</div>";
-
+		if ($items['item_pages'] !== Null) {
+		echo "<div class='page-list'>";
+			$c = stripos($items['item_pages'], ",");
+			if ($c == NULL) {echo "Related Page: ";} else {echo "Related Pages: ";}
+			$pages = explode(",", $items['item_pages']);
+			foreach($pages as $key => $value) {
+			echo "<a href='index.php?page_id=$value'>{$page[$value]}</a> ";
+			}			
+		
+		
+		echo "</div>";
+		}
 	echo "</li>\n";
 	$i++;
 

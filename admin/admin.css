@@ -355,3 +355,20 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D785),
 .finish {
 background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#cc0000));
 	background-image: -moz-linear-gradient(#ff0000,#cc0000);}
+
+#pages {
+
+
+	height: 200px;
+
+
+	width: 600px;
+
+
+	font-size: 20px;
+
+
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+
+}

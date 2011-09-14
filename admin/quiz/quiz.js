@@ -32,6 +32,22 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("select").live("change", function(){
+		console.log("select");
+		text = $(this).val();
+		console.log(text);
+		data = $(this).attr("class").split(" ");
+		$.ajax({
+			type: "POST",
+			url: "actions/updateItem.php",
+			data: "field="+data[1]+"&text="+text+"&item_id="+data[2],
+			success: function(phpfile) {
+				$("#update").html(phpfile);
+			}
+		});
+	
+	});
+	
 	$(".delete").live("click", function(){
 		var answer = confirm("This action cannot be undone. Are you sure you want to delete this item? ")
 		if (answer){

@@ -16,14 +16,20 @@ $user_id = $_SESSION['user_id'];
 $item_id = $_POST['item_id'];
 $text = $_POST['text'];
 $field = $_POST['field'];
+switch ($field) {
+	case "item_response":
+		$query = "Update Quiz_Responses set item_response='$text' where id='$item_id'";
+		$run = mysql_query($query) or die(mysql_error());
+		break;
+	case "pages":
+		$query = "Update Quiz_Items set $field='$text', modified_by='$user_id', modified_on=NOW() where item_id='$item_id'";
+		$run = mysql_query($query) or die(mysql_error());
+		break;
+	default:
+		$query = "Update Quiz_Items set $field='$text', modified_by='$user_id', modified_on=NOW() where item_id='$item_id'";
+		$run = mysql_query($query) or die(mysql_error());
+		break;
 
-if ($field == "item_response") {
-	$query = "Update Quiz_Responses set item_response='$text' where id='$item_id'";
-	$run = mysql_query($query) or die(mysql_error());
-}
-else {
-	$query = "Update Quiz_Items set $field='$text', modified_by='$user_id', modified_on=NOW() where item_id='$item_id'";
-	$run = mysql_query($query) or die(mysql_error());
 }
 
 echo "Updated!";

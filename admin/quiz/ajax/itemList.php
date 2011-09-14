@@ -17,6 +17,9 @@ $story = $_SESSION['story'];
 $query = "Select  * from Quiz_Items where story_id='$story'";
 $run = mysql_query($query) or die(mysql_error());
 
+$query = "Select page_name, id from Pages where story='$story' and page_type='Teaching'";
+$run2 = mysql_query($query) or die(mysql_error());
+
 
 while ($items = mysql_fetch_assoc($run)) {
 	echo <<<EOF
@@ -52,12 +55,26 @@ EOF;
 
 	echo <<<EOF
 	</div>
+	<div style="float:left;display:block-inline;width: 70%">
 	<p>Answer Explanation</p>
-	<div class="ce item_explanation {$items['item_id']}">{$items['item_explanation']}</div>	
-	</li>
+	<div class="ce item_explanation {$items['item_id']}">{$items['item_explanation']}</div></div>	
 EOF;
-
-
+	echo <<<EOF
+	<div style="float:left">
+	<p>Related Pages</p>
+	<select id='pages' name='pages[]' multiple='multiple' class="select item_pages {$items['item_id']}">
+EOF;
+	mysql_data_seek($run2, 0);
+	while ($results = mysql_fetch_assoc($run2)) {
+		echo "<option value='{$results['id']}'";
+		$temp = strpos($items['item_pages'], $results['id']);
+		if ($temp === false) {} else {echo " selected";}
+		echo ">{$results['page_name']}</option>";
+	
+	
+	}
+	echo "</select></div><div style='float:none;clear: both'></div></li>";
+	
 }
 
 ?>

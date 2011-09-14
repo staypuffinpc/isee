@@ -107,3 +107,8 @@ div.item_response {
 	left: 720px;
 	position: relative;
 }
+#pages {
+	font-size: 16px;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+}
