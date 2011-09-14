@@ -168,7 +168,7 @@ EOF;
 	
 	}
 		echo "<div class='explanation'>".$items['item_explanation']."</div>";
-		if ($items['item_pages'] !== Null) {
+		if ($items['item_pages'] !== "") {
 		echo "<div class='page-list'>";
 			$c = stripos($items['item_pages'], ",");
 			if ($c == NULL) {echo "Related Page: ";} else {echo "Related Pages: ";}
