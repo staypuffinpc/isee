@@ -20,6 +20,8 @@ if ($parent !== $child) {
 $query="Insert into Page_Relations (page_relation_id, page_child, page_parent, page_story, page_stem, page_link, page_punctuation) Values (NULL, '$child','$parent','$story','Go to page','$child','.')";
 $list_query = mysql_query($query) or die(mysql_error()); //execute query
 $lastItemID = mysql_insert_id();
+$magL = $_SESSION['magL'];
+$magT = $_SESSION['magT'];
 
 
 
@@ -28,7 +30,7 @@ $list_newrelation = mysql_query($query_newrelation) or die(mysql_error()); //exe
 $newrelation = mysql_fetch_assoc($list_newrelation);//gets info in array
 
 $line = "<div class='line' id='line".$newrelation['page_relation_id']."'><div title='".$newrelation['page_stem']." ".$newrelation['page_link'].$newrelation['page_punctuation']."' id='arrow".$newrelation['page_relation_id']."' class='arrow'></div></div>";
-$line_draw = $newrelation['page_parent'].", ".$newrelation['page_child'].", ".$newrelation['page_relation_id'];
+$line_draw = $newrelation['page_parent'].", ".$newrelation['page_child'].", ".$newrelation['page_relation_id'].",".$magT.", ".$magL;
 
 
 ?>

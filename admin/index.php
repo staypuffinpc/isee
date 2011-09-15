@@ -27,10 +27,10 @@ include_once("db.php");
 
 if (isset($_GET['x'])) {$x = $_GET['x'];}
 else {$x = 1;}
-$magT = 100/(2*$x);
+$magT = 50/(2*$x);
 $magL = 100/$x;
 $pw = $magL*2;
-$ph = $magT;
+$ph = $magT*2;
 $f = 16/$x;
 $img_size = 20/$x;
 $arrow_size = 30/$x;
@@ -39,6 +39,18 @@ $relate_right = 52/$x;
 $edit_page_right = 28/$x;
 $delete_right = 3/$x;
 $grid_size = 210/$x;
+$external_size = 10/$x;
+$start_finish_summary_height = 17/$x;
+$padding = 3/$x;
+$start_finish_summary_font = 14/$x;
+
+$gridw = 210/$x;
+$gridh = 60/$x;
+
+$_SESSION['gridw'] = $gridw;
+$_SESSION['gridh'] = $gridh;
+$_SESSION['x'] = $x;
+
 
 $_SESSION['magT'] = $magT;
 $_SESSION['magL'] = $magL;
@@ -51,18 +63,7 @@ $_SESSION['magL'] = $magL;
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
-<link href="terms-wizard.css" rel="stylesheet" type="text/css" />
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
 
-
-
-<script type="text/javascript">
-    _editor_url  = "../xinha/";  // (preferably absolute) URL (including trailing slash) where Xinha is installed
-    _editor_lang = "en";      // And the language we need to use in the editor.
-    _editor_skin = "blue-metallic";   // If you want use a skin, add the name (of the folder) here
-  </script>
-  <script type="text/javascript" src="../xinha/XinhaCore.js"></script>
-  <script type="text/javascript" src="../xinha/my_config_term.js"></script>
   
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
@@ -87,11 +88,13 @@ window.location = "../dashboard/";
 $(document).ready(function(){
 window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 });
+var x = <? echo $x; ?>;
+var gridw = 210/<? echo $x; ?>;
+var gridh = 60/<? echo $x; ?>;
 
 </script>
 </head>
 <body id="mainbody">
-<div id="top-stuff">
 <div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" href='../dashboard/index.php'></a>
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
@@ -107,7 +110,6 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 <a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
 <a class="btn" id="new_page">Add New Page</a>
 </div>
-</div>
 <?
 
 while ($pages = mysql_fetch_assoc($list_pages)) { 
@@ -120,7 +122,7 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 ?> 
 <div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
-	<div title="View this page in the story." class="goto-page"><a href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"><img src="../img/external.png" /></a></div>
+	<a title="View this page in the story." class="goto-page" href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
 	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"><!-- <img src="../img/edit.png" /> --></div>
 	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
 	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Connection"></div>
@@ -172,13 +174,13 @@ $("body").css({
 	"background-size" : "<? echo $grid_size; ?>px"
 });
 
-console.log("width:<? echo $w; ?>px;height=<? echo $h; ?>px");
 
 
 $(".page").css({
 	"width"	: <? echo $pw; ?>,
 	"height": <? echo $ph; ?>,
-	"font-size" : "<? echo $f; ?>px"
+	"font-size" : "<? echo $f; ?>px",
+	"padding"	: <? echo $padding; ?>,
 });
 
 $(".relate, .edit-page, .delete").css({
@@ -204,8 +206,24 @@ $(".edit-page").css({
 $(".arrow").css({
 	"background-size": "<? echo $arrow_size; ?>px",
 	"left" : "<? echo $arrow_location; ?>px",
+	"width" : "<? echo $arrow_size; ?>px",
+	"height" : "<? echo $arrow_size; ?>px",
+
 });
 
+$(".goto-page").css({
+	"background-size": "<? echo $external_size; ?>px",
+	"width": "<? echo $external_size; ?>px",
+	"height": "<? echo $external_size; ?>px",
+
+});
+
+$(".start-finish-summary").css({
+	"padding"	: <? echo $padding; ?>,
+	"height": <? echo $start_finish_summary_height; ?>,
+	"font-size" : "<? echo $start_finish_summary_font; ?>px"
+
+});
 	
 
 

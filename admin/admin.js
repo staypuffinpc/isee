@@ -13,15 +13,16 @@ var start_pos;
 /* ------------------------------handlers--------------------------- */
 var togglePageClass = function(e) {
 	$("#pageRightClick").hide();
-	unbindThemAll();
+/* 	unbindThemAll(); */
 	var selectorKey = 0;
 	if ($.client.os == "Mac") {selectorKey = e.metaKey;}
 	if ($.client.os !== "Mac") {selectorKey = e.ctrlKey;}
 	if (selectorKey) {
+		e.stopImmediatePropagation();
 		$(this).toggleClass("selected"); 
 		$("#update").append("selected");
 	}
-	bindThemAll();
+/* 	bindThemAll(); */
 };
 
 var logoutFromMenu = function(){window.location="../logout.php";};
@@ -109,15 +110,15 @@ var selectorEnd = function(e){
 		if (left>right) {left = right;}
 		if (bottom<top) {top = bottom;}
 		
-		t = Math.floor(top/60)*60;
- 		l = Math.floor(left/210)*210;
+		t = Math.floor(top/gridh)*gridh;
+ 		l = Math.floor(left/gridw)*gridw;
  		
  		width = width + left - l;
  		height = height + top - t;
-		width = Math.ceil(width/210)*210;
- 		height = Math.ceil(height/60)*60;
- 		if (width < 210) {width = 210;}
- 		if (height < 60) {height = 60;}
+		width = Math.ceil(width/gridw)*gridw;
+ 		height = Math.ceil(height/gridh)*gridh;
+ 		if (width < gridw) {width = gridw;}
+ 		if (height < gridh) {height = gridh;}
 		
 		$("#selector").css({
 			"top":t,
@@ -129,7 +130,7 @@ var selectorEnd = function(e){
 		$.ajax({
 				type: "POST",
 					url: "actions/select_pages.php",
-					data: "top="+t+"&left="+l+"&width="+width+"&height="+height,
+					data: "top="+t*x+"&left="+l*x+"&width="+width*x+"&height="+height*x,
 					success: function(phpfile){
 					$("#update").html(phpfile);
 					bindThemAll();}
@@ -210,53 +211,8 @@ var startMover = function(e) {
 	});
 		
 }
-/* actions for dragging pages */
 
-var moveThePage = function () {
 
-	$(this).draggable({
-	
-
-	start: function(event, ui) {
-		
-		if ($(this).hasClass('selected')) {
-			multiple_drag = true;
-			start_pos = $(this).position()
-			$(this).addClass('dragger');
-			unbindThemAll();
-		}
-		else {$(".selected").removeClass('selected');}
-		$(".line").fadeOut();
-	},
-	drag: function(event, ui) {/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
-	},
-	stop: function(event, ui) {
-		bindThemAll();
-		$(this).removeClass('temp-new-page');
- 		var Stoppos = $(this).position();
- 		t = Math.round(Stoppos.top/60)*60;l = Math.round(Stoppos.left/210)*210;
- 		if (t<120){t=120;}
- 		if (l<210){l=210;} 
- 		$(this).css({"top" : t, "left" : l});
- 		if (multiple_drag) {
- 			top_dis = t-start_pos.top;
- 			left_dis = l- start_pos.left;
- 			dragger = false;
- 			movingMany(top_dis, left_dis, dragger);
- 		}
- 			$.ajax({
-				type: "POST",
-				url: "actions/change_location.php",
-				data: "page="+this.id+"&top="+t+"&left="+l,
-				success: function(phpfile){
-				$("#update").append(phpfile);}
-			});
-		if (multiple_drag) {/* location.reload(true); */}
-		$(".selected").removeClass('dragger');
-		$(".line").fadeIn();
-	}
-});
-}
 
 
 
@@ -286,6 +242,17 @@ $.ajax({
 	});
 
 }
+
+var showTop = function(e) {
+	$("#toolbar, #header").css({"opacity":"0.8"});
+}
+
+var hideTop = function(e) {
+		$("#toolbar, #header").css({"opacity":"0.2"});
+
+}
+
+
 /* --------------------------end-handlers--------------------------- */
 
 /* resizeGrid(lowest, rightest); */
@@ -357,7 +324,60 @@ $(".page").droppable({
 
 $(".page").live("contextmenu", showContextmenu);
 
+/* actions for dragging pages */
 
+
+
+
+	$(".page").draggable({
+	grid: [gridw, gridh],
+
+	start: function(event, ui) {
+					unbindThemAll();
+
+		
+		if ($(this).hasClass('selected')) {
+			multiple_drag = true;
+			start_pos = $(this).position()
+			$(this).addClass('dragger');
+		}
+		else {$(".selected").removeClass('selected');}
+		$(".line").fadeOut();
+		console.log("x: "+x+", w: "+gridw+", h:"+gridh);
+	},
+	drag: function(event, ui) {/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
+	},
+	stop: function(event, ui) {
+		$(this).removeClass('temp-new-page');
+	
+	var Stoppos = $(this).position();
+ 	t = Stoppos.top;
+ 	l = Stoppos.left;
+ 	if (t<2*gridh){t=2*gridh;$(this).css({"top" : t});}
+ 	if (l<gridw){l=gridw;$(this).css({"left" : l});} 
+ 		$(this).css({"top" : t, "left" : l});
+ 		
+		$(".line").fadeIn();
+		if (multiple_drag) {
+ 			top_dis = t-start_pos.top;
+ 			left_dis = l- start_pos.left;
+ 			dragger = false;
+ 			movingMany(top_dis, left_dis, dragger);
+ 		}
+
+ 			$.ajax({
+				type: "POST",
+				url: "actions/change_location.php",
+				data: "page="+this.id+"&top="+t*x+"&left="+l*x,
+				success: function(phpfile){
+				$("#update").append(phpfile);}
+			});
+		if (multiple_drag) {/* location.reload(true); */}
+		$(".selected").removeClass('dragger');
+/* 		bindThemAll(); */
+
+	}
+});
 
 /* binding and unbinding functions */
 bindThemAll();
@@ -380,10 +400,11 @@ function bindThemAll() {
 	$(".relate").live('mouseover', relatePage);
 	$("#start").live("click", startMover);
 	$("#summary").live("click", startMover);
-	$(".page").live('mouseover', moveThePage);
-	
 	$("#toggleFinish").live("click", toggleFinish);
-	
+/*
+	$("#toolbar, #header").mouseover(showTop);
+	$("#toolbar").mouseout(hideTop);
+*/	
 }
 
 function unbindThemAll() {
@@ -394,6 +415,7 @@ function unbindThemAll() {
 	$("#edit").unbind('click', editStory);
 	$("#permissions").unbind('click', permissions);
 	$("#new_page").unbind('click', newPage);
+	
 	$('html').unbind('keyup', keyboard);
 	$("#mapgrid").unbind('mousedown', selectorStart);
 	$("#mapgrid").unbind('mousemove', selectorMove);
@@ -403,10 +425,12 @@ function unbindThemAll() {
 	$(".arrow").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
 	
+
 	$("#start").unbind();
 	$("#summary").unbind();
 	
 	$("#toggleFinish").unbind("click", toggleFinish);
+	$("#top-stuff").unbind();
 }
 
 /* end of binding functions */
@@ -431,7 +455,7 @@ function movingMany (top_dis, left_dis, dragger) {
 	 			$.ajax({
 					type: "POST",
 					url: "actions/change_location.php",
-					data: "page="+this.id+"&top="+new_top+"&left="+new_left,
+					data: "page="+this.id+"&top="+new_top*x+"&left="+new_left*x,
 					success: function(phpfile){
 					$("#update").append(phpfile);}
 				});

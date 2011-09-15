@@ -153,7 +153,7 @@ span {
 
 
 .delete {
-	z-index: 3;
+	z-index: 4;
 	background-repeat: no-repeat;
 	background-image: url(../img/delete.png);
 	bottom: 3px;
@@ -177,7 +177,7 @@ span {
 .edit-page {
 	right: 28px;
 	bottom: 3px;
-	z-index: 3;
+	z-index: 4;
 	background-repeat: no-repeat;
 	background-image: url(../img/edit.png);
 	position: absolute;
@@ -185,12 +185,16 @@ span {
 	width: 20px;
 	cursor: pointer;
 }
-div.goto-page {
+a.goto-page {
+	position: absolute;
+	
+	background-image: url(../img/external.png);
+	background-size: 10px;
 	right: 3px;
 	height: 10px;
 	width: 10px;
 	top: 3px;
-	position: absolute;
+	
 }
 .temp-new-page {
 	height: 25px;
@@ -376,9 +380,5 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 
 }
 
-#top-stuff {
-	overflow: hidden;
-/* 	display: none; */
 
 
-}
