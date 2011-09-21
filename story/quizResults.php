@@ -68,6 +68,8 @@ $query = <<<EOF
 		s.story_id = q.story_id
 		and
 		s.story_id='$story'
+		and
+		q.user_id = '$user_id'
 EOF;
 $run = mysql_query($query) or die(mysql_error());
 $story_info = mysql_fetch_assoc($run);
