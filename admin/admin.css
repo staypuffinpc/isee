@@ -380,5 +380,42 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 
 }
 
+#hud {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	width: 180px;
+	height: 300px;
+	position: fixed;
+	top: 39px;
+	left: 15px;
+	z-index: 99;
+	padding: 3px;
+	color: rgba(255, 255, 255, 0.3);
+}
+
+#hud h1 {
+	margin-left: -3px;
+	margin-top: 3px;
+	margin-right: -3px;
+	margin-bottom: 3px;
+	text-align: center;
+	font-size: 18px;
+}
+#hud a.btn {
+	display: block;
+	opacity: 0.2;
+
+}
+
+#slider {
+	width: 100px;
+
+}
+
+#toolbar {
+	display: none;
+
+}
+
 
 

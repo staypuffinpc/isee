@@ -8,7 +8,36 @@ var mouse_down = false;
 var meta_down;
 var multiple_drag;
 var start_pos;
+var startValue;
 
+/* zoomValue(x); */
+
+$("#zoom").slider({
+	min: -5,
+	max: 5,
+	value: zoomValue(x),
+	slide: function( event, ui ) {
+		switch (ui.value) {
+			case -5:x = .5; break;
+			case -4:x = .6; break;
+			case -3:x = .75; break;
+			case -2:x = 1; break;
+			case -1:x = 1.3; break;
+			case 0:x = 1.5; break;
+			case 1: x = 1.8; break;
+			case 2: x = 2.0; break;
+			case 3: x = 2.5; break;
+			case 4: x = 3.0; break;
+			case 5: x = 5.0; break;
+		
+		}		
+				$( "span#factor" ).html( x );},
+	stop: function(event, ui) {
+		
+		window.location="index.php?x=" + x;}
+});
+
+$( "span#factor" ).html(x);
 
 /* ------------------------------handlers--------------------------- */
 var togglePageClass = function(e) {
@@ -252,6 +281,25 @@ var hideTop = function(e) {
 
 }
 
+var hudShow = function(e) {
+	$("#hud").css({
+		"background-color" : "rgba(0, 0, 0, 0.5)",
+		"color" : "rgba(255, 255, 255, 1.0)"
+	
+	}).draggable();
+	$("#hud .btn").css("opacity","0.90");
+}
+
+var hudHide = function(e) {
+	$("#hud").css({
+		"background-color" : "rgba(0, 0, 0, 0.1)",
+		"color" : "rgba(255, 255, 255, 0.3)"
+	
+	});
+	$("#hud .btn").css("opacity","0.2");
+
+}
+
 
 /* --------------------------end-handlers--------------------------- */
 
@@ -401,6 +449,8 @@ function bindThemAll() {
 	$("#start").live("click", startMover);
 	$("#summary").live("click", startMover);
 	$("#toggleFinish").live("click", toggleFinish);
+	$("#hud").mouseover(hudShow);
+	$("#hud").mouseout(hudHide);
 /*
 	$("#toolbar, #header").mouseover(showTop);
 	$("#toolbar").mouseout(hideTop);
@@ -430,7 +480,8 @@ function unbindThemAll() {
 	$("#summary").unbind();
 	
 	$("#toggleFinish").unbind("click", toggleFinish);
-	$("#top-stuff").unbind();
+/* 	$("#top-stuff").unbind(); */
+	$("#hud").unbind();
 }
 
 /* end of binding functions */
@@ -573,5 +624,21 @@ function resizeGrid(lowest,rightest) {
 	$("#mapgrid").css({"height":height, "width":width});
 }
 
-
+function zoomValue(x) {
+	switch (x) {
+		case .5 : startValue = -5; break;
+		case .6: startValue = -4; break;
+		case .75: startValue = -3; break;
+		case 1: startValue = -2; break;
+		case 1.3: startValue = -1; break;
+		case 1.5: startValue = 0; break;
+		case 1.8: startValue = 1; break;
+		case 2.0: startValue = 2; break;
+		case 2.5: startValue = 3; break;
+		case 3.0: startValue = 4; break;
+		case 5.0: startValue = 5; break;
+	}
+	console.log(startValue);
+	return startValue;
+}
 

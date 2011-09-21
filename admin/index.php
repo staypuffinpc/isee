@@ -63,6 +63,8 @@ $_SESSION['magL'] = $magL;
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
+
 
   
 <script type="text/javascript" src="../js/jquery.js"></script>
@@ -91,6 +93,7 @@ window.scroll(<? echo $left; ?>, <? echo $top; ?>);
 var x = <? echo $x; ?>;
 var gridw = 210/<? echo $x; ?>;
 var gridh = 60/<? echo $x; ?>;
+var story = <? echo $story; ?>;
 
 </script>
 </head>
@@ -156,6 +159,20 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 <!-- <div id="newpage" class="page" style="top:40;left:450;z-index=99">New Page</div> -->
 <div id="update"></div>
 <div id="fadebackground"></div>
+<div id="hud">
+<h1>Toolbar</h1>
+<a class="btn" id="edit">Edit Story Info</a>
+<a class="btn" id="permissions">Permissions</a>
+<a class="btn" id="worksheet" href="worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
+<a class="btn" id="quiz" href="quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
+<a class="btn" id="terms" href="terms/index.php">Edit Terms</a>
+<a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
+<a class="btn" id="new_page">Add New Page</a>
+<h1>
+Zoom (<span id="factor"></span>)
+</h1>
+<div id="zoom"></div>
+</div>
 
 <?
 	$h=$h+50;
