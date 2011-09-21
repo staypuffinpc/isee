@@ -417,5 +417,18 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 
 }
 
-
+.embed {
+	text-align: center;
+	position: absolute;
+	bottom: 1px;
+	left: 1px;
+	font-size: 12px;
+	line-height: 12px;
+	width: 12px;
+	color: white;
+	padding: 2px;
+	background-color: #333333;
+	border-radius: 6px;
+	border: white 1px solid;
+}
 

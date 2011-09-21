@@ -122,7 +122,14 @@ if ($pages['page_type']=="Story") {$type_class="story";}
 if ($pages['page_type']=="Teaching") {$type_class="teaching";}
 if ($pages['page_type']=="Appendix") {$type_class="appendix";}
 if ($pages['page_type']==NULL) {$type_class="blank";}
-?> 
+$query = "Select worksheet_id from Worksheet where worksheet_page = '{$pages['id']}' and embedded = '1'";
+$run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
+if ($results['worksheet_id']== NULL) {$embed = "";}
+else{$embed = "<div class='embed' title='This page has embedded worksheet items.'>?</div>";}
+
+?>
+ 
 <div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
 	<a title="View this page in the story." class="goto-page" href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
@@ -133,6 +140,7 @@ if ($pages['page_type']==NULL) {$type_class="blank";}
 	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>";}
 	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='summary' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>";}
 	if ($pages['finish_page'] == "true") {echo "<div class='start-finish-summary finish'>Finish</div>";}
+	echo $embed;
 	?>
 </div>
 
