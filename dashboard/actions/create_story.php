@@ -33,6 +33,6 @@ $list = mysql_query($query) or die(mysql_error());
 $query = "Insert into Author_Permissions (user_id, story_id) Values ('$user_id', '$story')";
 $list = mysql_query($query) or die(mysql_error());
 
-
+echo $story;
 
 ?>

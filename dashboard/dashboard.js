@@ -66,9 +66,12 @@ function create_story() {
 			url: "actions/create_story.php",
 			data: data,
 			success: function(phpfile){
-			$("#update").html(phpfile);}
+			$("#update").html(phpfile);
+				window.location = "../admin/index.php?story="+phpfile;
+
+			
+			}
 		});
-	window.location = "../admin/index.php";
 }
 
 function delete_story(story){
