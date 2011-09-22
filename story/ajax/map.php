@@ -32,6 +32,7 @@ $progress = mysql_fetch_assoc($list_user_progress);//gets info in array
 $progress = explode(", ", $progress['progress_page']);
 ?>
 <div class="map-wrapper">
+<a class="edit" style="position: fixed;top: 38px; left:250px" href="../admin/index.php">edit</a>
 
 <?
 $top = 0;

@@ -15,6 +15,7 @@ else {
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
+$page_id = $_SESSION['current_page'];
 include_once("../db.php");
 
 
@@ -50,7 +51,7 @@ include_once("../db.php");
 </head>
 <body>
 <div id="header"><? echo $story_info['story_name'].": Term Editor"; ?>
-<a id="home" href="../index.php"></a>
+<a id="home" href="../../story/index.php?page_id=<? echo $page_id;?>&page2=glossary"></a>
 <div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 <div id="toolbar">

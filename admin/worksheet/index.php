@@ -14,6 +14,8 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 $story = $_GET['story'];
+$page_id = $_SESSION['current_page'];
+
 if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
 if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
 
@@ -55,7 +57,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div id="header">Worksheet Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
-<a id="home" href="../index.php"></a>
+<a id="home" href="../../story/index.php?page_id=<? echo $page_id;?>&page2=worksheet"></a>
 <div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>

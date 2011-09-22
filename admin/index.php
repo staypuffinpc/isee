@@ -105,13 +105,15 @@ var story = <? echo $story; ?>;
 </div>
 
 <div id="toolbar">
+<!--
 <a class="btn" id="edit">Edit Story Info</a>
 <a class="btn" id="permissions">Permissions</a>
+-->
 <a class="btn" id="worksheet" href="worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
 <a class="btn" id="quiz" href="quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
 <a class="btn" id="terms" href="terms/index.php">Edit Terms</a>
 <a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
-<a class="btn" id="new_page">Add New Page</a>
+<!-- <a class="btn" id="new_page">Add New Page</a> -->
 </div>
 <?
 

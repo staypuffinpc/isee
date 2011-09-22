@@ -84,7 +84,7 @@ window.location = "../../index.php";
 
 <div id="header">
 	<? echo $page['story_name']; ?>  	
-<a id="home" href="../index.php"></a>
+<a id="home" href="../../story/index.php?page_id=<? echo $page_id;?>"></a>
 <div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 

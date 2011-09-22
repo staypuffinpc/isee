@@ -80,25 +80,25 @@ $(document).ready(function(){
 	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
 	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
 	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
-	if (!$author) { echo "$('#edit-page, #view-map').hide();$('td.admin').remove();"; } 
+	if (!$author) { echo "$('.edit').hide();$('td.admin').remove();"; } 
 	if (!$finish) { ?> //shows summary button if it is available to the user
 		$("#summary-button").hide();
 
 		$("#quiz-button").hide();
 	<? } ?>
 	$("#summary-button").click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
-		$("#quiz-button").click(function(){window.location="quiz.php";});
-	//the edit button if the person is an author
-	$("#edit-page").click(function(){
-		window.location = "../admin/page/page.php?page_id="+<? echo $page_id; ?>+"&story="+<? echo $story; ?>;
-	}); 
-	// event listeners for keyboar keys to avoid navigation and recording issues	
+	$("#quiz-button").click(function(){window.location="quiz.php";});
 	
-	//the map button if the person is an author
-	$("#view-map").click(function () {
-		window.location="../admin/index.php?story="+<? echo $story; ?>;
-	});
 	
+	<?
+	if(isset($_GET['page2'])) {
+	?>
+		navigate("<? echo $_GET['page2']; ?>");
+	<?
+	}
+	
+	?>
+
 });
 <? if ($user['instructionsShowing'] == "false") {echo "var instructionsShowing = false;";} else { echo "var instructionsShowing = true;";} ?>
 
@@ -114,6 +114,7 @@ $(document).ready(function(){
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
+	<a class="edit" href="../admin/page/page.php?page_id=<? echo $page_id; ?>">edit</a>
 	<h2><? echo $page['page_name']; ?></h2>
 <!-- 		<div id="page-content"> -->
 			<? echo $page['page_content']; // Gets Content 
@@ -188,13 +189,11 @@ $(document).ready(function(){
 
 <div id="footer">
 	<ul>
-		<li class='adminLink' id="edit-page"><div><img src="../img/edit-page.png" /></div><p>Edit</p></li>
-		<li class='adminLink' id="view-map"><div><img src="../img/map.png" /></div><p>Map (admin)</p></li>
 		<li class="core" id="story"><div><img src="../img/story.png" /></div><p>Story</p></li>
 		<li class="core" id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
 <!-- 		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li> -->
 <!-- 		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li> -->
-		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Worksheet</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
+		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Answers</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
 		<li class="core" id="map"><div><img src="../img/map.png" /></div><p>Progress Map</p></li>
 		<li class="finished" id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
 		<li class="finished" id="quiz-button"><div><img src="../img/quiz.png" /></div><p>Quiz</p></li>
@@ -260,7 +259,6 @@ $(document).ready(function(){
 <div class='help' id='help-footer'>
 		<img src="../img/help-arrow.png" />	
 		<p>These icons in orange are always available. They provide additional resources while going through the story. See the table above for the keyboard shortcuts.<br /><br />
-		Additional icons are available to authors on the left.<br /><br />
 		Once you finish the story, you will have icons on the right that take you to the Summary page and the Quiz. </p>
 	
 </div>

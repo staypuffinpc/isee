@@ -637,3 +637,18 @@ span.page-list-count {
 
 }
 
+.edit {
+	text-decoration: none;
+	padding-top: 2px;
+	padding-left: 25px;
+	color: #333333;
+	height: 25px;
+	width: 80px;
+	background-position: 0px 2px;
+	background-repeat: no-repeat;
+	background-image: url(../img/edit.png);
+	left: 0px;
+	top: 0px;
+	position: absolute;
+}
+

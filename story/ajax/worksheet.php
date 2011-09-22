@@ -39,6 +39,8 @@ story = <? echo $story; ?>;
 
 
 <div class="worksheet">
+<a class="edit" href="../admin/worksheet/index.php">edit</a>
+
 <h2>Worksheet</h2>
 
 
