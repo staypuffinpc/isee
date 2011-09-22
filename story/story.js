@@ -50,7 +50,7 @@ function main() {
 		url: "ajax/worksheetEm.php",
 /* 		data: "user="+user+"&page="+page, */
 		success: function(phpfile) {
-			$("#worksheet").html(phpfile);
+			$(".worksheet").html(phpfile);
 		}
 	
 	

@@ -72,7 +72,7 @@ $(document).ready(function(){
 	}
 	
 	if (!mysql_num_rows($run)) { //hides worksheet section if there are no embedded questions. ?>
-		$("#worksheet").hide(); 
+		$(".worksheet").hide(); 
 	
 	<? }
 	$length = strlen($page['page_references']);
