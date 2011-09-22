@@ -120,7 +120,7 @@ $(document).ready(function(){
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>
 
-		<div id="worksheet" class="worksheet-embedded">
+		<div class="worksheet worksheet-embedded">
 		<div id="check">check your understanding</div>
 		<? 
 		while ($Aresults = mysql_fetch_assoc($run)) {

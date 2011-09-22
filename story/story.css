@@ -287,23 +287,6 @@ padding: 0px;
 	-moz-border-radius: 8px 8px 8px 8px;
 	border-radius: 8px;
 }
-#edit-page {
-	/*
-top: 0px;
-	position: absolute;
-	left: 10px;
-*/
-	display: none;
-}
-#view-map {
-	/*
-top: 0px;
-	left: 110px;
-	position: absolute;
-*/
-	display: none;
-}
-
 table.worksheet {
 	border-collapse: collapse;
 	margin-bottom: 10px;
