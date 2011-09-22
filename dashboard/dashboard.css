@@ -23,6 +23,7 @@
 }
 
 .panel {
+	width: auto;
 	font-size: 14px;
 	margin-left: 5px;
 	margin-bottom: 5px;
@@ -31,12 +32,16 @@
 	text-align: left;
 	font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
 	background-color: white;
-	overflow: hidden;
 	position: relative;
 	-moz-box-shadow: 0px 0px 2px rgba(51, 102, 204, 0.4);
 	-webkit-box-shadow: 0px 0px 2px rgba(51, 102, 204, 0.4);
 	box-shadow: 0px 0px 2px rgba(51, 102, 204, 0.4);
 	
+}
+.panel .content {
+overflow-x: hidden;
+
+overflow-y:auto;
 }
 
 .panel li {
@@ -114,9 +119,10 @@ font-size: 16px;
 	position: absolute;
 	bottom: 0px;
 	top:170px;
-	overflow-y: scroll;
-
 }
+
+
+
 
 a.manage {
 
@@ -135,6 +141,9 @@ div.story {
 #stories {
 	background-color: #e8e8e8;
 }
+
+
+
 #classes {
 	background-color: #e8e8e8;
 }
@@ -352,6 +361,7 @@ select.inputClass {
 #story_list_label p {
 	font-size: 10px;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
 }
 
 .classLink {
