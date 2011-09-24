@@ -269,7 +269,7 @@ function update_page() { // loads php to update story
 }
 function update_exit(left, top) { // loads php to update story
 	update_page();
-	setTimeout("window.location='../index.php?left="+left+"&top="+top+"'",1000);
+	setTimeout("window.location='../map/index.php?left="+left+"&top="+top+"'",1000);
 
 }
 

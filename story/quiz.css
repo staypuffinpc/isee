@@ -145,3 +145,20 @@ div.item_response {
 	padding-left: 25px;
 
 }
+
+a#edit {
+	text-align: right;
+	z-index: 0;
+	line-height: 15px;
+	font-size: 15px;
+	display: none;
+	text-decoration: none;
+	background-position: 0;
+	position: static;
+	text-shadow: none;
+}
+
+a#edit:hover {
+	background-color: #e8e8e8;
+}
+

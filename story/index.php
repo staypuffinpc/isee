@@ -80,12 +80,15 @@ $(document).ready(function(){
 	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
 	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
 	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
-	if (!$author) { echo "$('.edit').hide();$('td.admin').remove();"; } 
+	if ($author) { echo "$('#edit').show();"; }
+	else {echo "$('td.admin').remove();";?> } 
 	if (!$finish) { ?> //shows summary button if it is available to the user
 		$("#summary-button").hide();
 
 		$("#quiz-button").hide();
-	<? } ?>
+	<? }
+	if ($author) { echo "$('#edit, #summary-button, #quiz-button').show();$('td.admin').remove();"; }
+	?>
 	$("#summary-button").click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
 	$("#quiz-button").click(function(){window.location="quiz.php";});
 	
@@ -106,7 +109,8 @@ $(document).ready(function(){
 </head>
 <body>
 <div id="header"><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> 
-<a id="home" href="../dashboard/index.php"></a>
+<a id="home" class="upperLeft" href="../dashboard/index.php"></a>
+<a id="edit" href="../admin/page/page.php">edit</a>
 
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
@@ -114,9 +118,8 @@ $(document).ready(function(){
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
-	<a class="edit" href="../admin/page/page.php?page_id=<? echo $page_id; ?>">edit</a>
 	<h2><? echo $page['page_name']; ?></h2>
-<!-- 		<div id="page-content"> -->
+<!--  		<div id="page-content"> -->
 			<? echo $page['page_content']; // Gets Content 
 			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>
 

@@ -487,35 +487,59 @@ a.dbutton:active {
 
 /* this is a hold over from a previous version. It is needed so that the early stories work right. */
 
-a#home {
+a.upperLeft {
 	height: 32px;
-	float: right;
 	text-decoration: none;
-	left: 7px;
-	top: 4px;
+	
 	position: absolute;
-	color: #e8e8e8;
 	padding-right: 10px;
 	background-repeat: no-repeat;
 	padding-left: 36px;
-	font-size: 14px;
-	line-height: 37px;
-	border-radius: 4px;
+	
 	-moz-user-select: -moz-none;
 	-khtml-user-select: none;
 	-webkit-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-	background-image: -webkit-gradient(linear,left top,left bottom, from(#ffffff), to(#cccccc));
-	background-image: url(../img/home.png);
 	cursor: pointer;
-	opacity: 0.9;
+	opacity: 0.8;
 }
-a#home:hover {
+
+a.upperLeft:hover {
 	opacity: 1.0;
-	color: white;
-	
-	}
+}
+
+#home {
+background-image: url(../img/home.png);
+
+left: 7px;
+	top: 4px;
+}
+
+#back {
+background-image: url(../img/books.png);
+background-size: 34px;
+
+left: 50px;
+	top: 4px;
+}
+
+#goto_map {
+background-image: url(../img/map.png);
+background-size: 34px;
+
+left: 50px;
+	top: 4px;
+}
+
+#saveMap {
+background-image: url(../img/map.png);
+background-size: 34px;
+
+left: 90px;
+	top: 4px;
+}
+
 
 .page-instructions {
 	padding-left: 10px;

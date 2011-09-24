@@ -32,11 +32,11 @@ $progress = mysql_fetch_assoc($list_user_progress);//gets info in array
 $progress = explode(", ", $progress['progress_page']);
 ?>
 <div class="map-wrapper">
-<a class="edit" style="position: fixed;top: 38px; left:250px" href="../admin/index.php">edit</a>
 
 <?
 $top = 0;
 $left = 0;
+$type_class="blank";
 if (in_array($results['story_summary'], $progress)) {$summary = true;} else {$summary = false;}
 
 if (!$summary) {
@@ -46,11 +46,10 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1
 	
 	if (strlen($pages['page_name'])>20 && strlen($pages['page_name'])>0){$page_name = substr($pages['page_name'],0,17)." . . ." ;}
 	else {$page_name=$pages['page_name'];}
-
+	
 	if ($pages['page_type']=="Story") {$type_class="story";}
 	if ($pages['page_type']=="Teaching") {$type_class="teaching";}
 	if ($pages['page_type']=="Appendix") {$type_class="appendix";}
-
 	if (in_array($pages['id'], $progress)){?>
  		<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
 			<? echo $page_name; ?>

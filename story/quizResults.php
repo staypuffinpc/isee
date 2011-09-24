@@ -14,8 +14,13 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 $story = $_SESSION['story'];
+$page_id = $_SESSION['current_page'];
 $total = 0;
 $correct = 0;
+$query="Select * from Author_Permissions where user_id = '$user_id' and story_id = '$story'";
+$run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
+if ($results['id'] == NULL) {$author = false;} else {$author = true;}
 
 if(isset($_GET['answer'])){
 	foreach($_GET['answer'] as $key=>$value) {
@@ -104,7 +109,8 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript">
 $("document").ready(function(){
-	
+	<?	if ($author) { echo "$('#edit').show();"; } ?>
+
 $("input").attr("disabled", true);
 });
 
@@ -112,7 +118,9 @@ $("input").attr("disabled", true);
 </head>
 <body>
 <div id="header">Quiz Results: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
-<a id="home" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
+<a id="home" class="upperLeft" href="../dashboard/index.php"></a>
+<a id="back" class="upperLeft" href="index.php?page_id=<? echo $page_id;?>"></a>
+
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
@@ -121,7 +129,10 @@ $("input").attr("disabled", true);
 		<? 
 		echo $story_info['correct']."/".$story_info['total']." - ".$story_info['percentage']."%";
 		?>
+
 	</div>
+			<a id="edit" class="btn" href="../admin/quiz/index.php">Edit Quiz</a>
+
 </div>
 
 <div id="viewport">

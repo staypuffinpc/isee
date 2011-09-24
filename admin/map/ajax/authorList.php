@@ -13,7 +13,7 @@ else {
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
-include_once('../db.php');
+include_once('../../db.php');
 
 $query = "select 
 	ap.user_id,
@@ -37,11 +37,11 @@ $list = mysql_query($query) or die(mysql_error()); //execute query
 
 
 ?>
-<li>Owner: <? echo $story_info['user_name']; ?> <img src="<? echo $story_info['user_image']; ?>" class='icon' style="position:absolute;top:5;right:5;width:30px;" /></li>
+<li>Owner: <? echo $story_info['user_name']; ?> <img src="../<? echo $story_info['user_image']; ?>" class='icon' style="position:absolute;top:5;right:5;width:30px;" /></li>
 <?
 while ($results = mysql_fetch_assoc($list)) {//gets info in array
 	
-	if ($results['user_name'] !== $story_info['user_name']) {echo "<li><img src='".$results['user_image']."' class='icon' />".$results['user_name']."</li>"; }
+	if ($results['user_name'] !== $story_info['user_name']) {echo "<li><img src='../".$results['user_image']."' class='icon' />".$results['user_name']."</li>"; }
 }
 ?>
 <script>

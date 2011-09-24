@@ -13,25 +13,18 @@ else {
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
-include_once('../db.php');
-$story_name = $_POST['story_name'];
-$story_topic = $_POST['story_topic'];
-$story_first_page = $_POST['story_first_page'];
-$story_summary = $_POST['story_summary'];
-$story_privacy = $_POST['privacy'];
-
-$query_update = "Update Stories Set
-story_name = '$story_name',
-story_topic = '$story_topic',
-story_first_page = '$story_first_page',
-story_summary = '$story_summary',
-story_privacy = '$story_privacy'
-Where story_id='$story'"; //mysql query variable
-$list_update = mysql_query($query_update) or die(mysql_error()); //execute query
+include_once('../../db.php');
+$page_stem = $_POST['page_stem'];
+$page_link = $_POST['page_link'];
+$page_punctuation = $_POST['page_punctuation'];
+$page_relation_id = $_POST['page_relation_id'];
 
 
+$query = "DELETE from Page_Relations where page_relation_id='$page_relation_id'";
+$list = mysql_query($query) or die(mysql_error()); //execute query
 
+echo $page_relation_id." deleted.<br />";
 
-echo $story_name." updated.<br />";
+echo "<script> $('#line".$page_relation_id."').hide();</script>";
 
 ?>

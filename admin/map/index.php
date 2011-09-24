@@ -23,7 +23,7 @@ else {
 $story = $_GET['story'];
 
 $_SESSION['story'] = $story;}
-include_once("db.php");
+include_once("../db.php");
 
 if (isset($_GET['x'])) {$x = $_GET['x'];}
 else {$x = 1;}
@@ -60,19 +60,19 @@ $_SESSION['magL'] = $magL;
 <html>
 <head>
 <title><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
-<link href="../styles/style.css" rel="stylesheet" type="text/css" />
+<link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
 
 
   
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery-ui.js"></script>
-<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
 
-<script type="text/javascript" src="../js/jquery.client.js"></script>
-<script type="text/javascript" src="../js/jquery-scroll.js"></script>
+<script type="text/javascript" src="../../js/jquery.client.js"></script>
+<script type="text/javascript" src="../../js/jquery-scroll.js"></script>
 
 <script type="text/javascript" src="admin.js"></script>
 
@@ -99,8 +99,8 @@ var story = <? echo $story; ?>;
 </head>
 <body id="mainbody">
 <div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
-<a id="home" href='../dashboard/index.php'></a>
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<a id="home" class="upperLeft" href='../../dashboard/index.php'></a>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 
@@ -134,10 +134,10 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
  
 <div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
-	<a title="View this page in the story." class="goto-page" href="../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
-	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"><!-- <img src="../img/edit.png" /> --></div>
+	<a title="View this page in the story." class="goto-page" href="../../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
+	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"></div>
 	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
-	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Connection"></div>
+	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Link"></div>
 	<?
 	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>";}
 	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='summary' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>";}
@@ -173,10 +173,10 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
 <h1>Toolbar</h1>
 <a class="btn" id="edit">Edit Story Info</a>
 <a class="btn" id="permissions">Permissions</a>
-<a class="btn" id="worksheet" href="worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
-<a class="btn" id="quiz" href="quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
-<a class="btn" id="terms" href="terms/index.php">Edit Terms</a>
-<a class="btn" id="print" href="print/index.php?story=<? echo $story; ?>">Print Manager</a>
+<a class="btn" id="worksheet" href="../worksheet/index.php?story=<? echo $story; ?>">Edit Worksheet</a>
+<a class="btn" id="quiz" href="../quiz/index.php?story=<? echo $story; ?>">Edit Quiz</a>
+<a class="btn" id="terms" href="../glossary/index.php">Edit Terms</a>
+<a class="btn" id="print" href="../print/index.php?story=<? echo $story; ?>">Print Manager</a>
 <a class="btn" id="new_page">Add New Page</a>
 <h1>
 Zoom (<span id="factor"></span>)
@@ -255,7 +255,7 @@ $(".start-finish-summary").css({
 
 
 </script>
-<div id="ajax">Processing<img src="../img/ajax-loader.gif" /></div>
+<div id="ajax">Processing<img src="../../img/ajax-loader.gif" /></div>
 
 <div id="popup"><div class="close-icon"></div><div id="popup-content"></div></div>
 <div id="selector"></div>

@@ -31,7 +31,6 @@ $run = mysql_query($query) or die(mysql_error());
 
 ?>
 <div class="page2-wrapper">
-<a class="edit" href="../admin/terms/index.php">edit</a>
 <h2>Glossary</h2>
 <table class="glossary">
 <?

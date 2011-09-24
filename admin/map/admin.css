@@ -6,7 +6,7 @@ body {
 	padding-left: 0px;
 	padding-bottom: 0px;
 	padding-right: 0px;
-	background-image: url(../img/grid.png);
+	background-image: url(../../img/grid.png);
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 	background-repeat: repeat;
 	margin: 0px;
@@ -144,7 +144,7 @@ span {
 	left: -14px;
 	position: relative;
 	background-repeat: no-repeat;
-	background-image: url(../img/arrow.png);
+	background-image: url(../../img/arrow.png);
 	cursor: pointer;
 }
 
@@ -155,7 +155,7 @@ span {
 .delete {
 	z-index: 4;
 	background-repeat: no-repeat;
-	background-image: url(../img/delete.png);
+	background-image: url(../../img/delete.png);
 	bottom: 3px;
 	right: 3px;
 	position: absolute;
@@ -168,7 +168,7 @@ span {
 	position: absolute;
 	z-index: 4;
 	background-repeat: no-repeat;
-	background-image: url(../img/connections.png);
+	background-image: url(../../img/connections.png);
 	bottom: 3px;
 	height: 20px;
 	width: 20px;
@@ -179,7 +179,7 @@ span {
 	bottom: 3px;
 	z-index: 4;
 	background-repeat: no-repeat;
-	background-image: url(../img/edit.png);
+	background-image: url(../../img/edit.png);
 	position: absolute;
 	height: 20px;
 	width: 20px;
@@ -188,7 +188,7 @@ span {
 a.goto-page {
 	position: absolute;
 	
-	background-image: url(../img/external.png);
+	background-image: url(../../img/external.png);
 	background-size: 10px;
 	right: 3px;
 	height: 10px;
@@ -386,7 +386,7 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 	width: 180px;
 	height: 300px;
 	position: fixed;
-	top: 39px;
+	bottom: 15px;
 	left: 15px;
 	z-index: 99;
 	padding: 3px;

@@ -14,7 +14,7 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
 
-include_once('../db.php');
+include_once('../../db.php');
 
 ?>
 

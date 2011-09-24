@@ -61,6 +61,8 @@ function main() {
 	$("#page1").fadeIn();
 	status = 0;
 	$("#story img, #story p").css("opacity","1"); //makes story bright
+	$("#edit").attr("href", "../admin/page/page.php");
+
 }
 
 function close() {
@@ -151,6 +153,7 @@ function navigate(target) {
 			$("#page2").fadeIn("slow");
 			$("#page2").load("ajax/"+target+".php", function(){if(instructionsShowing == false) {$(".page-instructions").hide();}});
 			status = target;
+			$("#edit").attr("href", "../admin/"+target+"/index.php");
 		}
 		else { // if the page is not visible
 			if (target=="story") {main();return;}
@@ -159,6 +162,8 @@ function navigate(target) {
 /* 			$("#page2").hide("fast",function(){$("#page2").show();}); */
 			$("#page2").load("ajax/"+target+".php", function(){if(instructionsShowing == false) {$(".page-instructions").hide();}});
 			status = target;
+			$("#edit").attr("href", "../admin/"+target+"/index.php");
+
 		}
 }
 
@@ -200,7 +205,7 @@ $(document).ready(function(){
 	$("#page1").show();
 	$(".page-instructions").live("mouseover", function(){ $(this).draggable().resizable();}); //one day I need to make it resizable
 	$("#story img, #story p").css("opacity","1"); //makes story bright at the beginning
-
+	$("#edit").css("left",$("#page1").offset().left-61);
 	//footer event listner
 	$("#footer li.core").click(function(){
 		$("textarea, :input").blur();

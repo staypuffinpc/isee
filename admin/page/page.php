@@ -17,8 +17,8 @@ $link=connect(); //call function from external file to connect to database
 $user_id = $_SESSION['user_id'];//gets user info
 if(isset($_GET['left'])) {$left = $_GET['left'];}else {$left = 1;}
 if(isset($_GET['top'])) {$top = $_GET['top'];}else {$top = 1;}
-$page_id = $_GET['page_id']; if ($page_id<1){echo "<script>window.location = '../index.php'</script>";}//gets page id
-$_SESSION['current_page'] = $page_id;//sets session
+$page_id = $_GET['page_id']; if ($page_id<1){$page_id = $_SESSION['current_page'];}//gets page id
+/* $_SESSION['current_page'] = $page_id;//sets session */
 
 $story = $_SESSION['story'];
 
@@ -84,7 +84,9 @@ window.location = "../../index.php";
 
 <div id="header">
 	<? echo $page['story_name']; ?>  	
-<a id="home" href="../../story/index.php?page_id=<? echo $page_id;?>"></a>
+<a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
+<a id="back" onClick="view(<? echo $page_id; ?>);" class="upperLeft" title="Save and go to story."></a>
+<a id="saveMap" class="upperLeft" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>);"></a>
 <div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 

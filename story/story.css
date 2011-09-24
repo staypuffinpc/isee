@@ -198,6 +198,9 @@ a[href^="http://"] {
 .teaching {
 	background-color: #ccff66;
 }
+.blank {
+	background-color: white;
+}
 .inactive {
 	z-index: 3;
 	height: 44px;
@@ -620,18 +623,27 @@ span.page-list-count {
 
 }
 
-.edit {
+a#edit {
+	padding-right: 5px;
+	text-align: right;
+	z-index: 7;
+	padding-bottom: 5px;
+	line-height: 15px;
+	font-size: 15px;
+	display: none;
 	text-decoration: none;
-	padding-top: 2px;
-	padding-left: 25px;
+	padding-top: 5px;
 	color: #333333;
-	height: 25px;
-	width: 80px;
-	background-position: 0px 2px;
+	width: 55px;
+	background-position: 2px 2px;
 	background-repeat: no-repeat;
 	background-image: url(../img/edit.png);
-	left: 0px;
-	top: 0px;
+	left: 100px;
+	top: 39px;
 	position: absolute;
+	text-shadow: none;
 }
 
+a#edit:hover {
+	background-color: #e8e8e8;
+}

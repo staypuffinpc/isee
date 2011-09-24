@@ -58,7 +58,7 @@ while ($stories = mysql_fetch_assoc($list_stories)) {
 	</a>
 	
 	<?
-		if ($role == "Admin" || $results['id']) {echo "<a href='../admin/index.php?story=".$stories['story_id']."' class='editLink'><img src='../img/edit.png' /></a>"; }
+		if ($role == "Admin" || $results['id']) {echo "<a href='../admin/map/index.php?story=".$stories['story_id']."' class='editLink'><img src='../img/edit.png' /></a>"; }
 		if ($role == "Admin" || $stories['story_creator'] == $user_id) {echo "<a class='deleteLink' onclick='delete_story(".$stories['story_id'].");'><img src='../img/delete.png' /></a>";}
 	?> </div> <?
 	}

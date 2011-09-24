@@ -175,7 +175,7 @@ var editPage = function(e){
 	top=document.body.scrollTop;
 	if ($(this).parent().attr("class").indexOf("page")== -1){id=$(this).parent().attr("class");}
 	else {id=this.id.substr(4);}
-	window.location=("page/page.php?page_id="+id+"&left="+left+"&top="+top);
+	window.location=("../page/page.php?page_id="+id+"&left="+left+"&top="+top);
 };
 
 var deletePage = function(e){

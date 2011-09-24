@@ -12,7 +12,13 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
+
 $story = $_SESSION['story'];
+$query="Select * from Author_Permissions where user_id = '$user_id' and story_id = '$story'";
+$run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
+
+if ($results['id'] == NULL) {$author = false;} else {$author = true;}
 
 $query = "Select * from Stories where story_id='$story'";
 $run = mysql_query($query) or die(mysql_error());
@@ -42,7 +48,8 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript">
 $("document").ready(function(){
-	
+	<?	if ($author) { echo "$('#edit').show();console.log('adf');"; } ?>
+
 	<?
 	$query="Select * from User_Scores where user_id='$user_id' and story_id='$story'";
 	$scored = mysql_query($query) or die(mysql_error());
@@ -89,12 +96,15 @@ var items = Array();
 </head>
 <body>
 <div id="header">Quiz: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
-<a id="home" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
+<a id="home" class="upperLeft" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
+
 <div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">
 	<a class="btn" id="score">Score and Submit</a>
+	<a id="edit" class="btn" href="../admin/quiz/index.php">Edit Quiz</a>
+
 </div>
 
 <div id="viewport">
