@@ -568,9 +568,10 @@ function update_relation() { // loads php to update story
 }
 
 function delete_relation(child) { // loads php to update story
-	if ($(child).parent().attr("class").indexOf("arrow") !== -1) {value = "page_relation_id="+$(child).parent().attr("class").substr(5);}
+	if ($(child).parent().attr("class") !== undefined) {value = "page_relation_id="+$(child).parent().attr("class").substr(5);}
+	else {value=$('form').serialize();}
 	console.log(value);
-	value=$('form').serialize();
+	
 		$.ajax({
 		type: "POST",
 			url: "actions/delete_relation.php",
