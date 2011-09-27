@@ -36,4 +36,4 @@ $id = mysql_fetch_assoc($list_id);//gets info in array
 </form>
 <br />
 <a class="btn" id="update_relation" onClick="update_relation();">Update Link</a>
-<a class="btn" id="delete_relation" onClick="delete_relation();">Delete Links</a>
+<a class="btn" id="delete_relation" onClick="delete_relation();">Delete Link</a>
