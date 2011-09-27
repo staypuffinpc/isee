@@ -25,7 +25,7 @@ $id = mysql_fetch_assoc($list_id);//gets info in array
 ?>
 
 
-<h2>Relation Editor</h2>
+<h2>Link Editor</h2>
 <form>
 <input type="hidden" name="page_relation_id" id="page_relation_id" value="<? echo $page_relation_id; ?>"/>
 <input size="40" type="text" name="page_stem" id="page_stem" value="<? echo $id['page_stem']; ?>" />
@@ -35,5 +35,5 @@ $id = mysql_fetch_assoc($list_id);//gets info in array
 
 </form>
 <br />
-<a class="btn" id="update_relation" onClick="update_relation();">Update Relation</a>
-<a class="btn" id="delete_relation" onClick="delete_relation();">Delete Relation</a>
+<a class="btn" id="update_relation" onClick="update_relation();">Update Link</a>
+<a class="btn" id="delete_relation" onClick="delete_relation();">Delete Links</a>

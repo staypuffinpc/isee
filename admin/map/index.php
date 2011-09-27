@@ -264,7 +264,8 @@ $(".start-finish-summary").css({
 	<a class="pageRightClickOption" id="duplicate">Duplicate</a>
 	<a class="pageRightClickOption" id="delete">Delete</a>
 	<a class="pageRightClickOption" id="toggleFinish">Toggle Finish Page</a>
-
+	<a class="pageRightClickOption" id="deleteLink" onclick="delete_relation(this);">Delete Link</a>
+	<a class="pageRightClickOption" id="editLink" onclick="pageRelation();">Edit Link</a>
 </div>
 
 </body>

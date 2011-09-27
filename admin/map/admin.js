@@ -193,8 +193,11 @@ var deletePage = function(e){
 };
 
 var pageRelation = function(e){
+	console.log($(this).parent().attr("class"));
 	e.stopImmediatePropagation();
 	relation_id = this.id.substr(5);
+	if (relation_id == "ink") {relation_id= $(this).parent().attr("class").substr(5);}
+	console.log(relation_id);
 	unbindThemAll();
 	width = 700;
 	height = 150;
@@ -246,10 +249,13 @@ var startMover = function(e) {
 
 
 var showContextmenu = function(e){
+
 	$("#pageRightClick").css({
 	"left" : e.pageX,
 	"top" : e.pageY	
 	}).show().removeClass().addClass(this.id);
+	if ($(this).attr("class").indexOf("page") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish").show	();$("#deleteLink, #editLink").hide();}
+	if ($(this).attr("class").indexOf("arrow") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish").hide();$("#deleteLink, #editLink").show();}
 	return false;
 }
 
@@ -371,7 +377,7 @@ $(".page").droppable({
 
 
 $(".page").live("contextmenu", showContextmenu);
-
+$(".arrow").live("contextmenu", showContextmenu);
 /* actions for dragging pages */
 
 
@@ -444,17 +450,14 @@ function bindThemAll() {
 	$("html").mouseup(selectorEnd);
 	$(".edit-page, #edit-page").live('click', editPage);
 	$(".delete, #delete").live('click', deletePage);
-	$(".arrow").live('click', pageRelation);
+	$(".arrow, #editLink").live('click', pageRelation);
 	$(".relate").live('mouseover', relatePage);
 	$("#start").live("click", startMover);
 	$("#summary").live("click", startMover);
 	$("#toggleFinish").live("click", toggleFinish);
 	$("#hud").mouseover(hudShow);
 	$("#hud").mouseout(hudHide);
-/*
-	$("#toolbar, #header").mouseover(showTop);
-	$("#toolbar").mouseout(hideTop);
-*/	
+	
 }
 
 function unbindThemAll() {
@@ -564,7 +567,9 @@ function update_relation() { // loads php to update story
 		});
 }
 
-function delete_relation() { // loads php to update story
+function delete_relation(child) { // loads php to update story
+	if ($(child).parent().attr("class").indexOf("arrow") !== -1) {value = "page_relation_id="+$(child).parent().attr("class").substr(5);}
+	console.log(value);
 	value=$('form').serialize();
 		$.ajax({
 		type: "POST",

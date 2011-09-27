@@ -14,9 +14,11 @@ $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
 include_once('../../db.php');
+/*
 $page_stem = $_POST['page_stem'];
 $page_link = $_POST['page_link'];
 $page_punctuation = $_POST['page_punctuation'];
+*/
 $page_relation_id = $_POST['page_relation_id'];
 
 
