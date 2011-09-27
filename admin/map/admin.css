@@ -51,26 +51,6 @@ span {
 }
 
 
-#toolbar {
-	padding: 10px;
-	color: #b3b3b3;
-	width: 100%;
-	position: fixed;
-	top:38px;
-	z-index: 3;
-	font-family: Helvetica, Verdana, Arial, sans-serif;
-	background-color: #e8e8e8;
-    text-align: left;
-    border-bottom: 1px black solid;
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-    
-}
-
-
 .page {
 	font-size: 4px;
 	background-color: white;
@@ -384,7 +364,7 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 	background-color: rgba(0, 0, 0, 0.2);
 	border-radius: 8px;
 	width: 180px;
-	height: 300px;
+	height: 200px;
 	position: fixed;
 	bottom: 15px;
 	left: 15px;
