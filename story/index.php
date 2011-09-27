@@ -81,7 +81,8 @@ $(document).ready(function(){
 	if (mysql_num_rows($list_nav)<1) {echo "$('#navigation').hide();";}
 	if ($current_worksheet > 0) {echo "worksheet_announce(".$current_worksheet.");"; }
 	if ($author) { echo "$('#edit').show();"; }
-	else {echo "$('td.admin').remove();";?> } 
+	else {echo "$('td.admin').remove();"; } 
+	
 	if (!$finish) { ?> //shows summary button if it is available to the user
 		$("#summary-button").hide();
 

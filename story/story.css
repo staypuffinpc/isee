@@ -66,7 +66,7 @@ form {
  .worksheet-embedded {
 	margin-top: 32px;
 	position: relative;
-	border-top-color: blue;
+	border-top-color: red;
 	border-top-width: 2px;
 	border-top-style: solid;
 	padding: 0px;
@@ -79,7 +79,7 @@ form {
 	font-style: italic;
 	position: absolute;
 	top: -13px;
-	color: blue;
+	color: red;
 	background-color: white;
 
 }
@@ -454,7 +454,7 @@ margin-top: -300px;
 
 #navigation {
 	margin-top: 32px;
-	border-top: red solid 2px;
+	border-top: blue solid 2px;
 	position: relative;
 }
 
@@ -465,7 +465,7 @@ margin-top: -300px;
 	position: absolute;
 	top: -13px;
 	right: 50px;
-	color: red;
+	color: blue;
 	background-color: white;
 
 }
