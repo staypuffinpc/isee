@@ -19,6 +19,13 @@ $page_link = $_POST['page_link'];
 $page_punctuation = $_POST['page_punctuation'];
 $page_relation_id = $_POST['page_relation_id'];
 
+$search = array("\"","'");
+$replace =array("&quot;","&apos;");
+$page_stem = str_replace($search, $replace, $page_stem);
+$page_link = str_replace($search, $replace, $page_link);
+$page_punctuation = str_replace($search, $replace, $page_punctuation);
+
+
 $query_update = "Update Page_Relations Set
 page_stem = '$page_stem',
 page_link = '$page_link',
