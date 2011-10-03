@@ -1,15 +1,7 @@
-/*
-#mapgrid {
-	right: 0px;
-	left: 0px;
-	bottom: 0px;
-	top: 0px;
-	position: absolute;
-	z-index: 0;
-	background-repeat: repeat;
-	background-image: url(../img/grid.png);
+h2 {
+	font-size: 18px;
+
 }
-*/
 
 
 #summary-button {

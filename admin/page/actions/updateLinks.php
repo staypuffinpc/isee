@@ -17,6 +17,9 @@ $id = $_POST['id'];
 $theClass = $_POST['class'];
 $text = $_POST['text'];
 
+$search = array("\"","'");
+$replace =array("&quot;","&apos;");
+$text = str_replace($search, $replace, $text);
 
 $query = "Update Page_Relations set $theClass='$text' where page_relation_id='$id'";
 $run = mysql_query($query) or die(mysql_error());
