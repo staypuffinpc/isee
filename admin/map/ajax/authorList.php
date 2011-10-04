@@ -41,7 +41,7 @@ $list = mysql_query($query) or die(mysql_error()); //execute query
 <?
 while ($results = mysql_fetch_assoc($list)) {//gets info in array
 	
-	if ($results['user_name'] !== $story_info['user_name']) {echo "<li><img src='../".$results['user_image']."' class='icon' />".$results['user_name']."</li>"; }
+	if ($results['user_name'] !== $story_info['user_name']) {echo "<li><img src='../".$results['user_image']."' class='icon' />".$results['user_name']."<a class='removeUser' id='user-".$results['user_id']."'>x</a> </li>"; }
 }
 ?>
 <script>

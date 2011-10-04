@@ -306,6 +306,29 @@ var hudHide = function(e) {
 
 }
 
+var removeUser = function(e) {
+	e.stopImmediatePropagation();
+	user_id = this.id.substr(5);
+	var answer = confirm("Are you sure you want to revoke author access to this user?");
+	if (answer) {
+		$.ajax({
+			type: "POST",
+			url: "actions/removeUser.php",
+			data: "user_id="+user_id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+				$("#authorList").load("ajax/authorList.php");
+			}
+		});
+	
+	
+	
+	}
+	console.log(user_id);
+
+
+}
+
 
 /* --------------------------end-handlers--------------------------- */
 
@@ -457,6 +480,7 @@ function bindThemAll() {
 	$("#toggleFinish").live("click", toggleFinish);
 	$("#hud").mouseover(hudShow);
 	$("#hud").mouseout(hudHide);
+	$(".removeUser").live("click", removeUser);
 	
 }
 
@@ -477,6 +501,7 @@ function unbindThemAll() {
 	$(".delete, #delete").unbind('click', deletePage);
 	$(".arrow").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
+	$(".removeUser").unbind("click", removeUser);
 	
 
 	$("#start").unbind();

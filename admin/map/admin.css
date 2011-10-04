@@ -424,6 +424,22 @@ background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000),
 	border: white 1px solid;
 }
 
-somethignsdka;fsd {
+#authorList li {
+position: relative;
+
 }
+
+.removeUser {
+position: absolute;
+top: -8px;
+right: 2px;
+color: red;
+cursor: pointer;
+}
+
+.removeUser:hover {
+text-decoration: underline;
+
+}
+
 
