@@ -145,5 +145,5 @@ $run = mysql_query($query) or die(mysql_error());
 $results = mysql_fetch_assoc($run);
 
 if ($results['id'] == NULL) {$author = false;} else {$author = true;}
-
+if ($user['role'] == "Super User") {$author = true;}
 ?>

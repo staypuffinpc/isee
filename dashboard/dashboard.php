@@ -33,7 +33,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 $(document).ready(function() {
 <? 
 
-if ($user['role'] !== "Teacher") 
+if ($user['role'] == "Student") 
 	{ 
 	echo <<<EOF
 		$("#create-new-class").hide();

@@ -32,7 +32,7 @@ while ($stories = mysql_fetch_assoc($list_stories)) {
 	
 	
 
-	if ($stories['story_privacy'] == "Public" || $stories['story_creator'] == $user_id || $role == "Admin" || $results['id'] || in_array($stories['story_id'], $class)) {
+	if ($stories['story_privacy'] == "Public" || $stories['story_creator'] == $user_id || $role == "Super User" || $results['id'] || in_array($stories['story_id'], $class)) {
 		
 
 ?> 
@@ -58,8 +58,8 @@ while ($stories = mysql_fetch_assoc($list_stories)) {
 	</a>
 	
 	<?
-		if ($role == "Admin" || $results['id']) {echo "<a href='../admin/map/index.php?story=".$stories['story_id']."' class='editLink'><img src='../img/edit.png' /></a>"; }
-		if ($role == "Admin" || $stories['story_creator'] == $user_id) {echo "<a class='deleteLink' onclick='delete_story(".$stories['story_id'].");'><img src='../img/delete.png' /></a>";}
+		if ($role == "Super User" || $results['id']) {echo "<a href='../admin/map/index.php?story=".$stories['story_id']."' class='editLink'><img src='../img/edit.png' /></a>"; }
+		if ($role == "Super User" || $stories['story_creator'] == $user_id) {echo "<a class='deleteLink' onclick='delete_story(".$stories['story_id'].");'><img src='../img/delete.png' /></a>";}
 	?> </div> <?
 	}
 }
