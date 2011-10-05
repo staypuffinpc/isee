@@ -12,13 +12,20 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-
+$user_id = $_SESSION['user_id'];
 $story = $_SESSION['story'];
+
+$query_user = "Select * from Users where user_id='$user_id'"; //mysql query variable
+$list_user = mysql_query($query_user) or die(mysql_error()); //execute query
+$user = mysql_fetch_assoc($list_user);//gets info in array
+
+
 $query="Select * from Author_Permissions where user_id = '$user_id' and story_id = '$story'";
 $run = mysql_query($query) or die(mysql_error());
 $results = mysql_fetch_assoc($run);
 
 if ($results['id'] == NULL) {$author = false;} else {$author = true;}
+if ($user['role'] == "Super User") {$author = true;}
 
 $query = "Select * from Stories where story_id='$story'";
 $run = mysql_query($query) or die(mysql_error());
@@ -36,6 +43,8 @@ $run = mysql_query($query) or die(mysql_error());
 <!DOCTYPE HTML>
 <html>
 <head>
+<!-- <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> -->
+
 <title>Quiz:<? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
@@ -48,7 +57,7 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript">
 $("document").ready(function(){
-	<?	if ($author) { echo "$('#edit').show();console.log('adf');"; } ?>
+	<?	if ($author) { echo "$('#edit').show();"; } ?>
 
 	<?
 	$query="Select * from User_Scores where user_id='$user_id' and story_id='$story'";

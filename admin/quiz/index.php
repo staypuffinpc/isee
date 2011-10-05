@@ -28,6 +28,7 @@ $story_info = mysql_fetch_assoc($run);
 <!DOCTYPE HTML>
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>Quiz Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 

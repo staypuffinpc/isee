@@ -17,7 +17,13 @@ $child=$_POST['child'];
 $parent = $_POST['parent'];
 echo "Loaded.<br />";
 if ($parent !== $child) {
-$query="Insert into Page_Relations (page_relation_id, page_child, page_parent, page_story, page_stem, page_link, page_punctuation) Values (NULL, '$child','$parent','$story','Go to page','$child','.')";
+
+$query = "Select page_name from Pages where id='$child'";
+$run = mysql_query($query) or die(mysql_error());
+$results = mysql_fetch_assoc($run);
+$child_name = $results['page_name'];
+
+$query="Insert into Page_Relations (page_relation_id, page_child, page_parent, page_story, page_stem, page_link, page_punctuation) Values (NULL, '$child','$parent','$story','Go to','$child_name','.')";
 $list_query = mysql_query($query) or die(mysql_error()); //execute query
 $lastItemID = mysql_insert_id();
 $magL = $_SESSION['magL'];

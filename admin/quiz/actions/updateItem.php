@@ -16,6 +16,9 @@ $user_id = $_SESSION['user_id'];
 $item_id = $_POST['item_id'];
 $text = $_POST['text'];
 $field = $_POST['field'];
+
+$text = utf8_decode($text);
+
 switch ($field) {
 	case "item_response":
 		$query = "Update Quiz_Responses set item_response='$text' where id='$item_id'";
@@ -32,7 +35,8 @@ switch ($field) {
 
 }
 
-echo "Updated!";
+echo "Updated!<br />";
+echo $text;
 
 
 
