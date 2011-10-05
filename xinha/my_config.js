@@ -44,7 +44,8 @@ xinha_init = xinha_init ? xinha_init : function()
    'Linker',
    'SuperClean',
    'TableOperations',
-   'ExtendedFileManager'
+   'ExtendedFileManager',
+   'PasteText'
      ];
   
          // THIS BIT OF JAVASCRIPT LOADS THE PLUGINS, NO TOUCHING  :)
