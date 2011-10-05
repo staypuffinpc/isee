@@ -30,23 +30,18 @@ $result = mysql_query($update) or die(mysql_error());
 
 $query_update_line = "Select * from Page_Relations where page_parent=".$id; //mysql query variable
 $list_update_line = mysql_query($query_update_line) or die(mysql_error()); //execute query
-$update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
-do {
-if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(1);</script>";
+while ($update_line = mysql_fetch_assoc($list_update_line)) {
+		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(1);</script>";
 }
-} while ($update_line = mysql_fetch_assoc($list_update_line));
 
 $query_update_line = "Select * from Page_Relations where page_child=".$id; //mysql query variable
 $list_update_line = mysql_query($query_update_line) or die(mysql_error()); //execute query
 $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
-do {
-if ($update_line['page_relation_id'] !== NULL) {
-echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(2);</script>";
-}
-} while ($update_line = mysql_fetch_assoc($list_update_line));
+while ($update_line = mysql_fetch_assoc($list_update_line)){
+		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(2);</script>";
+} 
 
 
 

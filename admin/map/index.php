@@ -50,7 +50,7 @@ $gridh = 60/$x;
 $_SESSION['gridw'] = $gridw;
 $_SESSION['gridh'] = $gridh;
 $_SESSION['x'] = $x;
-
+$_SESSION['ph'] = $ph;
 
 $_SESSION['magT'] = $magT;
 $_SESSION['magL'] = $magL;
@@ -142,17 +142,29 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 
 } /* end while */
 
-while ($relations = mysql_fetch_assoc($list_page_relations)) { ?>
-
-<div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div>
-
-</div>
-<script>
-	line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);
-
-</script>
-
-<? } /* end while */
+while ($relations = mysql_fetch_assoc($list_page_relations)) { 
+	if ($relations['page_external'] == "false") {?>
+		<div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div></div>
+		<script>line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);</script>
+	<? }
+	else {
+	$query = "Select page_top, page_left from Pages where id = '{$relations['page_parent']}'";
+	$run = mysql_query($query) or die(mysql_error());
+	$results = mysql_fetch_assoc($run);
+	$linkTop = $results['page_top']/$x + $ph + 4/$x+2;
+	$linkLeft = $results['page_left']/$x;
+	
+	$query = "Select s.story_id, s.story_name, p.id from Stories s,	Pages p	where s.story_id = p.story and p.id = '{$relations['page_child']}'";
+	$run = mysql_query($query) or die(mysql_error());
+	$results = mysql_fetch_assoc($run);
+	
+	$linkName = $results['story_name'];
+	
+	echo "<a title='This page links to another story' class='linkToStory' id='line-{$relations['page_relation_id']}' style='top:$linkTop;left:$linkLeft;'>$linkName</a>";
+	
+	
+	}
+} /* end while */
 ?>
 
 <!-- <div id="newpage" class="page" style="top:40;left:450;z-index=99">New Page</div> -->
@@ -193,6 +205,12 @@ $(".page").css({
 	"width"	: <? echo $pw; ?>,
 	"height": <? echo $ph; ?>,
 	"font-size" : "<? echo $f; ?>px",
+	"padding"	: <? echo $padding; ?>,
+});
+
+$(".linkToStory").css({
+	"width"	: <? echo $pw; ?>,
+	"font-size" : "<? echo $f-4; ?>px",
 	"padding"	: <? echo $padding; ?>,
 });
 
@@ -250,6 +268,7 @@ $(".start-finish-summary").css({
 	<a class="pageRightClickOption" id="duplicate">Duplicate</a>
 	<a class="pageRightClickOption" id="delete">Delete</a>
 	<a class="pageRightClickOption" id="toggleFinish">Toggle Finish Page</a>
+	<a class="pageRightClickOption" id="linkToStory">Link to other Story</a>
 	<a class="pageRightClickOption" id="deleteLink" onclick="delete_relation(this);">Delete Link</a>
 	<a class="pageRightClickOption" id="editLink" onclick="pageRelation();">Edit Link</a>
 </div>

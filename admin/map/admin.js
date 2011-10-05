@@ -193,12 +193,13 @@ var deletePage = function(e){
 };
 
 var pageRelation = function(e){
-	console.log($(this).parent().attr("class"));
 	e.stopImmediatePropagation();
+	unbindThemAll();
+	console.log($(this).parent().attr("class"));
 	relation_id = this.id.substr(5);
 	if (relation_id == "ink") {relation_id= $(this).parent().attr("class").substr(5);}
 	console.log(relation_id);
-	unbindThemAll();
+	
 	width = 700;
 	height = 150;
 	open(width, height);
@@ -254,8 +255,8 @@ var showContextmenu = function(e){
 	"left" : e.pageX,
 	"top" : e.pageY	
 	}).show().removeClass().addClass(this.id);
-	if ($(this).attr("class").indexOf("page") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish").show	();$("#deleteLink, #editLink").hide();}
-	if ($(this).attr("class").indexOf("arrow") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish").hide();$("#deleteLink, #editLink").show();}
+	if ($(this).attr("class").indexOf("page") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish, #linkToStory").show	();$("#deleteLink, #editLink").hide();}
+	if ($(this).attr("class").indexOf("arrow") !== -1) {$("#editPage, #duplicate, #delete, #toggleFinish, #linkToStory").hide();$("#deleteLink, #editLink").show();}
 	return false;
 }
 
@@ -308,6 +309,7 @@ var hudHide = function(e) {
 
 var removeUser = function(e) {
 	e.stopImmediatePropagation();
+	unbindThemAll();
 	user_id = this.id.substr(5);
 	var answer = confirm("Are you sure you want to revoke author access to this user?");
 	if (answer) {
@@ -325,10 +327,29 @@ var removeUser = function(e) {
 	
 	}
 	console.log(user_id);
-
+	bindThemAll();
 
 }
 
+var linkToStory = function(e) {
+	e.stopImmediatePropagation();
+	unbindThemAll();
+	page_id=$(this).parent().attr("class");
+	width = 700;
+	height = 400;
+	open(width, height);
+	
+$.ajax({
+		type: "POST",
+			url: "ajax/linkToStory.php",
+			data: "page_id="+page_id,
+			success: function(phpfile){
+			$("#popup-content").append(phpfile);
+			}
+		});
+
+	bindThemAll();
+}
 
 /* --------------------------end-handlers--------------------------- */
 
@@ -430,7 +451,7 @@ $(".arrow").live("contextmenu", showContextmenu);
 	var Stoppos = $(this).position();
  	t = Stoppos.top;
  	l = Stoppos.left;
- 	if (t<2*gridh){t=2*gridh;$(this).css({"top" : t});}
+ 	if (t<gridh){t=gridh;$(this).css({"top" : t});}
  	if (l<gridw){l=gridw;$(this).css({"left" : l});} 
  		$(this).css({"top" : t, "left" : l});
  		
@@ -471,9 +492,9 @@ function bindThemAll() {
 	$("#mapgrid").mousedown(selectorStart);
 	$("#mapgrid").mousemove(selectorMove);
 	$("html").mouseup(selectorEnd);
-	$(".edit-page, #edit-page").live('click', editPage);
+	$(".edit-page, #editPage").live('click', editPage);
 	$(".delete, #delete").live('click', deletePage);
-	$(".arrow, #editLink").live('click', pageRelation);
+	$(".arrow, #editLink, .linkToStory").live('click', pageRelation);
 	$(".relate").live('mouseover', relatePage);
 	$("#start").live("click", startMover);
 	$("#summary").live("click", startMover);
@@ -481,7 +502,7 @@ function bindThemAll() {
 	$("#hud").mouseover(hudShow);
 	$("#hud").mouseout(hudHide);
 	$(".removeUser").live("click", removeUser);
-	
+	$("#linkToStory").live("click", linkToStory);
 }
 
 function unbindThemAll() {
@@ -499,10 +520,11 @@ function unbindThemAll() {
 	$("html").unbind('mouseup', selectorEnd);
 	$(".edit-page, #edit-page").unbind('click', editPage);
 	$(".delete, #delete").unbind('click', deletePage);
-	$(".arrow").unbind('click', pageRelation);
+	$(".arrow, #editLink, .linkToStory").unbind('click', pageRelation);
 	$(".relate").unbind('mouseover', relatePage);
 	$(".removeUser").unbind("click", removeUser);
-	
+	$("#linkToStory").unbind("click", linkToStory);
+
 
 	$("#start").unbind();
 	$("#summary").unbind();
@@ -526,7 +548,7 @@ function movingMany (top_dis, left_dis, dragger) {
 	 			pos_page = $(this).position();
 	 			new_top = pos_page.top+top_dis;
 	 			new_left =pos_page.left+left_dis ;
-	 			if (new_top<120) {new_top = 120;/* top_dis = top_dis + 120 + new_top; dragger = true; movingMany(top_dis, left_dis, dragger); return; */}
+	 			if (new_top<60) {new_top = 60;/* top_dis = top_dis + 120 + new_top; dragger = true; movingMany(top_dis, left_dis, dragger); return; */}
 	 			if (new_left<210) {new_left = 210;/* left_dis = left_dis + 210 + new_left; dragger = true; movingMany(top_dis, left_dis, dragger); return; */}
 
 	 			$(this).css({"top" : new_top, "left" :new_left });
@@ -673,3 +695,16 @@ function zoomValue(x) {
 	return startValue;
 }
 
+function addLinkToStory() {
+	value=$("form").serialize();
+	console.log(value);
+	$.ajax({
+			type: "POST",
+			url: "actions/add_relation.php",
+			data: value,
+			success: function(phpfile){
+				$("#update").append(phpfile);
+				location.reload(true);}
+			});
+
+}

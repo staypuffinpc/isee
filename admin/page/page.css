@@ -427,6 +427,12 @@ display: inline;
 
 }
 
+.externalLink {
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	background-image: url(../../img/linksToOtherStory.png);
+}
+
 /*	
 #borrowedContent {
 	padding: 10px;

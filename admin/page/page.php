@@ -185,7 +185,10 @@ $i++;}
 		<ul id="navigation_choices">
 		<? 
 	while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
-			echo "<li class='ui-state-default' id='item[".$results_nav['page_relation_id']."]'>
+			echo "<li class='ui-state-default";
+			if ($results_nav['page_external'] == "true") {echo " externalLink' ";} else {echo "' ";}
+			 
+			echo "id='item[".$results_nav['page_relation_id']."]'>
 				<a class='deleteLink' id='delete".$results_nav['page_relation_id']."'>x</a>
 				<span class='page_stem ".$results_nav['page_relation_id']."'>".$results_nav['page_stem']." </span>	
 				<span class='page_link ".$results_nav['page_relation_id']."'>".$results_nav['page_link']."</span>
