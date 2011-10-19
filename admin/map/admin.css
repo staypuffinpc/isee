@@ -445,7 +445,7 @@ text-decoration: underline;
 .linkToStory {
 	position: absolute;
 	color: #ffffff;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#000), to #000);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000));
 	background-image: -moz-linear-gradient(#333,#000);
 	font-size: 4px;
 	text-align: center;

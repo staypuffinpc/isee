@@ -146,4 +146,13 @@ $results = mysql_fetch_assoc($run);
 
 if ($results['id'] == NULL) {$author = false;} else {$author = true;}
 if ($user['role'] == "Super User") {$author = true;}
+
+$queryQuiz = "Select item_id from Quiz_Items where story_id = '$story'";
+$runQuiz = mysql_query($queryQuiz) or die(mysql_error());
+$quizCount = mysql_num_rows($runQuiz);
+if ($quizCount > 0) {$quizAvailable = True;} else {$quizAvailable = False;}
+
+
+
+
 ?>

@@ -88,6 +88,7 @@ $(document).ready(function(){
 
 		$("#quiz-button").hide();
 	<? }
+	if (!$quizAvailable) {echo "$('#quiz-button').hide();";}
 	if ($author) { echo "$('#edit, #summary-button, #quiz-button').show();$('td.admin').remove();"; }
 	?>
 	$("#summary-button").click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
@@ -152,7 +153,7 @@ $(document).ready(function(){
 			<div id="decision-time">decision time</div>
 			<h3><? echo $page['page_navigation_text']; ?></h3>
 			<? 
-			if ($page['id'] == $page['story_summary'] || $page['finish_page'] == "true") { echo "<h3>Take the <a href='quiz.php'>quiz</a>.</h3>";}
+			if ($quizAvailable) {if ($page['id'] == $page['story_summary'] || $page['finish_page'] == "true") { echo "<h3>Take the <a href='quiz.php'>quiz</a>.</h3>";}}
 			if ($page['finish_page'] == "true") {echo "<h3> See what you missed. Visit the <a href='index.php?page_id={$page['story_summary']}'>Summary Page</a>.";}
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 					echo "<p>".$results_nav['page_stem']." "; 	
