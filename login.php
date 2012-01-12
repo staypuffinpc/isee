@@ -59,7 +59,7 @@ function ie_box() {
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>ISEE</title>
+<title>Decision Time</title>
 <!-- <link href="styles/style.css" rel="stylesheet" type="text/css" /> -->
 <link href="styles/login.css" rel="stylesheet" type="text/css" />
 <link href="editor.css" rel="stylesheet" type="text/css" />
@@ -95,7 +95,7 @@ ie_box();
 
 <div id="splash">
 <img id="teacher-splash" src="img/teacher-splash.png" />
-<div id="title">ISEE</div>
+<div id="title">Decision Time</div>
 <div id="login-Icons">
 <div id="login">login with</div>
 <a href="dashboard/google.php?login"><img class="icons" src="img/google.png" /></a>

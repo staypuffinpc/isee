@@ -12,14 +12,13 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
+$class_id = $_POST['class_id'];
+
 
 foreach($_POST['story'] as $key=>$value) {
 	$value=$value+1;
-	$query = "Update Worksheet set worksheet_order='$value' where worksheet_id='$key'";
+	$query = "DELETE FROM Class_Stories WHERE class_id = '$class_id' and story_id = '$key'";
 	$run = mysql_query($query) or die(mysql_error());
-	echo "$key updated to $value.<br />";
-	
 }
 
-
-?>
+echo "Removed";

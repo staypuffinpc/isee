@@ -7,7 +7,7 @@
 body {
 	background-repeat: repeat-x;
 	background-image: url(../img/white.png);
-	background-color: #7FFF7F;
+	background-color: navy;
 	padding: 0px;
 	margin: 0px;
 	-moz-user-select: -moz-none;
@@ -39,7 +39,7 @@ body {
 
 
 #title {
-	font-size: 120px;
+	font-size: 60px;
 	font-family: "Sunshine Poppy";
 	text-transform: uppercase;
 	float: right;

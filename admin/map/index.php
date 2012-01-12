@@ -159,7 +159,6 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) {
 	$results = mysql_fetch_assoc($run);
 	
 	$linkName = $results['story_name'];
-	
 	echo "<a title='This page links to another story' class='linkToStory' id='line-{$relations['page_relation_id']}' style='top:$linkTop;left:$linkLeft;'>$linkName</a>";
 	
 	

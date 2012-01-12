@@ -18,13 +18,11 @@ $query = "Select * from Classes where class_id = '$class_id'";
 $run = mysql_query($query) or die(mysql_error());
 $class = mysql_fetch_assoc($run);
 
-/*
 $query = "Select * from Class_Stories JOIN Stories on Stories.story_id = Class_Stories.story_id JOIN Users on Stories.story_creator = Users.user_id where class_id = '$class_id'";
 $run = mysql_query($query) or die(mysql_error());
 
 $query = "Select * from Class_Members Join Users on Class_Members.user_id = Users.user_id where class_id = '$class_id'";
 $members = mysql_query($query) or die(mysql_error());
-*/
 
 
 ?>
@@ -59,42 +57,28 @@ var class_id = <? echo $class_id; ?>;
 </div><!--  end header div -->
 <div id="viewport">
 	<div class="content" id="page1">
-	<div id="code-info">Enrollment Code: <input type="text" id="enroll-code" value="<? echo $class['enroll_code']; ?>" /><a class="btn" id="save-new-code">Save New Enrollment Code</a><span id="saved"></span></span></div>
-	<div id="instructions-class-stories"> Instructions: Drag stories  to your Class list to add them to your class. Drag stories from your class list to remove them.</div>
-	<ul id="all" class="connectedSortable"></ul>
-	<ul id="class" class="connectedSortable"></ul>
-<?
-	$query = "Select story_id, story_name from Stories";
-	$run = mysql_query($query) or die(mysql_error());
-	while ($results = mysql_fetch_assoc($run)) {
-		$query = "Select * from Class_Stories where class_id='$class_id' and story_id = '".$results['story_id']."'";
-		$check = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($check)<1) {
-			$action = <<<EOF
-			<script type='text/javascript'>
-			$('#all').append("<li id='story[{$results['story_id']}]'>{$results['story_name']}</li>");
-			</script>
-EOF;
-		}
-		else {
-			
-			$action = <<<EOF
-			<script type='text/javascript'>
-			$('#class').append("<li id='story[{$results['story_id']}]'>{$results['story_name']}</li>");
-			</script>
-EOF;
-		
-		}
-	echo $action;
-	
-	}
-	
-	?>		
-	
-		
+	<div id="code-info">Enrollment Code: <input type="text" id="enroll-code" value="<? echo $class['enroll_code']; ?>" /><a class="btn" id="save-new-code">Save New Enrollment Code</a><span id="saved">sfdad</span></span></div>
+	<div id='story-list'>
+	<a class='dbutton' id='add-story'>Add More Stories</a>
 
+	<?
+	while ($stories = mysql_fetch_assoc($run)) {
+		
+		echo "<div class='story'>";
+		echo "<a class='story choice' id='".$stories['story_id']."'>";
+		echo "<img src=' ../../img/books.png' />";
+		echo "<h5>".$stories['story_name']."</h5>";
+		echo "<h6>".$stories['user_name']."</h6>";
+		echo "<div class='removeStory' id='remove".$stories['story_id']."'></div>";
+		echo "</a></div>";
+	}
+	mysql_data_seek($run, 0);
+	?>
 	
 	
+	</div>
+	<div id='user-data'>
+	</div>
 	</div>
 	<div class="content" id="page2">
 	<table>

@@ -45,123 +45,59 @@ div.summary {
 	border-radius: 8px;
 }
 
+div.casestudy, div.casestudy, div.essentialquestion, div.keytakeaway, div.thoughtprovokingquestion, div.example, div.review, div.tip, div.trythis, div.youranswer {
+	clear: both;
+	padding: 10px;
+	position: relative;
+	font-family: "Times New Roman", Georgia, Times, serif;
+	border-style: solid;
+	border-width: 3px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px 8px 8px 8px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+}
+
 div.casestudy {
-	clear: both;
-	margin: 30px;
-	padding: 10px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #9900cc;
-	border-style: solid;
-	border-width: 3px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
-
 div.essentialquestion {
-	clear: both;
-	margin: 20px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #ffcc00;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
-
 div.keytakeaway {
-	clear: both;
-	margin: 30px;
-	padding-left: 10px;
 	padding-bottom: 10px;
 	padding-right: 30px;
 	padding-top: 10px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: fuchsia;
-	border-style: solid;
-	border-width: 3px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
 
 div.thoughtprovokingquestion {
-	clear: both;
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #ff9900;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
 
 div.example {
-	clear: both;
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #0099ff;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
 
 div.review {
-	clear: both;
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #00cc00;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
 
 div.tip {
-	clear: both;
-	margin: 30px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #996633;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
 }
 
 div.trythis {
-clear: both;
 	margin: 20px;
-	position: relative;
-	font-family: "Times New Roman", Georgia, Times, serif;
 	border-color: #339966;
-	border-style: solid;
-	border-width: 3px;
-	padding: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px 8px 8px 8px;
-	border-radius: 8px;
+}
+div.youranswer {
+     border: 0px;
+     border-color: #444;
+     color: #fff;
+     background-color: #666;
 }
 
-div.tip p, div.casestudy p, div.essentialquestion p, div.example p, div.frontmatter p, div.review p, div.summary p, div.thoughtprovokingquestion p, div.keytakeaway p, div.trythis p {
-margin:0px;
-}
+
 
 

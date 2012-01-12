@@ -12,14 +12,5 @@ else {
 	}
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
-
-foreach($_POST['story'] as $key=>$value) {
-	$value=$value+1;
-	$query = "Update Worksheet set worksheet_order='$value' where worksheet_id='$key'";
-	$run = mysql_query($query) or die(mysql_error());
-	echo "$key updated to $value.<br />";
-	
-}
-
-
+echo "Select the stories you would like to add to this class."
 ?>

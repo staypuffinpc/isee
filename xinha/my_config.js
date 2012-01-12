@@ -100,7 +100,8 @@ xinha_init = xinha_init ? xinha_init : function()
    	'div.objective' : 'Objective',
    	'.keyterm' : 'Key Term',
    	'div.tip' : 'Tip',
-   	'div.trythis' : 'Try This'
+   	'div.trythis' : 'Try This',
+   	'div.youranswer' : 'Your Answer'
    	
    	
    	});

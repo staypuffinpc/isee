@@ -720,3 +720,38 @@ padding-top:15px;
 	color: yellow;
 }
 
+/* this is stuff Peter put here to test a different look for decision-time links */
+#navigation p {
+
+     text-align: right;
+     font-weight: bolder;
+     margin-top: 20px;
+
+}
+
+.tracker:link {
+     color: blue;
+     text-decoration: none;
+     padding: 3px;
+     border: 2px solid blue;
+     -moz-border-radius: 8px;
+     border-radius: 8px;
+     text-align: right;
+     font-weight: bolder;
+     padding-left:20px;
+     padding-right:20px;
+}
+
+.tracker:visited {
+   color: purple;
+}
+
+.tracker:hover, .tracker:active {
+    color: #fff;
+    background-color: blue;
+}
+
+.tracker:visited:hover {
+color: #fff;
+background-color: purple;
+}

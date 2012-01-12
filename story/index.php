@@ -156,16 +156,23 @@ $(document).ready(function(){
 			if ($quizAvailable) {if ($page['id'] == $page['story_summary'] || $page['finish_page'] == "true") { echo "<h3>Take the <a href='quiz.php'>quiz</a>.</h3>";}}
 			if ($page['finish_page'] == "true") {echo "<h3> See what you missed. Visit the <a href='index.php?page_id={$page['story_summary']}'>Summary Page</a>.";}
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
-					echo "<p>".$results_nav['page_stem']." "; 	
+					/* echo "<p>".$results_nav['page_stem']." "; 	 */
 					if ($results_nav['page_external']=="true"){
 						$query = "Select story from Pages where id = '{$results_nav['id']}'";
 						$run_external = mysql_query($query) or die(mysql_error());
 						$results_external = mysql_fetch_assoc($run_external);
 						$story = $results_external['story'];
-					}?>
-					<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&story=<? echo $story; ?>"><? //makes page link 
-					echo $results_nav['page_link']."</a>".$results_nav['page_punctuation'];?>
+					}
+					if (strstr($results_nav['page_stem'], "<h3>")) {echo $results_nav['page_stem'];}
+					else { 
+						?>
+						<p>
+						<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&story=<? echo $story; ?>"><? //makes page link 
+	/* 					echo $results_nav['page_link']."</a>".$results_nav['page_punctuation']; */
+						echo $results_nav['page_stem']." ".$results_nav['page_link'].$results_nav['page_punctuation']."</a>";
+						?>
 					</p> <? 
+					}
 			}		
 			//end generate buttons
 			?>
