@@ -708,3 +708,19 @@ function addLinkToStory() {
 			});
 
 }
+
+function deleteLinkToStory(relation_id) {
+	answer = confirm("Are you sure you wish to delete this link?")
+	if (answer) {
+		$.ajax({
+			type: "POST",
+			url: "actions/delete_relation",
+			data: "page_relation_id="+relation_id,
+			success: function(phpfile){
+				$("#update").html(phpfile);
+			}
+		});
+	$("#ExLink"+relation_id).hide();
+	}
+
+}

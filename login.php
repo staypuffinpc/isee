@@ -105,7 +105,7 @@ ie_box();
 
 </div> <!-- end loginIcons -->
 </div> <!-- end splash --> 
-<div id="title2">Interactive Story-Based E-Learning Environment</div>
+<div id="title2"><!-- Interactive Story-Based E-Learning Environment --></div>
 
 <!-- editor elements -->
 <div id="admin">

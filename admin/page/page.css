@@ -181,6 +181,7 @@ a.dbutton:active {
 }
 
 #menu {
+	display: none;
 	padding: 5px;
 	height: 250px;
 

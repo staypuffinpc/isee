@@ -463,4 +463,20 @@ text-decoration: underline;
 	user-select: none;
 }
 
+.current {
+	background-color: yellow;
+}
+
+.deleteExLink {
+	bottom: -22px;
+	right: 2px;
+	position: absolute;
+	background-image: url(../../img/delete.png);
+	background-size: 15px; 
+	width:15px;
+	height:15px;
+	z-index:100;
+	cursor: pointer;
+}
+
 

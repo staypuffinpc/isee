@@ -86,8 +86,8 @@ window.location = "../../index.php";
 	<? echo $page['story_name']; ?>  	
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
 <a id="back" onClick="view(<? echo $page_id; ?>);" class="upperLeft" title="Save and go to story."></a>
-<a id="saveMap" class="upperLeft" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>);"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<a id="saveMap" class="upperLeft" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, <? echo $page_id; ?>);"></a>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 </div>
 
 <div id="viewport">
@@ -237,13 +237,13 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 <ul>
 	<li id="save" onClick="update_page();"><img src="../../img/save.png" /><br />Save</li>
-	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
+	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, , <? echo $page_id; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
 	<li id="view" onClick="view(<? echo $page_id; ?>);"><img src="../../img/saveStory.png" /><br />Save (Story)</li>
 	
 </ul>
 
 </div> <!-- end footer -->
-<a id="menuToggle" class="footerToggle">Hide Menu</a>
+<a id="menuToggle" class="footerToggle">Show Menu</a>
 <a id="borrowToggle" class="footerToggle">View Content Borrower</a>
 <div id="update"></div>
 <div id="status"></div>

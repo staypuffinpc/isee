@@ -16,6 +16,8 @@ $user_id = $_SESSION['user_id'];
 
 if (isset($_GET['left'])) {$left = $_GET['left'];} else {$left = 0;}
 if (isset($_GET['top'])) {$top = $_GET['top'];} else {$top = 0;}
+if (isset($_GET['page'])) {$pageHL = $_GET['page'];} else {$pageHL = 0;}
+
 
 
 if (!isset($_GET['story'])) {$story=$_SESSION['story'];}
@@ -100,7 +102,7 @@ var story = <? echo $story; ?>;
 <body id="mainbody">
 <div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
 <a id="home" class="upperLeft" href='../../dashboard/index.php'></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 
 </div>
 
@@ -121,7 +123,7 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 
 ?>
  
-<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
+<div class="page <? echo $type_class; if ($pages['id'] == $pageHL) {echo " current";}?> " title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
 	<? echo $page_name; ?>
 	<a title="View this page in the story." class="goto-page" href="../../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
 	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"></div>
@@ -141,8 +143,8 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 	
 
 } /* end while */
-
 while ($relations = mysql_fetch_assoc($list_page_relations)) { 
+
 	if ($relations['page_external'] == "false") {?>
 		<div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div></div>
 		<script>line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);</script>
@@ -159,9 +161,10 @@ while ($relations = mysql_fetch_assoc($list_page_relations)) {
 	$results = mysql_fetch_assoc($run);
 	
 	$linkName = $results['story_name'];
-	echo "<a title='This page links to another story' class='linkToStory' id='line-{$relations['page_relation_id']}' style='top:$linkTop;left:$linkLeft;'>$linkName</a>";
-	
-	
+	echo <<<EOF
+	<script> $("#{$relations['page_parent']}").append("<a title='This page links to another story' class='linkToStory' id='line{$relations['page_relation_id']}' style='top:55;left:-2;'>$linkName</a><a class='deleteExLink' id='ExLink{$relations['page_relation_id']}' onClick='deleteLinkToStory({$relations['page_relation_id']})'></a>");
+	</script>
+EOF;
 	}
 } /* end while */
 ?>

@@ -122,7 +122,7 @@ height = $("#hiddenDiv").height();
 	$("textarea#content").css({"height":height});
 */
 	$("#menu").draggable();
-	$("#menuToggle").toggle(function() {$("#menu").fadeOut();$(this).html("Show Menu");}, function() {$("#menu").fadeIn();$(this).html("Hide Menu");});
+	$("#menuToggle").toggle(function() {$("#menu").fadeIn();$(this).html("Hide Menu");}, function() {$("#menu").fadeOut();$(this).html("Show Menu");});
 	$("#borrowToggle").toggle(
 		function(){
 			$(this).html("Hide Content Borrower");
@@ -267,9 +267,9 @@ function update_page() { // loads php to update story
 			}
 		});
 }
-function update_exit(left, top) { // loads php to update story
+function update_exit(left, top, page) { // loads php to update story
 	update_page();
-	setTimeout("window.location='../map/index.php?left="+left+"&top="+top+"'",1000);
+	setTimeout("window.location='../map/index.php?page="+page+"&left="+left+"&top="+top+"'",1000);
 
 }
 

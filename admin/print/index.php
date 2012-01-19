@@ -45,7 +45,7 @@ var defaultName="My Print Layout";
 <div id="header"><? echo $story['story_name']; ?>
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
 <a id="goto_map" class="upperLeft" href="../../story/index.php?page_id=<? echo $page_id; ?>"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 </div>
 <div id="toolbar">
 	<div class='title' id="page-order">Page Order</div>
