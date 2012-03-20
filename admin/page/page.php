@@ -237,7 +237,7 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 <ul>
 	<li id="save" onClick="update_page();"><img src="../../img/save.png" /><br />Save</li>
-	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, , <? echo $page_id; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
+	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, <? echo $page_id; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
 	<li id="view" onClick="view(<? echo $page_id; ?>);"><img src="../../img/saveStory.png" /><br />Save (Story)</li>
 	
 </ul>

@@ -98,7 +98,7 @@ xinha_init = xinha_init ? xinha_init : function()
    	'div.summary' : 'Summary',
    	'div.caption' : 'Caption',
    	'div.objective' : 'Objective',
-   	'.keyterm' : 'Key Term',
+   	'mark.keyterm' : 'Key Term',
    	'div.tip' : 'Tip',
    	'div.trythis' : 'Try This',
    	'div.youranswer' : 'Your Answer'

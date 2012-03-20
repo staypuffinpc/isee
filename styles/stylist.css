@@ -12,7 +12,9 @@ div.objective {
 	color: red;
 }
 
-.keyterm {
+mark.keyterm {
+	background-color: transparent;
+	display: inline;
 	clear: both;
 	border-bottom-color: #191919;
 	border-bottom-style: dotted;

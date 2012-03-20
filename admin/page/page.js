@@ -257,6 +257,7 @@ function close() {
 }
 
 function update_page() { // loads php to update story
+	
 	$('form').submit();
 	$.ajax({
 		type: "POST",

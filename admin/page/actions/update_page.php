@@ -22,6 +22,7 @@ $page_summary = $_POST['page_summary'];
 $page_navigation_text = $_POST['page_navigation_text'];
 $page_type = $_POST['page_type'];
 
+$page_content = preg_replace(array('/style="(.*?)"/','/<span(.*?)>/', '/<\/span>/','/<font(.*?)>/', '/<\/font>/', '/<strong><\/strong>/', '/<p><\/p>/','/ class="Standard"/'),'', $page_content);
 
 $user_id=$_SESSION['user_id'];
 
