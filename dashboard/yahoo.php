@@ -28,7 +28,7 @@ if ($requestingURL == 'localhost') {
 	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
 	}
 else {
-	include_once("/home4/byuiptne/connectFiles/connectProject301.php");
+	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
 	
 	}
 $link=connect(); //call function from external file to connect to database

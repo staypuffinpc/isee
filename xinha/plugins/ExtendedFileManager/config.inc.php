@@ -58,7 +58,7 @@ $IMConfig['base_url'] = '';
 		   PHP must be able to create files in this directory.
 		   Able to create directories is nice, but not necessary.
 */
-$IMConfig['images_dir'] = '/home4/byuiptne/public_html/isee/images';
+$IMConfig['images_dir'] = '/home5/byuiptne/public_html/isee/images';
 //You may set a different directory for the link mode; if you don't, the above setting will be used for both modes
 //$IMConfig['files_dir'] = 'demo_files';
 
