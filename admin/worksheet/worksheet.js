@@ -31,7 +31,7 @@ $(".ce").live("blur", function(){
 	item = this;
 	text = $(this).html();
 	info=$(this).attr("class").split(" ");
-	if (info[1] == "response") {text = $(this).parent().html();console.log(text);}
+	if (info[1] == "response") {text = $(this).parent().html();//console.log(text);}
 	$.ajax({
 		type: "POST",
 		url: "actions/updateItem.php",
@@ -159,7 +159,7 @@ $("#ajax").ajaxStart(function (){$(this).show();}).ajaxStop(function () {$(this)
 $("#update").draggable();
 
 function updateOrder() {
-console.log("updating order");
+//console.log("updating order");
 		$("ul#item-list li").each(function(){
 			data = data+"&"+this.id+"="+$(this).index();
 				

@@ -1,16 +1,7 @@
 <?php
-
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
@@ -69,9 +60,9 @@ $i = 0; //this is getting the item sorter ready.
 <script type="text/javascript">
 var itemOrder = new Array();
 
-<? if ($story == NULL) {?>
+<?php if ($story == NULL) {?>
 window.location = "../../index.php";
-<?
+<?php
 }
 ?>
 
@@ -80,24 +71,24 @@ window.location = "../../index.php";
 
 </head>
 <body>
-<form>	<input type="hidden" id="page_id" name="page_id" value="<? echo $page_id ?>" />
+<form>	<input type="hidden" id="page_id" name="page_id" value="<?php echo $page_id ?>" />
 
 <div id="header">
-	<? echo $page['story_name']; ?>  	
+	<?php echo $page['story_name']; ?>  	
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
-<a id="back" onClick="view(<? echo $page_id; ?>);" class="upperLeft" title="Save and go to story."></a>
-<a id="saveMap" class="upperLeft" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, <? echo $page_id; ?>);"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
+<a id="back" onClick="view(<?php echo $page_id; ?>);" class="upperLeft" title="Save and go to story."></a>
+<a id="saveMap" class="upperLeft" onClick="update_exit(<?php echo $left; ?>, <?php echo $top; ?>, <?php echo $page_id; ?>);"></a>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 </div>
 
 <div id="viewport">
 <div class="content" id="page1">
-<input type="text" name="page_name" id="page_name" value="<? echo $page['page_name'];?>" />
+<input type="text" name="page_name" id="page_name" value="<?php echo $page['page_name'];?>" />
 
 <textarea name="content" id="content">
-		<? echo $page['page_content']; // Gets Content ?>
+		<?php echo $page['page_content']; // Gets Content ?>
 </textarea>
-<div id="hiddenDiv"><? echo $page['page_content']; // Gets Content ?></div>
+<div id="hiddenDiv"><?php echo $page['page_content']; // Gets Content ?></div>
 
 	<div id="worksheet">
 	<h3>Worksheet</h3>
@@ -108,7 +99,7 @@ window.location = "../../index.php";
 <a class='btn newItem' id='short_answer'>New Short Answer Item</a>
 </div>
 	<ul id="item-list">
-<?	
+<?php	
 	while ($results = mysql_fetch_assoc($run)) {
 		
 		if (strlen($results['worksheet_text']) > 88) {
@@ -169,7 +160,7 @@ EOF;
 			
 		mysql_data_seek($pages, 0);	
 		echo <<<EOF
-		<script> itemOrder[$i] = {$results['worksheet_order']}-1; console.log("$i"+itemOrder[$i]);</script>
+		<script> itemOrder[$i] = {$results['worksheet_order']}-1; //console.log("$i"+itemOrder[$i]);</script>
 EOF;
 $i++;} 
 ?>
@@ -178,12 +169,12 @@ $i++;}
 	</div>
 	<div id="navigation">
 	<h3>Navigation Prompt</h3>
-		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<? echo $page['page_navigation_text']; ?>" />
+		<input size="80" name="page_navigation_text" id="page_navigation_text" value="<?php echo $page['page_navigation_text']; ?>" />
 		<div class="options">
 			<a class="btn" id="addSubheading">Add a Navigation Subheading</a>
 		</div>
 		<ul id="navigation_choices">
-		<? 
+		<?php 
 	while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
 			echo "<li class='ui-state-default";
 			if ($results_nav['page_external'] == "true") {echo " externalLink' ";} else {echo "' ";}
@@ -204,31 +195,31 @@ $i++;}
 	</ul>
 </div> <!-- end navigation div -->
 
-<? 
+<?php 
 
 echo "<hr><h3>References</h3>";
 echo "<textarea name='references' id='references'>".$page['page_references']."</textarea>";
 ?>
 </div>
-<div id="borrowedContentPane"><? include('ajax/contentBorrower.php'); ?>
+<div id="borrowedContentPane"><?php include('ajax/contentBorrower.php'); ?>
 </div>
 </div>
 <div id="menu">
 	<h1>Menu</h1>
 	<h2>Page Options</h2>
 
-	<p><input name="page_type" type="radio" value="Story" <? if ($page['page_type'] == "Story") {echo " checked";} ?> />Story</p>
-	<p><input name="page_type" type="radio" value="Teaching" <? if ($page['page_type'] == "Teaching") {echo " checked";} ?> />Teaching</p>
-	<p><input name="page_type" type="radio" value="" <? if ($page['page_type'] == "") {echo " checked";} ?> />Nothing</p>
+	<p><input name="page_type" type="radio" value="Story" <?php if ($page['page_type'] == "Story") {echo " checked";} ?> />Story</p>
+	<p><input name="page_type" type="radio" value="Teaching" <?php if ($page['page_type'] == "Teaching") {echo " checked";} ?> />Teaching</p>
+	<p><input name="page_type" type="radio" value="" <?php if ($page['page_type'] == "") {echo " checked";} ?> />Nothing</p>
 
 
 	<h2>Summary</h2>
-	<? if ($page['id'] == $page['story_summary']) {echo "<p>This is the Summary page.</p>";}
+	<?php if ($page['id'] == $page['story_summary']) {echo "<p>This is the Summary page.</p>";}
 	else { ?>
-	<p><input name="page_summary" type="radio" value="0"<? if ($page['page_summary'] == 0) {echo " checked";}?> />Do Not Include in the Summary</p>
-	<p><input name="page_summary" type="radio" value="1"<? if ($page['page_summary'] == 1) {echo " checked";}?> />Include in the Summary</p>
+	<p><input name="page_summary" type="radio" value="0"<?php if ($page['page_summary'] == 0) {echo " checked";}?> />Do Not Include in the Summary</p>
+	<p><input name="page_summary" type="radio" value="1"<?php if ($page['page_summary'] == 1) {echo " checked";}?> />Include in the Summary</p>
 
-	<? } ?>
+	<?php } ?>
 	<h2>Tools</h2>
 	<a class="dbutton" id="imageCreator">Image Creator</a>
 	
@@ -237,8 +228,8 @@ echo "<textarea name='references' id='references'>".$page['page_references']."</
 
 <ul>
 	<li id="save" onClick="update_page();"><img src="../../img/save.png" /><br />Save</li>
-	<li id="save-return" onClick="update_exit(<? echo $left; ?>, <? echo $top; ?>, <? echo $page_id; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
-	<li id="view" onClick="view(<? echo $page_id; ?>);"><img src="../../img/saveStory.png" /><br />Save (Story)</li>
+	<li id="save-return" onClick="update_exit(<?php echo $left; ?>, <?php echo $top; ?>, <?php echo $page_id; ?>);"><img src="../../img/saveMap.png" /><br />Save (Map)</li>
+	<li id="view" onClick="view(<?php echo $page_id; ?>);"><img src="../../img/saveStory.png" /><br />Save (Story)</li>
 	
 </ul>
 

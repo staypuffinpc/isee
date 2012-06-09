@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
@@ -29,7 +21,7 @@ include_once("../db.php");
 ?>
 <html>
 <head>
-<title>Worksheet Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
+<title>Worksheet Editor: <?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 
 
@@ -44,9 +36,9 @@ include_once("../db.php");
 
 
 <script type="text/javascript">
-<? if ($story == NULL) {?>
+<?php if ($story == NULL) {?>
 window.location = "../dashboard/";
-<?
+<?php
 }
 ?>
 $(document).ready(function(){
@@ -56,11 +48,11 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div id="header">Worksheet Editor: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
+<div id="header">Worksheet Editor: <?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?>
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
-<a id="back" class="upperLeft" href="../../story/index.php?page_id=<? echo $page_id;?>&page2=worksheet"></a>
+<a id="back" class="upperLeft" href="../../story/index.php?page_id=<?php echo $page_id;?>&page2=worksheet"></a>
 <a id="saveMap" class="upperLeft" href="../../admin/map/"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 
 </div>
 

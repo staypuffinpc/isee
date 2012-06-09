@@ -23,14 +23,9 @@ try {
          	$user_name = $userAttributes['namePerson'];
          	$provider = "yahoo";
        		/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+			
+$base_directory = dirname(dirname(__FILE__));
+include_once($base_directory."/connect.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
@@ -73,7 +68,8 @@ $_SESSION['admin'] = false;
 include_once('dashboard.php');
          }
         else{
-            echo "user has not logged in";
+			$home_url = "http://".dirname(dirname($_SERVER['SERVER_NAME']."".$_SERVER['REQUEST_URI']));		
+            echo "<meta HTTP-EQUIV='REFRESH' content='0; url=$home_url'>";			
         }
         //echo 'User ' . ( ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
     }

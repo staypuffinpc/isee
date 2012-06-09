@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
@@ -37,8 +29,8 @@ $list = mysql_query($query) or die(mysql_error()); //execute query
 
 
 ?>
-<li>Owner: <? echo $story_info['user_name']; ?> <img src="../<? echo $story_info['user_image']; ?>" class='icon' style="position:absolute;top:5;right:5;width:30px;" /></li>
-<?
+<li>Owner: <?php echo $story_info['user_name']; ?> <img src="../<?php echo $story_info['user_image']; ?>" class='icon' style="position:absolute;top:5;right:5;width:30px;" /></li>
+<?php
 while ($results = mysql_fetch_assoc($list)) {//gets info in array
 	
 	if ($results['user_name'] !== $story_info['user_name']) {echo "<li><img src='../".$results['user_image']."' class='icon' />".$results['user_name']."<a class='removeUser' id='user-".$results['user_id']."'>x</a> </li>"; }

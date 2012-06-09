@@ -1,16 +1,7 @@
 <?php
-// shows progress of current story for current user //
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
@@ -33,7 +24,7 @@ $progress = explode(", ", $progress['progress_page']);
 ?>
 <div class="map-wrapper">
 
-<?
+<?php
 $top = 0;
 $left = 0;
 $type_class="blank";
@@ -51,10 +42,10 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1
 	if ($pages['page_type']=="Teaching") {$type_class="teaching";}
 	if ($pages['page_type']=="Appendix") {$type_class="appendix";}
 	if (in_array($pages['id'], $progress)){?>
- 		<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
-			<? echo $page_name; ?>
+ 		<div class="page <?php echo $type_class; ?>" title="<?php echo $pages['page_name'];?>" style="top:<?php echo $pages['page_top']; ?>px;left:<?php echo $pages['page_left']; ?>px" id="<?php echo $pages['id']; ?>">
+			<?php echo $page_name; ?>
 		</div>
-		<?	
+		<?php	
 			if($pages['page_top'] > $top) {$top = $pages['page_top'];}
 			if($pages['page_left'] > $left) {$left = $pages['page_left'];}
 		
@@ -66,10 +57,10 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1
 	while ($child_search = mysql_fetch_assoc($list_child_search)) { //while 2
 		if (in_array($child_search['page_parent'], $progress)) {
 		?>
-		<div class="page inactive" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
-			<? echo "?"; ?>
+		<div class="page inactive" title="<?php echo $pages['page_name'];?>" style="top:<?php echo $pages['page_top']; ?>px;left:<?php echo $pages['page_left']; ?>px" id="<?php echo $pages['id']; ?>">
+			<?php echo "?"; ?>
 		</div>
-		<?
+		<?php
 		if($pages['page_top'] > $top) {$top = $pages['page_top'];}
 		if($pages['page_left'] > $left) {$left = $pages['page_left'];}
 		break;
@@ -94,21 +85,21 @@ while ($pages = mysql_fetch_assoc($list_pages)) {  //while 1.5
 	if ($pages['page_type']=="Appendix") {$type_class="appendix";}
 
 	if (in_array($pages['id'], $progress)){?>
- 		<div class="page <? echo $type_class; ?>" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
-			<? echo $page_name; ?>
+ 		<div class="page <?php echo $type_class; ?>" title="<?php echo $pages['page_name'];?>" style="top:<?php echo $pages['page_top']; ?>px;left:<?php echo $pages['page_left']; ?>px" id="<?php echo $pages['id']; ?>">
+			<?php echo $page_name; ?>
 		</div>
-	<?
+	<?php
 		if($pages['page_top'] > $top) {$top = $pages['page_top'];}
 		if($pages['page_left'] > $left) {$left = $pages['page_left'];}
 	
 	}
 	else {?>
 	
-		<div class="page inactive" title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']; ?>px;left:<? echo $pages['page_left']; ?>px" id="<? echo $pages['id']; ?>">
-			<? echo "?"; ?>
+		<div class="page inactive" title="<?php echo $pages['page_name'];?>" style="top:<?php echo $pages['page_top']; ?>px;left:<?php echo $pages['page_left']; ?>px" id="<?php echo $pages['id']; ?>">
+			<?php echo "?"; ?>
 		</div>
 
-		<?
+		<?php
 		
 		
 	
@@ -124,27 +115,27 @@ for ($i=1;$i<10000000;$i++) {}
 while ($relations = mysql_fetch_assoc($list_page_relations)) { // while 3
 ?>
 
-<div class="line" id="line<? echo $relations['page_relation_id']; ?>">
-	<div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow">
+<div class="line" id="line<?php echo $relations['page_relation_id']; ?>">
+	<div title="<?php echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<?php echo $relations['page_relation_id']; ?>" class="arrow">
 	</div>
 </div>
 
 
 
 <script>
-	line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id']; ?>);
+	line(<?php echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id']; ?>);
 
 </script>
 
-<? } //end while 3
+<?php } //end while 3
 ?>
 <div id="youarehere">You are<br/>here.</div>
 </div>
 <script>
-console.log("<? echo $top; ?>");console.log("<? echo $left; ?>");
-height = <? echo $top; ?>*1+300;
-left = <? echo $left; ?>*1+250;
-console.log(height+" "+left);
+//console.log("<?php echo $top; ?>");//console.log("<?php echo $left; ?>");
+height = <?php echo $top; ?>*1+300;
+left = <?php echo $left; ?>*1+250;
+//console.log(height+" "+left);
 $('.map-wrapper').css({
 	"height" : height,
 	"width" : left
@@ -156,7 +147,7 @@ $(".page").click(function(){
 	else {window.location = "index.php?page_id="+this.id;}
 });
 
-loc = $("#<? echo $_SESSION['current_page']; ?>").position();
+loc = $("#<?php echo $_SESSION['current_page']; ?>").position();
 tophere = loc.top-30;
 lefthere = loc.left+175;
 
@@ -164,7 +155,7 @@ $("#youarehere").css({"top":tophere,"left":lefthere});
 top1 = (loc.top+25-window.innerHeight/2)+"px";
 left = (loc.left+100-window.innerWidth/2)+"px";
 
-$("#<? echo $_SESSION['current_page']; ?>").addClass('current');
+$("#<?php echo $_SESSION['current_page']; ?>").addClass('current');
 $("#viewport").scrollTo({top:top1, left:left}, 800);
 google_analytics(); 
 

@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_GET['story'];
@@ -24,7 +16,7 @@ $story = mysql_fetch_assoc($run);
 <html>
 <head>
 
-<title><? echo $story['story_name']; ?>
+<title><?php echo $story['story_name']; ?>
 </title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="../../styles/stylist.css" rel="stylesheet" type="text/css" />
@@ -42,10 +34,10 @@ var defaultName="My Print Layout";
 </script>
 </head>
 <body>
-<div id="header"><? echo $story['story_name']; ?>
+<div id="header"><?php echo $story['story_name']; ?>
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
-<a id="goto_map" class="upperLeft" href="../../story/index.php?page_id=<? echo $page_id; ?>"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
+<a id="goto_map" class="upperLeft" href="../../story/index.php?page_id=<?php echo $page_id; ?>"></a>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 </div>
 <div id="toolbar">
 	<div class='title' id="page-order">Page Order</div>
@@ -55,12 +47,12 @@ var defaultName="My Print Layout";
 </div>
 <ul id="item-list">
 	
-	<? include("ajax/item-list.php"); ?>
+	<?php include("ajax/item-list.php"); ?>
 </ul>
 
 
 <div id="content">
-	<? include("ajax/print.php"); ?>
+	<?php include("ajax/print.php"); ?>
 </div>
 <form>
 	<textarea name="data" id="prep">

@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(dirname(__FILE__))));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story_id = $_SESSION['story'];
@@ -38,16 +30,16 @@ $terms = mysql_fetch_assoc($list_terms);//gets info in array
 ?>
 <h2>Glossary</h2>
 <table class="glossary">
-<?
+<?php
 do { ?>
 	<tr>
-	<td class="term"><? echo $terms['term']; ?></td>
-	<td><? echo $terms['definition']; ?></td>
+	<td class="term"><?php echo $terms['term']; ?></td>
+	<td><?php echo $terms['definition']; ?></td>
 	
 	</tr>
 
 
-<? } while ($terms = mysql_fetch_assoc($list_terms));
+<?php } while ($terms = mysql_fetch_assoc($list_terms));
 
 
 ?>

@@ -1,17 +1,7 @@
 <?php
-/* Shows glossary Items */
-
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
@@ -25,7 +15,7 @@ include_once("../db.php");
 <html>
 <head>
 
-<title><? echo "ISEE - Term Editor"; ?>
+<title><?php echo "Decision Time - Term Editor"; ?>
 </title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="../../styles/stylist.css" rel="stylesheet" type="text/css" />
@@ -50,11 +40,11 @@ include_once("../db.php");
 </script>
 </head>
 <body>
-<div id="header"><? echo $story_info['story_name'].": Term Editor"; ?>
+<div id="header"><?php echo $story_info['story_name'].": Term Editor"; ?>
 <a id="home" class="upperLeft" href="../../dashboard/index.php"></a>
-<a id="back" class="upperLeft" href="../../story/index.php?page_id=<? echo $page_id;?>&page2=glossary"></a>
+<a id="back" class="upperLeft" href="../../story/index.php?page_id=<?php echo $page_id;?>&page2=glossary"></a>
 <a id="saveMap" class="upperLeft" href="../../admin/map/"></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 </div>
 <div id="toolbar">
 <a class="btn" id="new-term">Add New Term</a>
@@ -62,7 +52,7 @@ include_once("../db.php");
 </div>
 <div id="viewport">
 <div class="content">
-<? include_once("ajax/term.php"); ?>
+<?php include_once("ajax/term.php"); ?>
 </div>
 </div>
 <div id="update">

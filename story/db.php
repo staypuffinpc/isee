@@ -1,4 +1,4 @@
-<?
+<?php
 //gets user information
 $query_user = "Select * from Users where user_id='$user_id'"; //mysql query variable
 $list_user = mysql_query($query_user) or die(mysql_error()); //execute query

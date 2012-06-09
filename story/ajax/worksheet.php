@@ -1,18 +1,7 @@
 <?php
-/* This file displays the worksheet in story mode. */
-
-
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
@@ -31,8 +20,8 @@ $visited_pages = explode(",",$results['progress_page']);
 <script type="text/javascript">
 /* this sets js variables from php variables */
 
-user = <? echo $user_id; ?>;
-story = <? echo $story; ?>;
+user = <?php echo $user_id; ?>;
+story = <?php echo $story; ?>;
  	google_analytics();
 
 </script>
@@ -43,7 +32,7 @@ story = <? echo $story; ?>;
 <h2>Worksheet</h2>
 
 
-<?
+<?php
 while ($worksheet = mysql_fetch_assoc($list_worksheet)) {
 if ($worksheet['embedded'] == 1 && !in_array($worksheet['worksheet_page'], $visited_pages)){
 	echo "<div class='sorry'>
@@ -54,9 +43,9 @@ else {
 ?>
 <table class="worksheet">
 <tr>
-<td><? echo "<strong>".$worksheet['worksheet_type']."</strong><br />".$worksheet['worksheet_order'].". ".$worksheet['worksheet_text']."<br /><br />".$worksheet['worksheet_response']."";?></td>
+<td><?php echo "<strong>".$worksheet['worksheet_type']."</strong><br />".$worksheet['worksheet_order'].". ".$worksheet['worksheet_text']."<br /><br />".$worksheet['worksheet_response']."";?></td>
 <td class="treasure-chest">
-<?
+<?php
 $query_lock = "SELECT * FROM User_Progress where progress_user = '".$user_id."' and progress_story='$story'"; //mysql query variable
 $list_lock = mysql_query($query_lock) or die(mysql_error()); //execute query
 $lock = mysql_fetch_assoc($list_lock);//gets info in array
@@ -68,18 +57,18 @@ $query_answer = "SELECT * From User_Worksheet where user_id = '".$user_id."' and
 if ($answer['user_answer'] !== NULL) {
 	if ($worksheet['worksheet_type'] == "Multiple Choice" || $worksheet['worksheet_type'] == "True or False") {
 		?>
-		<script>$(".worksheet input[name='<? echo $worksheet['worksheet_id'];?>']")[<? echo $answer['user_answer']; ?>].checked = true;</script>
-		<?
+		<script>$(".worksheet input[name='<?php echo $worksheet['worksheet_id'];?>']")[<?php echo $answer['user_answer']; ?>].checked = true;</script>
+		<?php
 	}
 	if ($worksheet['worksheet_type'] == "Fill in the Blank") {
  		?>
-		<script>$(".worksheet input[name='<? echo $worksheet['worksheet_id'];?>']").val("<? echo $answer['user_answer']; ?>");</script>
-		<?
+		<script>$(".worksheet input[name='<?php echo $worksheet['worksheet_id'];?>']").val("<?php echo $answer['user_answer']; ?>");</script>
+		<?php
  	}
 	if ($worksheet['worksheet_type'] == "Short Answer") {
  		?>
-		<script>$("textarea[name='<? echo $worksheet['worksheet_id'];?>']").val("<? echo $answer['user_answer']; ?>");</script>
-		<?
+		<script>$("textarea[name='<?php echo $worksheet['worksheet_id'];?>']").val("<?php echo $answer['user_answer']; ?>");</script>
+		<?php
  	}
 }
 
@@ -90,9 +79,9 @@ else {echo "<img class='answer-img closed' id='".$worksheet['worksheet_id']."' s
 //end icon printing
 ?></td>
 </tr>
-<tr class="page-link"><td colspan="2"><? echo "Page: <a href='index.php?page_id={$worksheet['worksheet_page']}'>{$worksheet['page_name']}</a>";
+<tr class="page-link"><td colspan="2"><?php echo "Page: <a href='index.php?page_id={$worksheet['worksheet_page']}'>{$worksheet['page_name']}</a>";
 ?></td></tr></table>
-<?
+<?php
 }} while ($worksheet = mysql_fetch_assoc($list_worksheet));
 ?>
 <div>

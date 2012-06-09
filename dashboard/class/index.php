@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $class_id = $_GET['class_id'];
@@ -36,7 +28,7 @@ $members = mysql_query($query) or die(mysql_error());
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Class Management : <? echo $class['class_name']; ?></title>
+<title>Class Management : <?php echo $class['class_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="class.css" rel="stylesheet" type="text/css" />
 <!-- <link href="worksheet-data.css" rel="stylesheet" type="text/css" /> -->
@@ -49,21 +41,21 @@ $members = mysql_query($query) or die(mysql_error());
 
 <body>
 <script type="text/javascript">
-var class_id = <? echo $class_id; ?>;
+var class_id = <?php echo $class_id; ?>;
 
 
 </script>
-<div id="header">Class Management : <? echo $class['class_name']; ?>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="header">Class Management : <?php echo $class['class_name']; ?>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div><!--  end header div -->
 <div id="viewport">
 	<div class="content" id="page1">
-	<div id="code-info">Enrollment Code: <input type="text" id="enroll-code" value="<? echo $class['enroll_code']; ?>" /><a class="btn" id="save-new-code">Save New Enrollment Code</a><span id="saved"></span></span></div>
+	<div id="code-info">Enrollment Code: <input type="text" id="enroll-code" value="<?php echo $class['enroll_code']; ?>" /><a class="btn" id="save-new-code">Save New Enrollment Code</a><span id="saved"></span></span></div>
 	<div id="instructions-class-stories"> Instructions: Drag stories  to your Class list to add them to your class. Drag stories from your class list to remove them.</div>
 	<ul id="all" class="connectedSortable"></ul>
 	<ul id="class" class="connectedSortable"></ul>
-<?
+<?php
 	$query = "Select story_id, story_name from Stories";
 	$run = mysql_query($query) or die(mysql_error());
 	while ($results = mysql_fetch_assoc($run)) {
@@ -100,7 +92,7 @@ EOF;
 	<table>
 		<tr>
 			<td>Name</td>
-			<? 
+			<?php 
 			while ($stories = mysql_fetch_assoc($run)) {
 				echo "<td>".$stories['story_name']."<td>";
 			}
@@ -110,7 +102,7 @@ EOF;
 	
 	</table>
 	
-	<?
+	<?php
 	
 	while ($results = mysql_fetch_assoc($members)) {
 		echo $results['user_name']."<br /";

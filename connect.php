@@ -1,9 +1,9 @@
 <?php 
 	function connect() {
-		$user="benmcmur_301";
-		$host="box680.bluehost.com";
-		$password="Pr0j3ct301";
-		$database="benmcmur_project301";
+		$user="root";
+		$host="127.0.0.1";
+		$password="";
+		$database="dt1";
 		mysql_connect($host,$user,$password);
 		$link = mysql_connect($host,$user,$password)
        		 or die("Could not connect" . mysql_error());

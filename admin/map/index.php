@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
@@ -61,7 +53,7 @@ $_SESSION['magL'] = $magL;
 ?>
 <html>
 <head>
-<title><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
+<title><?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?></title>
 <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 
 <link href="admin.css" rel="stylesheet" type="text/css" />
@@ -81,32 +73,32 @@ $_SESSION['magL'] = $magL;
 
 
 <script type="text/javascript">
-<? 
+<?php 
 $h = 0;
 $w = 0;
 if ($story == NULL) {?>
 window.location = "../dashboard/";
-<?
+<?php
 }
 ?>
 $(document).ready(function(){
-window.scroll(<? echo $left; ?>, <? echo $top; ?>);
+window.scroll(<?php echo $left; ?>, <?php echo $top; ?>);
 });
-var x = <? echo $x; ?>;
-var gridw = 210/<? echo $x; ?>;
-var gridh = 60/<? echo $x; ?>;
-var story = <? echo $story; ?>;
+var x = <?php echo $x; ?>;
+var gridw = 210/<?php echo $x; ?>;
+var gridh = 60/<?php echo $x; ?>;
+var story = <?php echo $story; ?>;
 
 </script>
 </head>
 <body id="mainbody">
-<div id="header"><? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
+<div id="header"><?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?>
 <a id="home" class="upperLeft" href='../../dashboard/index.php'></a>
-<div id="greeting"><? echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='../".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../../logout.php">Logout</a></div>
 
 </div>
 
-<?
+<?php
 
 while ($pages = mysql_fetch_assoc($list_pages)) { 
 if (strlen($pages['page_name'])>20 && strlen($pages['page_name'])>0){$page_name = substr($pages['page_name'],0,17)." . . ." ;}
@@ -123,13 +115,13 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 
 ?>
  
-<div class="page <? echo $type_class; if ($pages['id'] == $pageHL) {echo " current";}?> " title="<? echo $pages['page_name'];?>" style="top:<? echo $pages['page_top']/$x; ?>;left:<? echo $pages['page_left']/$x; ?>;" id="<? echo $pages['id']; ?>">
-	<? echo $page_name; ?>
-	<a title="View this page in the story." class="goto-page" href="../../story/index.php?page_id=<? echo $pages['id'];?>&story=<? echo $story; ?>"></a>
-	<div class="edit-page" id="edit<? echo $pages['id'];?>" title="Edit"></div>
-	<div class="delete" id="delete<? echo $pages['id'];?>" title="Delete"></div>
-	<div class="relate"   id="relate<? echo $pages['id'];?>" title="Add New Link"></div>
-	<?
+<div class="page <?php echo $type_class; if ($pages['id'] == $pageHL) {echo " current";}?> " title="<?php echo $pages['page_name'];?>" style="top:<?php echo $pages['page_top']/$x; ?>;left:<?php echo $pages['page_left']/$x; ?>;" id="<?php echo $pages['id']; ?>">
+	<?php echo $page_name; ?>
+	<a title="View this page in the story." class="goto-page" href="../../story/index.php?page_id=<?php echo $pages['id'];?>&story=<?php echo $story; ?>"></a>
+	<div class="edit-page" id="edit<?php echo $pages['id'];?>" title="Edit"></div>
+	<div class="delete" id="delete<?php echo $pages['id'];?>" title="Delete"></div>
+	<div class="relate"   id="relate<?php echo $pages['id'];?>" title="Add New Link"></div>
+	<?php
 	if ($pages['id'] == $story_info['story_first_page']) {echo "<div id='start' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>";}
 	if ($pages['id'] == $story_info['story_summary']) {echo "<div id='summary' class='start-finish-summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>";}
 	if ($pages['finish_page'] == "true") {echo "<div class='start-finish-summary finish'>Finish</div>";}
@@ -137,7 +129,7 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 	?>
 </div>
 
-<?
+<?php
 	if($pages['page_top'] > $h) {$h = $pages['page_top'];}
 	if($pages['page_left'] > $w) {$w = $pages['page_left'];}
 	
@@ -146,9 +138,9 @@ else{$embed = "<div class='embed' title='This page has embedded worksheet items.
 while ($relations = mysql_fetch_assoc($list_page_relations)) { 
 
 	if ($relations['page_external'] == "false") {?>
-		<div class="line" id="line<? echo $relations['page_relation_id']; ?>"><div title="<? echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<? echo $relations['page_relation_id']; ?>" class="arrow"></div></div>
-		<script>line(<? echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);</script>
-	<? }
+		<div class="line" id="line<?php echo $relations['page_relation_id']; ?>"><div title="<?php echo $relations['page_stem']." ".$relations['page_link'].$relations['page_punctuation']; ?>" id="arrow<?php echo $relations['page_relation_id']; ?>" class="arrow"></div></div>
+		<script>line(<?php echo $relations['page_parent'].", ".$relations['page_child'].", ".$relations['page_relation_id'].", ".$magT.", ".$magL; ?>);</script>
+	<?php }
 	else {
 	$query = "Select page_top, page_left from Pages where id = '{$relations['page_parent']}'";
 	$run = mysql_query($query) or die(mysql_error());
@@ -176,7 +168,7 @@ EOF;
 <h1>Toolbar</h1>
 <a class="btn" id="edit">Edit Story Info</a>
 <a class="btn" id="permissions">Permissions</a>
-<a class="btn" id="print" href="../print/index.php?story=<? echo $story; ?>">Print Manager</a>
+<a class="btn" id="print" href="../print/index.php?story=<?php echo $story; ?>">Print Manager</a>
 <a class="btn" id="new_page">Add New Page</a>
 <h1>
 Zoom (<span id="factor"></span>)
@@ -184,7 +176,7 @@ Zoom (<span id="factor"></span>)
 <div id="zoom"></div>
 </div>
 
-<?
+<?php
 	$h=$h+50;
 	$w=$w+200;
 
@@ -193,68 +185,68 @@ Zoom (<span id="factor"></span>)
 <div id="mapgrid"></div>
 <script>
 $("#mapgrid").css({
-	"width" : <? echo $w/$x; ?>,
-	"height" : <? echo $h/$x; ?>,
+	"width" : <?php echo $w/$x; ?>,
+	"height" : <?php echo $h/$x; ?>,
 });
 
 $("body").css({
-	"background-size" : "<? echo $grid_size; ?>px"
+	"background-size" : "<?php echo $grid_size; ?>px"
 });
 
 
 
 $(".page").css({
-	"width"	: <? echo $pw; ?>,
-	"height": <? echo $ph; ?>,
-	"font-size" : "<? echo $f; ?>px",
-	"padding"	: <? echo $padding; ?>,
+	"width"	: <?php echo $pw; ?>,
+	"height": <?php echo $ph; ?>,
+	"font-size" : "<?php echo $f; ?>px",
+	"padding"	: <?php echo $padding; ?>,
 });
 
 $(".linkToStory").css({
-	"width"	: <? echo $pw; ?>,
-	"font-size" : "<? echo $f-4; ?>px",
-	"padding"	: <? echo $padding; ?>,
+	"width"	: <?php echo $pw; ?>,
+	"font-size" : "<?php echo $f-4; ?>px",
+	"padding"	: <?php echo $padding; ?>,
 });
 
 $(".relate, .edit-page, .delete").css({
-	"background-size": "<? echo $img_size; ?>px",
-	"width": "<? echo $img_size; ?>px",
-	"height": "<? echo $img_size; ?>px",
+	"background-size": "<?php echo $img_size; ?>px",
+	"width": "<?php echo $img_size; ?>px",
+	"height": "<?php echo $img_size; ?>px",
 });
 
 
 $(".relate").css({
-	"right" : "<? echo $relate_right; ?>px"
+	"right" : "<?php echo $relate_right; ?>px"
 });
 
 $(".delete").css({
-	"right" : "<? echo $delete_right; ?>px"
+	"right" : "<?php echo $delete_right; ?>px"
 });
 
 
 $(".edit-page").css({
-	"right" : "<? echo $edit_page_right; ?>px"
+	"right" : "<?php echo $edit_page_right; ?>px"
 });
 
 $(".arrow").css({
-	"background-size": "<? echo $arrow_size; ?>px",
-	"left" : "<? echo $arrow_location; ?>px",
-	"width" : "<? echo $arrow_size; ?>px",
-	"height" : "<? echo $arrow_size; ?>px",
+	"background-size": "<?php echo $arrow_size; ?>px",
+	"left" : "<?php echo $arrow_location; ?>px",
+	"width" : "<?php echo $arrow_size; ?>px",
+	"height" : "<?php echo $arrow_size; ?>px",
 
 });
 
 $(".goto-page").css({
-	"background-size": "<? echo $external_size; ?>px",
-	"width": "<? echo $external_size; ?>px",
-	"height": "<? echo $external_size; ?>px",
+	"background-size": "<?php echo $external_size; ?>px",
+	"width": "<?php echo $external_size; ?>px",
+	"height": "<?php echo $external_size; ?>px",
 
 });
 
 $(".start-finish-summary").css({
-	"padding"	: <? echo $padding; ?>,
-	"height": <? echo $start_finish_summary_height; ?>,
-	"font-size" : "<? echo $start_finish_summary_font; ?>px"
+	"padding"	: <?php echo $padding; ?>,
+	"height": <?php echo $start_finish_summary_height; ?>,
+	"font-size" : "<?php echo $start_finish_summary_font; ?>px"
 
 });
 	

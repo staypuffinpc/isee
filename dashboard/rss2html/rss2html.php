@@ -1,4 +1,4 @@
-<?PHP
+<?php
 //
 // rss2html.php RSS feed to HTML webpage script
 //
@@ -304,7 +304,7 @@ $escapeAmpInLinks = 1;
 // Add the ability to restrict the use of the rss2html.php script.
 //
 // Revision 2.41  2006/08/09 23:57:35  housley
-// If <?xml ... is missing add it
+// If <?phpxml ... is missing add it
 //
 // Revision 2.40  2006/08/09 15:32:58  housley
 // If mb_string_convert fails, try iconv
@@ -800,10 +800,10 @@ if (!isset($_REQUEST["buildURL"])) {
       return;
     }
 
-    if (strstr(trim($XML), "<?xml") === FALSE) {
-      $XML = "<?xml version=\"1.0\"?>\n$XML";
+    if (strstr(trim($XML), "<?phpxml") === FALSE) {
+      $XML = "<?phpxml version=\"1.0\"?>\n$XML";
     }
-    $XML = strstr(trim($XML), "<?xml");
+    $XML = strstr(trim($XML), "<?phpxml");
     $XML = FeedForAll_preProcessXML($XML);
     if (($convertedXML = FeedForAll_scripts_convertEncoding($XML, $missingEncodingDefault, $destinationEncoding)) === FALSE) {
       // Conversions failed, probably becasue it was wrong or the routines were missing
