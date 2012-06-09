@@ -1,7 +1,7 @@
 <?php 
 	function connect() {
 		$user="root";
-		$host="localhost";
+		$host="127.0.0.1";
 		$password="";
 		$database="dt1";
 		mysql_connect($host,$user,$password);
