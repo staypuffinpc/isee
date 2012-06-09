@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(dirname(__FILE__))));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
@@ -27,10 +19,10 @@ $id = mysql_fetch_assoc($list_id);//gets info in array
 
 <h2>Link Editor</h2>
 <form>
-<input type="hidden" name="page_relation_id" id="page_relation_id" value="<? echo $page_relation_id; ?>"/>
-<input size="40" type="text" name="page_stem" id="page_stem" value="<? echo $id['page_stem']; ?>" />
-<input size="40" type="text" name="page_link" id="page_link" value="<? echo $id['page_link']; ?>" />
-<input size="1" type="text" name="page_punctuation" id="page_punctuation" value="<? echo $id['page_punctuation']; ?>" />
+<input type="hidden" name="page_relation_id" id="page_relation_id" value="<?php echo $page_relation_id; ?>"/>
+<input size="40" type="text" name="page_stem" id="page_stem" value="<?php echo $id['page_stem']; ?>" />
+<input size="40" type="text" name="page_link" id="page_link" value="<?php echo $id['page_link']; ?>" />
+<input size="1" type="text" name="page_punctuation" id="page_punctuation" value="<?php echo $id['page_punctuation']; ?>" />
 
 
 </form>

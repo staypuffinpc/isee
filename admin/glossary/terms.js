@@ -1,6 +1,6 @@
 var termChange = function(e){
 	unbindThemAll();
-	console.log("function triggered");
+	//console.log("function triggered");
 	$('#edit_this_term').submit();
 	value=$('#edit_this_term').serialize();
 	term_id = $("input#term_id").val();
@@ -26,7 +26,7 @@ var termChange = function(e){
 var newTerm = function(e) {
 	unbindThemAll();
 	e.stopImmediatePropagation();
-	console.log("new term clicked");
+	//console.log("new term clicked");
 	$.ajax({
 		type: "POST",
 		url: "actions/new_term.php",
@@ -47,10 +47,10 @@ var editTerm = function(e) {
 var deleteTerm = function(e) {
 	e.stopImmediatePropagation();
 	var answer = confirm("Are you sure you want to delete this term?");
-	console.log(answer);
+	//console.log(answer);
 	if (answer) {
 		info = $(this).attr('class').split(" "),
-		console.log($(this).attr('class'));
+		//console.log($(this).attr('class'));
 		$.ajax({
 			type: "POST",
 			url: "actions/deleteTerm.php",
@@ -77,7 +77,7 @@ var keyboard = function(e) {if (e.keyCode == '27') //escape event listener
 		if($("#fadebackground:visible").length !==0)
 			{close();} // if a popup is up, this closes it
 		}
-		if (e.keyCode == '112') {console.log("update");$("#update").toggle();}
+		if (e.keyCode == '112') {//console.log("update");$("#update").toggle();}
 };
 
 

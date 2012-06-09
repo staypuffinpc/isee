@@ -62,6 +62,7 @@ form {
 	border-top-width: 2px;
 	border-top-style: solid;
 	padding: 0px;
+	clear: both;
 	
 }
  #check {
@@ -445,9 +446,10 @@ margin-top: -300px;
 
 
 #navigation {
-	margin-top: 32px;
+	margin-top: 34px;
 	border-top: blue solid 2px;
 	position: relative;
+	clear: both;
 }
 
 #decision-time {

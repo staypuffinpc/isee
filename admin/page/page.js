@@ -20,7 +20,7 @@ $(".ce").live("blur", function(){
 	item = this;
 	text = $(this).html();
 	info=$(this).attr("class").split(" ");
-	if (info[1] == "response") {text = $(this).parent().html();console.log(text);}
+	if (info[1] == "response") {text = $(this).parent().html();//console.log(text);}
 	$.ajax({
 		type: "POST",
 		url: "../worksheet/actions/updateItem.php",
@@ -291,12 +291,12 @@ function view(page_id) { // loads php to update story
 
 function updateOrder() {
 i=0;
-console.log("updating order");
+//console.log("updating order");
 		$("ul#item-list li").each(function(){
 			
 			data = data+"&"+this.id+"="+itemOrder[i];
 			i++;
-			console.log(data);	
+			//console.log(data);	
 		});
 		j=0;
 		$('li > div.number').each(function(i) {

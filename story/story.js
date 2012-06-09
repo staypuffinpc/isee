@@ -77,7 +77,7 @@ function update_answer (user, name, value, story){
    		data: "user="+user+"&name="+name+"&value="+value+"&story="+story,
    		success: function(phpfile){
    			$("#update").html(phpfile);
-   			console.log("function running");
+   			//console.log("function running");
 		} //end anonymous function
 	}); //end ajax call
 }
@@ -197,13 +197,14 @@ function formatGlossary(){
 }
 
 $(document).ready(function(){
-	Scroller('viewport');
+	/* Removed for IE */ 
+	//Scroller('viewport');
 	google_analytics();
 	$("a.tracker").click(function(){
 		_gaq.push(['_trackEvent', 'Navigation link', this.id, this.id+' navigation link was clicked']);
 	});
 	$("#page1").show();
-	$(".page-instructions").live("mouseover", function(){ $(this).draggable().resizable();}); //one day I need to make it resizable
+	//$(".page-instructions").live("mouseover", function(){ $(this).draggable().resizable();}); //Didn't seem to be working anyway
 	$("#story img, #story p").css("opacity","1"); //makes story bright at the beginning
 	$("#edit").css("left",$("#page1").offset().left-61);
 	//footer event listner

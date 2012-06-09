@@ -33,9 +33,9 @@ $(document).ready(function(){
 	});
 	
 	$("select").live("change", function(){
-		console.log("select");
+		//console.log("select");
 		text = $(this).val();
-		console.log(text);
+		//console.log(text);
 		data = $(this).attr("class").split(" ");
 		$.ajax({
 			type: "POST",

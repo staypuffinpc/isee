@@ -90,11 +90,11 @@ var keyboard = function(e) {if (e.keyCode == '27') //escape event listener
 		if($("#fadebackground:visible").length !==0)
 			{close();} // if a popup is up, this closes it
 		}
-		if (e.keyCode == '112') {console.log("update");$("#update").toggle();}
+		if (e.keyCode == '112') {//console.log("update");$("#update").toggle();}
 };
 
 var selectorStart = function(e){
-	console.log("selector-start");
+	//console.log("selector-start");
 	$("#pageRightClick").hide();
 	mouse_down = true;
 	$("#selector").css("background-color", "#666666");
@@ -195,10 +195,10 @@ var deletePage = function(e){
 var pageRelation = function(e){
 	e.stopImmediatePropagation();
 	unbindThemAll();
-	console.log($(this).parent().attr("class"));
+	//console.log($(this).parent().attr("class"));
 	relation_id = this.id.substr(5);
 	if (relation_id == "ink") {relation_id= $(this).parent().attr("class").substr(5);}
-	console.log(relation_id);
+	//console.log(relation_id);
 	
 	width = 700;
 	height = 150;
@@ -326,7 +326,7 @@ var removeUser = function(e) {
 	
 	
 	}
-	console.log(user_id);
+	//console.log(user_id);
 	bindThemAll();
 
 }
@@ -371,7 +371,7 @@ $(".page").droppable({
 	accept: ".relate, #start, #summary",
 	drop: function(event, ui) {
 	if ($(ui.draggable).hasClass("relate")) {
-		console.log('relate');
+		//console.log('relate');
 		child = this.id;
 		parent = $(ui.draggable).attr("id").substr(6);
 		
@@ -384,7 +384,7 @@ $(".page").droppable({
 			});
 	}
 	if ($(ui.draggable).attr('id') == "start") {
-		console.log("start");
+		//console.log("start");
 		$("#start").remove();
 		$("#"+this.id).append("<div class='start-finish-summary' id='start' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Start</div>");
 		$.ajax({
@@ -400,7 +400,7 @@ $(".page").droppable({
 		});
 	}
 	if ($(ui.draggable).attr('id') == "summary") {
-		console.log("summary");
+		//console.log("summary");
 		$("#summary").remove();
 		$("#"+this.id).append("<div class='start-finish-summary' id='Summary' title='Click twice. On the Second click keep the mouse key down and drag to a new page.'>Summary</div>");
 		$.ajax({
@@ -441,7 +441,7 @@ $(".arrow").live("contextmenu", showContextmenu);
 		}
 		else {$(".selected").removeClass('selected');}
 		$(".line").fadeOut();
-		console.log("x: "+x+", w: "+gridw+", h:"+gridh);
+		//console.log("x: "+x+", w: "+gridw+", h:"+gridh);
 	},
 	drag: function(event, ui) {/* 		$.ajax({type: "POST", url: "actions/change_lines.php", data: "page="+this.id, success: function(phpfile){$("#update").append(phpfile);}}); */
 	},
@@ -481,7 +481,7 @@ $(".arrow").live("contextmenu", showContextmenu);
 bindThemAll();
 
 function bindThemAll() {
-	console.log("bound");
+	//console.log("bound");
 	$("body").bind("click",hidePageRightClick);
 	$(".page").click(togglePageClass);
 	$("#logoutFromMenu").click(logoutFromMenu);
@@ -506,7 +506,7 @@ function bindThemAll() {
 }
 
 function unbindThemAll() {
-	console.log("unbound");
+	//console.log("unbound");
 	$("body").unbind("click",hidePageRightClick);
 	$(".page").unbind('click', togglePageClass);
 	$("#logoutFromMenu").unbind('click', logoutFromMenu);
@@ -617,7 +617,7 @@ function update_relation() { // loads php to update story
 function delete_relation(child) { // loads php to update story
 	if ($(child).parent().attr("class") !== undefined) {value = "page_relation_id="+$(child).parent().attr("class").substr(5);}
 	else {value=$('form').serialize();}
-	console.log(value);
+	//console.log(value);
 	
 		$.ajax({
 		type: "POST",
@@ -691,13 +691,13 @@ function zoomValue(x) {
 		case 3.0: startValue = 4; break;
 		case 5.0: startValue = 5; break;
 	}
-	console.log(startValue);
+	//console.log(startValue);
 	return startValue;
 }
 
 function addLinkToStory() {
 	value=$("form").serialize();
-	console.log(value);
+	//console.log(value);
 	$.ajax({
 			type: "POST",
 			url: "actions/add_relation.php",

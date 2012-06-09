@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(__FILE__)));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $page_id = $_SESSION['current_page'];
@@ -30,18 +22,18 @@ while ($results = mysql_fetch_assoc($run)) {
 if ($answers['user_answer'] !== NULL) {
 	if ($results['worksheet_type'] == "Multiple Choice" || $results['worksheet_type'] == "True or False") {
 		?>
-		<script>$("input[name='<? echo $results['worksheet_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script>
-		<?
+		<script>$("input[name='<?php echo $results['worksheet_id'];?>']")[<?php echo $answers['user_answer']; ?>].checked = true;</script>
+		<?php
 	}
  	if ($results['worksheet_type'] == "Fill in the Blank") {
  		?>
-		<script>$("input[name='<? echo $results['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
-		<?
+		<script>$("input[name='<?php echo $results['worksheet_id'];?>']").val("<?php echo $answers['user_answer']; ?>");</script>
+		<?php
  	}
 	if ($results['worksheet_type'] == "Short Answer") {
  		?>
-		<script>$("textarea[name='<? echo $results['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script>
-		<?
+		<script>$("textarea[name='<?php echo $results['worksheet_id'];?>']").val("<?php echo $answers['user_answer']; ?>");</script>
+		<?php
  	}
 }
 	

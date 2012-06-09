@@ -1,16 +1,7 @@
-
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(dirname(__FILE__))));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $magT = $_SESSION['magT'];
@@ -32,7 +23,7 @@ $query_update_line = "Select * from Page_Relations where page_parent=".$id; //my
 $list_update_line = mysql_query($query_update_line) or die(mysql_error()); //execute query
 
 while ($update_line = mysql_fetch_assoc($list_update_line)) {
-		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(1);</script>";
+		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");//console.log(1);</script>";
 }
 
 $query_update_line = "Select * from Page_Relations where page_child=".$id; //mysql query variable
@@ -40,7 +31,7 @@ $list_update_line = mysql_query($query_update_line) or die(mysql_error()); //exe
 $update_line = mysql_fetch_assoc($list_update_line);//gets info in array
 
 while ($update_line = mysql_fetch_assoc($list_update_line)){
-		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");console.log(2);</script>";
+		echo "<script> line(".$update_line['page_parent'].", ".$update_line['page_child'].", ".$update_line['page_relation_id'].", ".$magT.", ".$magL.");//console.log(2);</script>";
 } 
 
 

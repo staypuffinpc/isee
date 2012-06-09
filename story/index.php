@@ -1,15 +1,7 @@
 <?php
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+$base_directory = dirname(dirname(__FILE__));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
@@ -39,7 +31,7 @@ $run = mysql_query($query) or die(mysql_error());
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>ISEE - <? echo $page['story_name']; // Gets Content ?> </title>
+<title>Decision Time - <?php echo $page['story_name']; // Gets Content ?> </title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="story.css" rel="stylesheet" type="text/css" />
 <link href="../styles/stylist.css" rel="stylesheet" type="text/css" />
@@ -50,23 +42,28 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript" src="story.js"></script>
 <script type="text/javascript" src="../js/jquery-scroll.js"></script>
-<script type="text/javascript" src="../js/scroll.js"></script> <!-- makes things scroll on idevices -->
+<!--[if !IE]>
+<script type="text/javascript" src="../js/scroll.js"></script>
+<!-- makes things scroll on idevices -->
+<![endif]-->
+
+
 
 
 <script type="text/javascript">
-var user = <? echo $user_id; ?>; // sends php variable to js
-var story = <? echo $story; ?>;  // sends php variable to js
-var page = <? echo $page_id; ?>; // gets php variable
+var user = <?php echo $user_id; ?>; // sends php variable to js
+var story = <?php echo $story; ?>;  // sends php variable to js
+var page = <?php echo $page_id; ?>; // gets php variable
 var author = false;
-<? if ($author) {echo "author = true;";} ?>
+<?php if ($author) {echo "author = true;";} ?>
 $(document).ready(function(){
-	<? if ($_SESSION['admin']) {// sets the header color to red to identify that admin is logged in. ?>
+	<?php if ($_SESSION['admin']) {// sets the header color to red to identify that admin is logged in. ?>
 	$("#header, #greeting").css({
 		"color" : "red"
 	});
 	author = true;
-	console.log("admin");
-	<? 
+	//console.log("admin");
+	<?php 
 	
 	
 	}
@@ -74,7 +71,7 @@ $(document).ready(function(){
 	if (!mysql_num_rows($run)) { //hides worksheet section if there are no embedded questions. ?>
 		$(".worksheet").hide(); 
 	
-	<? }
+	<?php }
 	$length = strlen($page['page_references']);
 	if ($length<1) {echo "$('#references').hide();";} 
 	if ($user['instructionsShowing'] == "false") {echo "$('.page-instructions').hide();";}
@@ -87,47 +84,48 @@ $(document).ready(function(){
 		$("#summary-button").hide();
 
 		$("#quiz-button").hide();
-	<? }
+	<?php }
 	if (!$quizAvailable) {echo "$('#quiz-button').hide();";}
 	if ($author) { echo "$('#edit, #summary-button, #quiz-button').show();$('td.admin').remove();"; }
 	?>
-	$("#summary-button").click(function(){window.location="index.php?page_id=<? echo $page['story_summary']; ?>";});
+	$("#summary-button").click(function(){window.location="index.php?page_id=<?php echo $page['story_summary']; ?>";});
+	//test
 	$("#quiz-button").click(function(){window.location="quiz.php";});
 	
 	
-	<?
+	<?php
 	if(isset($_GET['page2'])) {
 	?>
-		navigate("<? echo $_GET['page2']; ?>");
-	<?
+		navigate("<?php echo $_GET['page2']; ?>");
+	<?php
 	}
 	
 	?>
 
 });
-<? if ($user['instructionsShowing'] == "false") {echo "var instructionsShowing = false;";} else { echo "var instructionsShowing = true;";} ?>
+<?php if ($user['instructionsShowing'] == "false") {echo "var instructionsShowing = false;";} else { echo "var instructionsShowing = true;";} ?>
 
 </script>
 </head>
 <body>
-<div id="header"><? echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> 
+<div id="header"><?php echo $page['story_name'].": ".$page['page_name']; // Gets Content ?> 
 <a id="home" class="upperLeft" href="../dashboard/index.php"></a>
 <a id="edit" href="../admin/page/page.php">edit</a>
 
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> <span class='name'> ".$_SESSION['user_name']."</span>"."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 <a id="helpToggle">?</a>
 </div>
 <div id="viewport"> <!-- the viewport makes ipad functionality work -->
 	<div class="content" id="page1">
-	<h2><? echo $page['page_name']; ?></h2>
+	<h2><?php echo $page['page_name']; ?></h2>
 <!--  		<div id="page-content"> -->
-			<? echo $page['page_content']; // Gets Content 
+			<?php echo $page['page_content']; // Gets Content 
 			if ($page['id'] == $page['story_summary']) { include("ajax/summary.php");}?>
 
 		<div class="worksheet worksheet-embedded">
 		<div id="check">check your understanding</div>
-		<? 
+		<?php 
 		while ($Aresults = mysql_fetch_assoc($run)) {
 			echo "<h4>{$Aresults['worksheet_type']}</h4>";
 			echo $Aresults['worksheet_text'];
@@ -138,11 +136,11 @@ $(document).ready(function(){
 	
 			if ($answers['user_answer'] !== NULL) {
 				if ($Aresults['worksheet_type'] == "Multiple Choice" || $Aresults['worksheet_type'] == "True or False") {
-					?><script>$("input[name='<? echo $Aresults['worksheet_id'];?>']")[<? echo $answers['user_answer']; ?>].checked = true;</script><? }
+					?><script>$("input[name='<?php echo $Aresults['worksheet_id'];?>']")[<?php echo $answers['user_answer']; ?>].checked = true;</script><?php }
 			 	if ($Aresults['worksheet_type'] == "Fill in the Blank") {
-			 		?><script>$("input[name='<? echo $Aresults['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
+			 		?><script>$("input[name='<?php echo $Aresults['worksheet_id'];?>']").val("<?php echo $answers['user_answer']; ?>");</script><?php }
 				if ($Aresults['worksheet_type'] == "Short Answer") {
-			 		?><script>$("textarea[name='<? echo $Aresults['worksheet_id'];?>']").val("<? echo $answers['user_answer']; ?>");</script><? }
+			 		?><script>$("textarea[name='<?php echo $Aresults['worksheet_id'];?>']").val("<?php echo $answers['user_answer']; ?>");</script><?php }
 			}
 			
 		}?>
@@ -151,8 +149,8 @@ $(document).ready(function(){
 <!-- 		Displays navigation choices -->
 		<div id="navigation">
 			<div id="decision-time">decision time</div>
-			<h3><? echo $page['page_navigation_text']; ?></h3>
-			<? 
+			<h3><?php echo $page['page_navigation_text']; ?></h3>
+			<?php 
 			if ($quizAvailable) {if ($page['id'] == $page['story_summary'] || $page['finish_page'] == "true") { echo "<h3>Take the <a href='quiz.php'>quiz</a>.</h3>";}}
 			if ($page['finish_page'] == "true") {echo "<h3> See what you missed. Visit the <a href='index.php?page_id={$page['story_summary']}'>Summary Page</a>.";}
 			while ($results_nav = mysql_fetch_assoc($list_nav)) { //generate choice
@@ -167,11 +165,11 @@ $(document).ready(function(){
 					else { 
 						?>
 						<p>
-						<a id="navigation <? echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<? echo $results_nav['id'];?>&story=<? echo $story; ?>"><? //makes page link 
+						<a id="navigation <?php echo $results_nav['id'];?>"  class="tracker" href="index.php?page_id=<?php echo $results_nav['id'];?>&story=<?php echo $story; ?>"><?php //makes page link 
 	/* 					echo $results_nav['page_link']."</a>".$results_nav['page_punctuation']; */
 						echo $results_nav['page_stem']." ".$results_nav['page_link'].$results_nav['page_punctuation']."</a>";
 						?>
-					</p> <? 
+					</p> <?php 
 					}
 			}		
 			//end generate buttons
@@ -180,14 +178,14 @@ $(document).ready(function(){
 
 <div id="references">
 	<div id="references-title">references</div>
-	<? echo $page['page_references']; ?>
+	<?php echo $page['page_references']; ?>
 </div>
 
 <!-- </div> <!-- end page content div --> 
 
 <div class="page-instructions"><a class='page-instructions-toggle'> Use the 'i' key to toggle Instructions.</a>
 
-<p>The purpose of this simulation is to help you not only learn the principles of <? echo $page['story_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
+<p>The purpose of this simulation is to help you not only learn the principles of <?php echo $page['story_topic'];?>, but see them in action.  Our hope is that by situating them in a story, they will be more memorable and easier to apply as you enter your chosen profession.</p>
 <p>The simulation will lead you through the instruction and the story simultaneously.  Story pages present you with an actual context to apply the topics covered in this chapter.  On these pages, you’re given choices of what action you would like to take.  At times, you’ll “step out” of the story and be presented with an instructional page.  Instructional pages are presented “just in time,” to teach you a concept at the moment (or right before) you’ll see that concept play out in the story.</p>
 
 
@@ -198,7 +196,7 @@ $(document).ready(function(){
 <div  id="page2" class="content"></div>
 </div>
 <div id="instructionsToggle" class="
-	<? 
+	<?php 
 	if ($user['instructionsShowing'] == "false") {echo 'notShowingInstructions';}
 	else {echo 'showingInstructions';}
 	?>
@@ -211,7 +209,7 @@ $(document).ready(function(){
 		<li class="core" id="glossary"><div><img src="../img/glossary.png" /></div><p>Glossary</p></li>
 <!-- 		<li class="core" id="discuss"><div><img src="../img/chat.png" /></div><p>Discuss</p></li> -->
 <!-- 		<li class="core" id="appendices"><div><img src="../img/appendices.png" /></div><p>Appendices</p></li> -->
-		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Answers</p><div id="worksheet_count"><? echo $worksheet_count; ?></div></li>
+		<li class="core" id="worksheet"><div><img src="../img/worksheet.png" /></div><p>Answers</p><div id="worksheet_count"><?php echo $worksheet_count; ?></div></li>
 		<li class="core" id="map"><div><img src="../img/map.png" /></div><p>Progress Map</p></li>
 		<li class="finished" id="summary-button"><div><img src="../img/summary.png" /></div><p>Summary</p></li>
 		<li class="finished" id="quiz-button"><div><img src="../img/quiz.png" /></div><p>Quiz</p></li>
@@ -235,7 +233,7 @@ $(document).ready(function(){
 </div>
 
 <div id="worksheet_announce_window">
-	<? if ($current_worksheet == 1) {echo "You have unlocked 1 answer on the worksheet.";}
+	<?php if ($current_worksheet == 1) {echo "You have unlocked 1 answer on the worksheet.";}
 		else {echo "You have unlocked ".$current_worksheet." answers on the worksheet.";}
 	?>
 	<img src="../img/open.png" width="64px" />

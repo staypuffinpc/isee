@@ -1,16 +1,8 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
-$link=connect(); //call function from external file to connect to database
+<?php
+$base_directory = dirname(dirname(__FILE__));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
+$link=connect(); //call function from external file to connect to databases
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
 $story = $_SESSION['story'];
@@ -45,7 +37,7 @@ $run = mysql_query($query) or die(mysql_error());
 <head>
 <!-- <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> -->
 
-<title>Quiz:<? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
+<title>Quiz:<?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?></title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
 
@@ -57,9 +49,9 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript">
 $("document").ready(function(){
-	<?	if ($author) { echo "$('#edit').show();"; } ?>
+	<?php	if ($author) { echo "$('#edit').show();"; } ?>
 
-	<?
+	<?php
 	$query="Select * from User_Scores where user_id='$user_id' and story_id='$story'";
 	$scored = mysql_query($query) or die(mysql_error());
 	
@@ -104,10 +96,10 @@ var items = Array();
 </script>
 </head>
 <body>
-<div id="header">Quiz: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
-<a id="home" class="upperLeft" href="index.php?page_id=<? echo $story_info['story_summary']; ?>"></a>
+<div id="header">Quiz: <?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?>
+<a id="home" class="upperLeft" href="index.php?page_id=<?php echo $story_info['story_summary']; ?>"></a>
 
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">
@@ -120,7 +112,7 @@ var items = Array();
 <div class="content">
 <form id="quiz">
 <ul id="item-list">
-<?
+<?php
 $i=1;
 while ($items = mysql_fetch_assoc($run)) {
 	echo <<<EOF

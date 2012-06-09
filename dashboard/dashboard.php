@@ -1,4 +1,4 @@
-<?
+<?php
 $query = "Select * From Stories JOIN Users on Stories.story_creator = Users.user_id";
 $list_stories = mysql_query($query) or die(mysql_error()); //execute query
 
@@ -19,7 +19,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>ISEE</title>
+<title>Decision Time</title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 <link href="dashboard.css" rel="stylesheet" type="text/css" />
 
@@ -31,7 +31,7 @@ $user = mysql_fetch_assoc($list_user);//gets info in array
 
 <script type="text/javascript">
 $(document).ready(function() {
-<? 
+<?php 
 
 if ($user['role'] == "Student") 
 	{ 
@@ -58,14 +58,14 @@ EOF;
 <body>
 <div id="main">
 <div id="header">Interactive Story-Based E-Learning Environment
-	<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+	<div id="greeting"><?php echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 </div>
 	
 		<div id="left-column" class="column">
 			<div id="profile" class="panel">
 				<h1>Profile</h1>
 				<div class="content">
-					<? 
+					<?php 
 					echo "<img width='48px' src='".$user['user_image']."' />";
 					echo "<h3>".$user['user_name']."</h3>"; 
 					echo "<h4>".$user['role']."</h4>";
@@ -77,7 +77,7 @@ EOF;
 			<div id="updates" class="panel">
 				<h1>Updates</h1>
 				<div class="content">	
-					<? include_once('rss2html/rss2html.php'); ?>
+					<?php include_once('rss2html/rss2html.php'); ?>
 				</div>
 			</div> <!-- end updates div -->
 		</div>	<!-- end left column div -->
@@ -85,7 +85,7 @@ EOF;
 			<div id="classes" class="panel">
 				<h1>Classes</h1>
 				<div class="content" id="classList">
-				<? include("ajax/class-list.php"); ?>
+				<?php include("ajax/class-list.php"); ?>
 				</div>
 			</div> <!-- end classes panel -->
 			<div id="class-actions" class="panel">
@@ -100,9 +100,9 @@ EOF;
 		<div id="right-column" class="column">
 			<div id="stories" class="panel">
 				<h1>My Stories</h1>
-				<div id="search"><div id="search-text">Search</div><input type="text" value="Search functionality coming soon." id="search-box" onkeyup="lookup(this.value);" disabled/></div>
+				<!-- <div id="search"><div id="search-text">Search</div><input type="text" value="Search functionality coming soon." id="search-box" onkeyup="lookup(this.value);" disabled/></div> -->
 				<div class="content" id='storyList'>
-				<? include("ajax/story-list.php"); ?>
+				<?php include("ajax/story-list.php"); ?>
 
 
  				</div>
