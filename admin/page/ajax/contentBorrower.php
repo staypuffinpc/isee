@@ -1,5 +1,5 @@
 <h2>Content Borrower</h2>
-<?
+<?php
 $query = "Select id, page_name from Pages";
 $run = mysql_query($query) or die(mysql_error());
 $data = array();
@@ -21,7 +21,7 @@ function getContent() {
 
 </script>
 Source Page: <select id='page' onChange="getContent();">
-	<?
+	<?php
 	while ($results = mysql_fetch_assoc($run))
 	{
 	echo "<option value='".$results['id']."'>".$results['page_name']."</option>";

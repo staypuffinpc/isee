@@ -3,7 +3,7 @@ var refresh = false;
 function update_height() {
 
 updates_width = $("#profile").width();
-console.log(updates_width);
+//console.log(updates_width);
 updates_height = $("#updates").height()-36;
 	$("#updates").css({"width" : updates_width});
 	$("#updates content").css({
@@ -67,9 +67,7 @@ function create_story() {
 			data: data,
 			success: function(phpfile){
 			$("#update").html(phpfile);
-				window.location = "../admin/index.php?story="+phpfile;
-
-			
+				window.location = "../admin/map/index.php?story="+phpfile;
 			}
 		});
 }
@@ -199,7 +197,7 @@ $(document).ready(function() {
 	});
 	
 	$("#request").click(function(){
-		console.log("clicked");
+		//console.log("clicked");
 		$.ajax({
 			url: "actions/request-teacher.php",
 			success: function(phpfile){

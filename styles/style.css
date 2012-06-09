@@ -78,6 +78,8 @@ a.btn {
 	text-shadow: #fff 0 1px 0;
 	background-image: -webkit-gradient(linear,left top,left bottom, from(#ffffff), to(#cccccc));
 	background-image: -moz-linear-gradient(#ffffff, #cccccc);
+	background-color: #cccccc;
+	border: 1px solid #aaa;
 	-webkit-border-radius: 4px;
     -moz-border-radius: 4px 4px 4px 4px;
     cursor: pointer;

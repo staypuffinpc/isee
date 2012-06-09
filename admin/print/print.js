@@ -117,7 +117,7 @@ $(".saved").live("click", function(){
 
 
 function updateOrder() {
-console.log("updating order");
+//console.log("updating order");
 		data = "sorting=now";
 		$("ul#item-list li").each(function(){
 			data = data+"&"+this.id+"="+$(this).index();

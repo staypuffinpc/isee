@@ -25,14 +25,9 @@ try {
          	$user_name = $firstName." ".$lastName;
          	$provider = "google";
        		/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+			
+$base_directory = dirname(dirname(__FILE__));
+include_once($base_directory."/connect.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 
@@ -43,7 +38,7 @@ $link=connect(); //call function from external file to connect to database
 if ($user['user_id'] == NULL) { // this is to replace the previous gigya login
 	
 	$message = $user_name.", your user information has been added to the system.";
-	$query = "INSERT INTO Users (user_id, user_name, user_email, user_profile, UID, provider, created, role, user_image) VALUES (null,'$user_name','$email','$user_profile','$UID','google', NOW(), 'Student', '$user_image')";
+	$query = "INSERT INTO Users (user_id, user_name, user_email, user_profile, provider, created, role, user_image) VALUES (null,'$user_name','$email','$user_profile','google', NOW(), 'Student', '$user_image')";
 	$list = mysql_query($query) or die(mysql_error()); //execute query
 	
 	$query = "Select * From Users Where user_email='$email' and provider='google'";
@@ -73,7 +68,8 @@ $_SESSION['admin'] = false;
 include_once('dashboard.php');
          }
         else{
-            echo "user has not logged in";
+			$home_url = "http://".dirname(dirname($_SERVER['SERVER_NAME']."".$_SERVER['REQUEST_URI']));			
+			echo "<meta HTTP-EQUIV='REFRESH' content='0; url=$home_url'>";
         }
         //echo 'User ' . ( ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
     }

@@ -1,4 +1,4 @@
-<?
+<?php
 $query_story = "Select * from Stories Join Users on Users.user_id = Stories.story_creator where story_id=$story "; //mysql query variable
 $list_story = mysql_query($query_story) or die(mysql_error()); //execute query
 $story_info = mysql_fetch_assoc($list_story);//gets info in array

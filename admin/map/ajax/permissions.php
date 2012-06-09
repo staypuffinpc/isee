@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(dirname(dirname(__FILE__))));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $story = $_SESSION['story'];
@@ -20,10 +12,10 @@ include_once('../../db.php');
 <h2>Permissions</h2>
 
 <div class="list" id="authorList">
-	<? include("authorList.php"); ?>
+	<?php include("authorList.php"); ?>
 </div>
 <br />
-<?
+<?php
 $query = "Select * from Users"; //mysql query variable
 $list = mysql_query($query) or die(mysql_error()); //execute query
 $values = "[";
@@ -43,7 +35,7 @@ $values=$values."]";
 <script>
 
 	$(function() {
-		var values = <? echo $values; ?>;
+		var values = <?php echo $values; ?>;
 
 		$( "#searchForAuthor" ).autocomplete({
 			minLength: 0,

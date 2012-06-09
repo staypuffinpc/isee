@@ -1,4 +1,4 @@
-<?
+<?php
 $image = $_POST['image'];
 $image = str_replace(' ','+',$image);
 $image = substr($image, 22);

@@ -78,7 +78,7 @@ $( "#shadow" ).slider({
 		function(){
 			if (dragging) {return;}
 			p = $(this).offset();
-			console.log(p.top);
+			//console.log(p.top);
 			w = $(this).width();
 			$("#login-editor").css({"top" : p.top-50, "right" : 0}).show();
 		},
@@ -102,7 +102,7 @@ $( "#shadow" ).slider({
 		);
 
 	$("select").change(function(){
-		console.log(this.id);
+		//console.log(this.id);
 		info=this.id.split("-");
 		font = $(this).val();
 		$("#"+info[0]).css({"font-family" : "'"+font+"'"});
@@ -114,7 +114,7 @@ $( "#shadow" ).slider({
 		info=this.id.split("-");
 
 		size = $(this).val();
-		console.log(size);
+		//console.log(size);
 		$("#"+info[0]).css({"font-size" : size+"px"});
 
 	
@@ -131,7 +131,7 @@ $( "#shadow" ).slider({
 
 	$("input[type=radio]").change(function(){
 		bg = "url(img/"+$(this).val()+".png)";
-		console.log(bg);
+		//console.log(bg);
 		$("body").css("background-image" , bg);
 	
 	});

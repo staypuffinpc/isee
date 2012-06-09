@@ -1,15 +1,7 @@
-<?
-/* Depending on the url this provides absolute links to the files that are needed for every file. */
-$requestingURL = $_SERVER['SERVER_NAME'];
-if ($requestingURL == 'localhost') {
-	include_once("/Users/Ben/Sites/isee/authenticate.php");
-	include_once("/Users/Ben/Sites/connectFiles/connectProject301.php");
-	}
-else {
-	include_once("/home5/byuiptne/public_html/isee/authenticate.php");
-	include_once("/home5/byuiptne/connectFiles/connectProject301.php");
-	
-	}
+<?php
+$base_directory = dirname(dirname(__FILE__));
+include_once($base_directory."/connect.php");
+include_once($base_directory."/authenticate.php");
 $link=connect(); //call function from external file to connect to database
 /* this is the end of the includes. */
 $user_id = $_SESSION['user_id'];
@@ -97,7 +89,7 @@ $run = mysql_query($query) or die(mysql_error());
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Quiz Results:<? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?></title>
+<title>Quiz Results:<?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?></title>
 <link href="../styles/style.css" rel="stylesheet" type="text/css" />
 
 
@@ -109,7 +101,7 @@ $run = mysql_query($query) or die(mysql_error());
 
 <script type="text/javascript">
 $("document").ready(function(){
-	<?	if ($author) { echo "$('#edit').show();"; } ?>
+	<?php	if ($author) { echo "$('#edit').show();"; } ?>
 
 $("input").attr("disabled", true);
 });
@@ -117,16 +109,16 @@ $("input").attr("disabled", true);
 </script>
 </head>
 <body>
-<div id="header">Quiz Results: <? echo $story_info['story_topic']; ?>: <? echo $story_info['story_name']; ?>
+<div id="header">Quiz Results: <?php echo $story_info['story_topic']; ?>: <?php echo $story_info['story_name']; ?>
 <a id="home" class="upperLeft" href="../dashboard/index.php"></a>
-<a id="back" class="upperLeft" href="index.php?page_id=<? echo $page_id;?>"></a>
+<a id="back" class="upperLeft" href="index.php?page_id=<?php echo $page_id;?>"></a>
 
-<div id="greeting"><? echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
+<div id="greeting"><?php echo "<img src='".$_SESSION['user_image']."'/> <span class='name'> ".$_SESSION['user_name']."</span>"; ?><a id="logoutFromMenu" class="btn blockButton" href="../logout.php">Logout</a></div>
 
 </div>
 <div id="toolbar">
 	<div id="scored">
-		<? 
+		<?php 
 		echo $story_info['correct']."/".$story_info['total']." - ".$story_info['percentage']."%";
 		?>
 
@@ -140,7 +132,7 @@ $("input").attr("disabled", true);
 <form id="quiz">
 
 <ul id="item-list">
-<?
+<?php
 $i=1;
 while ($items = mysql_fetch_assoc($run)) {
 	echo <<<EOF
